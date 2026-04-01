@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MapPin, Calendar, DollarSign, Home, Bed, CheckCircle2, Sparkles } from "lucide-react";
+import { MapPin, Calendar, DollarSign, Home, Bed, CheckCircle2, Sparkles, ShieldCheck } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,7 +19,7 @@ export default function PostNeed() {
         <div className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center">
           <CheckCircle2 className="w-10 h-10 text-emerald-500" />
         </div>
-        <h2 className="text-2xl font-bold text-foreground">Need Posted Successfully! 🎉</h2>
+        <h2 className="text-2xl font-bold text-foreground">Need Posted Successfully!</h2>
         <p className="text-muted-foreground max-w-md">Your property need has been published. Verified agents and landlords will start sending you matching offers shortly.</p>
         <div className="flex gap-3">
           <Button onClick={() => setSubmitted(false)} variant="outline">Post Another</Button>
@@ -127,7 +127,7 @@ export default function PostNeed() {
             </div>
 
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800">
-              <p className="font-medium mb-1">⚖️ Lagos Tenancy Law</p>
+              <p className="font-medium mb-1 flex items-center gap-1.5"><ShieldCheck className="h-4 w-4" /> Lagos Tenancy Law</p>
               <p className="text-xs">Landlords cannot demand more than 1 year advance rent for yearly tenants. All rent payments must come with a receipt.</p>
             </div>
 

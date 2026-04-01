@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Clock, MapPin, DollarSign, Inbox as InboxIcon, Zap } from "lucide-react";
+import { Clock, MapPin, DollarSign, Inbox as InboxIcon, Zap, CheckCircle2 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const leads = [
@@ -94,7 +94,7 @@ export default function LeadInbox() {
                       </>
                     ) : (
                       <Button size="sm" variant="outline" className="bg-emerald-50 text-emerald-600 border-emerald-200 hover:bg-emerald-100">
-                        ✓ Offer Sent
+                        <CheckCircle2 className="h-3.5 w-3.5 mr-1" /> Offer Sent
                       </Button>
                     )}
                   </div>
