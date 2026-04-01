@@ -1,4 +1,4 @@
-import { Home, FileText, Inbox, CalendarCheck, Bookmark } from "lucide-react";
+import { Home, Inbox, Building2, CreditCard, Calendar } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
   Sidebar,
@@ -13,14 +13,14 @@ import {
 } from "@/components/ui/sidebar";
 
 const items = [
-  { title: "Dashboard", url: "/seeker", icon: Home },
-  { title: "Post a Need", url: "/seeker/post", icon: FileText },
-  { title: "My Offers", url: "/seeker/offers", icon: Inbox },
-  { title: "Bookings", url: "/seeker/bookings", icon: CalendarCheck },
-  { title: "Saved", url: "/seeker/saved", icon: Bookmark },
+  { title: "Dashboard", url: "/provider", icon: Home },
+  { title: "Lead Inbox", url: "/provider/inbox", icon: Inbox },
+  { title: "My Listings", url: "/provider/listings", icon: Building2 },
+  { title: "Payouts", url: "/provider/payouts", icon: CreditCard },
+  { title: "Calendar", url: "/provider/calendar", icon: Calendar },
 ];
 
-export function SeekerSidebar() {
+export function ProviderSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
 
@@ -36,7 +36,7 @@ export function SeekerSidebar() {
 
         <SidebarGroup>
           <SidebarGroupLabel className="text-white/50 text-xs uppercase tracking-wider">
-            {!collapsed && "Tenant"}
+            {!collapsed && "Provider"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -45,7 +45,7 @@ export function SeekerSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
-                      end={item.url === "/seeker"}
+                      end={item.url === "/provider"}
                       className="text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
                       activeClassName="bg-primary text-white font-medium"
                     >
