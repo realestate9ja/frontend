@@ -1,4 +1,5 @@
 import { Home, ChevronDown } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
@@ -24,8 +25,10 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-4">
-        <a href="#" className="text-sm text-foreground hover:text-primary transition-colors">Login</a>
-        <Button className="rounded-full px-6 bg-primary text-primary-foreground hover:bg-primary/90">Sign up</Button>
+        <Link to="/login" className="text-sm text-foreground hover:text-primary transition-colors">Login</Link>
+        <Button asChild className="rounded-full px-6 bg-primary text-primary-foreground hover:bg-primary/90">
+          <Link to="/signup">Sign up</Link>
+        </Button>
       </div>
     </nav>
   );
