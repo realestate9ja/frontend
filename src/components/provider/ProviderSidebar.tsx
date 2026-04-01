@@ -1,4 +1,4 @@
-import { Home, Inbox, Building2, CreditCard, Calendar, LogOut } from "lucide-react";
+import { Home, Inbox, Building2, CreditCard, Calendar, LogOut, Settings } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
   Sidebar,
@@ -18,6 +18,7 @@ const items = [
   { title: "My Listings", url: "/provider/listings", icon: Building2 },
   { title: "Payouts", url: "/provider/payouts", icon: CreditCard },
   { title: "Calendar", url: "/provider/calendar", icon: Calendar },
+  { title: "Settings", url: "/provider/settings", icon: Settings },
 ];
 
 export function ProviderSidebar() {

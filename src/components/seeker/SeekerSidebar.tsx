@@ -1,4 +1,4 @@
-import { Home, FileText, Inbox, CalendarCheck, Bookmark, LogOut } from "lucide-react";
+import { Home, FileText, Inbox, CalendarCheck, Bookmark, LogOut, Settings } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
   Sidebar,
@@ -18,6 +18,7 @@ const items = [
   { title: "My Offers", url: "/seeker/offers", icon: Inbox },
   { title: "Bookings", url: "/seeker/bookings", icon: CalendarCheck },
   { title: "Saved", url: "/seeker/saved", icon: Bookmark },
+  { title: "Settings", url: "/seeker/settings", icon: Settings },
 ];
 
 export function SeekerSidebar() {

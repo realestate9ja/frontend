@@ -15,6 +15,7 @@ import Properties from "./pages/admin/Properties.tsx";
 import UsersPage from "./pages/admin/Users.tsx";
 import Transactions from "./pages/admin/Transactions.tsx";
 import Disputes from "./pages/admin/Disputes.tsx";
+import AdminSettings from "./pages/admin/Settings.tsx";
 
 // Seeker
 import SeekerLayout from "./components/seeker/SeekerLayout.tsx";
@@ -23,6 +24,7 @@ import PostNeed from "./pages/seeker/PostNeed.tsx";
 import Offers from "./pages/seeker/Offers.tsx";
 import Bookings from "./pages/seeker/Bookings.tsx";
 import Saved from "./pages/seeker/Saved.tsx";
+import SeekerSettings from "./pages/seeker/Settings.tsx";
 
 // Provider
 import ProviderLayout from "./components/provider/ProviderLayout.tsx";
@@ -31,6 +33,7 @@ import LeadInbox from "./pages/provider/Inbox.tsx";
 import Listings from "./pages/provider/Listings.tsx";
 import Payouts from "./pages/provider/Payouts.tsx";
 import ProviderCalendar from "./pages/provider/Calendar.tsx";
+import ProviderSettings from "./pages/provider/Settings.tsx";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +55,7 @@ const App = () => (
             <Route path="users" element={<UsersPage />} />
             <Route path="transactions" element={<Transactions />} />
             <Route path="disputes" element={<Disputes />} />
+            <Route path="settings" element={<AdminSettings />} />
           </Route>
 
           {/* Seeker (Tenant) Dashboard */}
@@ -61,6 +65,7 @@ const App = () => (
             <Route path="offers" element={<Offers />} />
             <Route path="bookings" element={<Bookings />} />
             <Route path="saved" element={<Saved />} />
+            <Route path="settings" element={<SeekerSettings />} />
           </Route>
 
           {/* Provider (Agent/Landlord) Dashboard */}
@@ -70,6 +75,7 @@ const App = () => (
             <Route path="listings" element={<Listings />} />
             <Route path="payouts" element={<Payouts />} />
             <Route path="calendar" element={<ProviderCalendar />} />
+            <Route path="settings" element={<ProviderSettings />} />
           </Route>
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
