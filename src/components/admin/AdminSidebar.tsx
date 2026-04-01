@@ -1,4 +1,4 @@
-import { LayoutDashboard, Building2, Users, CreditCard, AlertTriangle, Home, LogOut, Settings } from "lucide-react";
+import { LayoutDashboard, Building2, Users, CreditCard, AlertTriangle, Home, LogOut } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
@@ -17,7 +17,6 @@ const items = [
   { title: "Dashboard", url: "/admin", icon: LayoutDashboard },
   { title: "Properties", url: "/admin/properties", icon: Building2 },
   { title: "Users", url: "/admin/users", icon: Users },
-  { title: "Settings", url: "/admin/settings", icon: Settings },
   { title: "Transactions", url: "/admin/transactions", icon: CreditCard },
   { title: "Disputes", url: "/admin/disputes", icon: AlertTriangle },
 ];
