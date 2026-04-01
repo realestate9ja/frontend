@@ -15,6 +15,7 @@ import Properties from "./pages/admin/Properties.tsx";
 import UsersPage from "./pages/admin/Users.tsx";
 import Transactions from "./pages/admin/Transactions.tsx";
 import Disputes from "./pages/admin/Disputes.tsx";
+import AdminSettings from "./pages/admin/Settings.tsx";
 
 // Seeker
 import SeekerLayout from "./components/seeker/SeekerLayout.tsx";
