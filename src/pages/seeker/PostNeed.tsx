@@ -19,7 +19,7 @@ export default function PostNeed() {
         <div className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center">
           <CheckCircle2 className="w-10 h-10 text-emerald-500" />
         </div>
-        <h2 className="text-2xl font-bold text-foreground">Need Posted Successfully! 🎉</h2>
+        <h2 className="text-2xl font-bold text-foreground">Need Posted Successfully!</h2>
         <p className="text-muted-foreground max-w-md">Your property need has been published. Verified agents and landlords will start sending you matching offers shortly.</p>
         <div className="flex gap-3">
           <Button onClick={() => setSubmitted(false)} variant="outline">Post Another</Button>
