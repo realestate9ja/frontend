@@ -93,19 +93,19 @@ const Hero = () => {
       </div>
 
       {/* Search bar — full width */}
-      <div className="mx-auto w-fit">
+      <div className="max-w-4xl mx-auto w-full px-2">
         <div className="bg-card border border-border rounded-2xl p-3 shadow-md">
-          <div className="flex flex-col sm:flex-row items-center gap-2">
-            <div className="relative w-full sm:w-[320px]">
+          <div className="flex flex-col lg:flex-row items-stretch gap-2">
+            <div className="relative flex-1 min-w-0">
               <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 placeholder="City, neighborhood, or address"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 border-0 bg-secondary/50 focus-visible:ring-1 h-12 text-sm"
+                className="pl-9 border-0 bg-secondary/50 focus-visible:ring-1 h-12 text-sm w-full"
               />
             </div>
-            <div className="flex items-center gap-2 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-stretch gap-2">
               <Select value={propertyType} onValueChange={setPropertyType}>
                 <SelectTrigger className="w-full sm:w-[140px] border-0 bg-secondary/50 h-12">
                   <Home className="w-4 h-4 mr-1.5 text-muted-foreground shrink-0" />
@@ -132,7 +132,7 @@ const Hero = () => {
                   <SelectItem value="5000+">$5,000+/mo</SelectItem>
                 </SelectContent>
               </Select>
-              <Button onClick={handleSearch} className="h-12 px-6 rounded-xl gap-2 shrink-0">
+              <Button onClick={handleSearch} className="h-12 px-6 rounded-xl gap-2 shrink-0 w-full sm:w-auto">
                 <Search className="w-4 h-4" /> Search
               </Button>
             </div>
