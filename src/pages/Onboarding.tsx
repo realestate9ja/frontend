@@ -127,28 +127,16 @@ export default function Onboarding() {
               <p className="text-muted-foreground text-sm">We'll use this to personalize your experience.</p>
             </div>
 
-            {/* ── Personal Info Section ── */}
+            {/* ── Contact & Location ── */}
             <div className="rounded-2xl border border-border/60 bg-card p-5 space-y-4">
               <div className="flex items-center gap-2 pb-1">
                 <div className="h-7 w-7 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <User className="h-3.5 w-3.5 text-primary" />
+                  <MapPin className="h-3.5 w-3.5 text-primary" />
                 </div>
-                <h2 className="text-sm font-semibold text-foreground">Personal Information</h2>
+                <h2 className="text-sm font-semibold text-foreground">Contact & Location</h2>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-muted-foreground">Full name</label>
-                  <div className="relative">
-                    <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
-                    <Input
-                      placeholder="John Doe"
-                      className="pl-10 h-11 rounded-xl bg-muted/30 border-transparent focus:bg-background focus:border-primary/30 text-sm"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                    />
-                  </div>
-                </div>
                 <div className="space-y-1.5">
                   <label className="text-xs font-medium text-muted-foreground">Phone number</label>
                   <div className="relative">
@@ -161,46 +149,19 @@ export default function Onboarding() {
                     />
                   </div>
                 </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-xs font-medium text-muted-foreground">Email address</label>
-                <div className="relative">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
-                  <Input
-                    type="email"
-                    placeholder="john@example.com"
-                    className="pl-10 h-11 rounded-xl bg-muted/30 border-transparent focus:bg-background focus:border-primary/30 text-sm"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* ── Location Section ── */}
-            <div className="rounded-2xl border border-border/60 bg-card p-5 space-y-4">
-              <div className="flex items-center gap-2 pb-1">
-                <div className="h-7 w-7 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <MapPin className="h-3.5 w-3.5 text-primary" />
-                </div>
-                <h2 className="text-sm font-semibold text-foreground">
-                  {role === "tenant" ? "Location Preferences" : "Operating Area"}
-                </h2>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-xs font-medium text-muted-foreground">
-                  {role === "tenant" ? "Preferred city" : "Primary location"}
-                </label>
-                <div className="relative">
-                  <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
-                  <Input
-                    placeholder="e.g. Lagos, Abuja, Port Harcourt"
-                    className="pl-10 h-11 rounded-xl bg-muted/30 border-transparent focus:bg-background focus:border-primary/30 text-sm"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                  />
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium text-muted-foreground">
+                    {role === "tenant" ? "Preferred city" : "Primary location"}
+                  </label>
+                  <div className="relative">
+                    <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
+                    <Input
+                      placeholder="e.g. Lagos, Abuja"
+                      className="pl-10 h-11 rounded-xl bg-muted/30 border-transparent focus:bg-background focus:border-primary/30 text-sm"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
