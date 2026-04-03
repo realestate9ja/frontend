@@ -1,133 +1,239 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { CalendarDays, ArrowRight, Clock, ChevronLeft, ChevronRight } from "lucide-react";
+import { CalendarDays, ArrowRight, Clock, ChevronLeft, ChevronRight, MapPin, Home, Users, TrendingUp, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Calendar } from "@/components/ui/calendar";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const hours = Array.from({ length: 10 }, (_, i) => `${i + 8}:00`);
+const hours = Array.from({ length: 12 }, (_, i) => {
+  const h = i + 7;
+  return h <= 12 ? `${h}:00 AM` : `${h - 12}:00 PM`;
+});
 
 const bookings = [
-  { day: 0, startHour: 2, duration: 2, guest: "Emeka N.", property: "2 Bed Serviced, VI", status: "Confirmed" },
-  { day: 2, startHour: 0, duration: 3, guest: "Corporate Client", property: "2 Bed Serviced, VI", status: "Pending" },
-  { day: 4, startHour: 4, duration: 1, guest: "Fatima A.", property: "2 Bed Serviced, VI", status: "Confirmed" },
-  { day: 5, startHour: 1, duration: 4, guest: "Guest User", property: "2 Bed Serviced, VI", status: "Confirmed" },
+  { day: 0, startHour: 3, duration: 2, guest: "Emeka N.", property: "2 Bed Serviced, VI", status: "Confirmed" },
+  { day: 2, startHour: 1, duration: 3, guest: "Corporate Client", property: "3 Bed Penthouse, Ikoyi", status: "Pending" },
+  { day: 4, startHour: 5, duration: 2, guest: "Fatima A.", property: "Studio, Lekki Phase 1", status: "Confirmed" },
+  { day: 5, startHour: 2, duration: 4, guest: "Guest User", property: "2 Bed Serviced, VI", status: "Confirmed" },
+  { day: 1, startHour: 7, duration: 2, guest: "Sarah K.", property: "1 Bed Luxury, Banana Island", status: "Confirmed" },
 ];
 
 const upcomingBookings = [
-  { id: 1, guest: "Emeka Nwankwo", property: "2 Bed Serviced, VI", checkIn: "Mar 22", checkOut: "Mar 24", amount: "₦90,000", status: "Confirmed", initials: "EN" },
-  { id: 2, guest: "Corporate Client", property: "2 Bed Serviced, VI", checkIn: "Mar 25", checkOut: "Mar 28", amount: "₦135,000", status: "Pending", initials: "CC" },
-  { id: 3, guest: "Fatima Abdullahi", property: "2 Bed Serviced, VI", checkIn: "Mar 30", checkOut: "Mar 31", amount: "₦45,000", status: "Confirmed", initials: "FA" },
+  { id: 1, guest: "Emeka Nwankwo", property: "2 Bed Serviced Apartment, Victoria Island", checkIn: "Mar 22", checkOut: "Mar 24", nights: 2, amount: "₦90,000", status: "Confirmed", initials: "EN", avatar: "bg-emerald-100 text-emerald-700" },
+  { id: 2, guest: "Corporate Client", property: "3 Bed Penthouse, Ikoyi", checkIn: "Mar 25", checkOut: "Mar 28", nights: 3, amount: "₦135,000", status: "Pending", initials: "CC", avatar: "bg-amber-100 text-amber-700" },
+  { id: 3, guest: "Fatima Abdullahi", property: "Studio Apartment, Lekki Phase 1", checkIn: "Mar 30", checkOut: "Mar 31", nights: 1, amount: "₦45,000", status: "Confirmed", initials: "FA", avatar: "bg-primary/10 text-primary" },
+  { id: 4, guest: "Sarah Kolawole", property: "1 Bed Luxury, Banana Island", checkIn: "Apr 2", checkOut: "Apr 5", nights: 3, amount: "₦210,000", status: "Confirmed", initials: "SK", avatar: "bg-violet-100 text-violet-700" },
 ];
 
-const statusStyles: Record<string, { color: string; bg: string; dot: string }> = {
-  Confirmed: { color: "text-emerald-700", bg: "bg-emerald-50 border-emerald-200", dot: "bg-emerald-500" },
-  Pending: { color: "text-amber-700", bg: "bg-amber-50 border-amber-200", dot: "bg-amber-500" },
+const statusConfig: Record<string, { label: string; className: string; dot: string }> = {
+  Confirmed: { label: "Confirmed", className: "bg-emerald-50 text-emerald-700 border-emerald-200", dot: "bg-emerald-500" },
+  Pending: { label: "Pending", className: "bg-amber-50 text-amber-700 border-amber-200", dot: "bg-amber-500" },
 };
 
+const stats = [
+  { label: "This Week", value: "5", sub: "total bookings", icon: CalendarDays, accent: "text-primary", iconBg: "bg-primary/10" },
+  { label: "Confirmed", value: "4", sub: "ready to host", icon: Users, accent: "text-emerald-600", iconBg: "bg-emerald-50" },
+  { label: "Pending", value: "1", sub: "needs action", icon: Clock, accent: "text-amber-600", iconBg: "bg-amber-50" },
+  { label: "Revenue", value: "₦480K", sub: "projected", icon: TrendingUp, accent: "text-foreground", iconBg: "bg-muted" },
+];
+
 export default function ProviderCalendar() {
+  const [date, setDate] = useState<Date | undefined>(new Date());
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Calendar</h1>
-          <p className="text-sm text-muted-foreground mt-1">Manage your short-let availability and bookings.</p>
+          <p className="text-sm text-muted-foreground mt-1">Manage your short-let availability and bookings</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" className="h-8 w-8"><ChevronLeft className="h-4 w-4" /></Button>
-          <span className="text-sm font-medium text-foreground px-2">Mar 18 – 24, 2024</span>
-          <Button variant="outline" size="icon" className="h-8 w-8"><ChevronRight className="h-4 w-4" /></Button>
+        <div className="flex items-center gap-3">
+          <Select defaultValue="all">
+            <SelectTrigger className="w-[160px] h-9 text-sm">
+              <Filter className="h-3.5 w-3.5 mr-1.5 text-muted-foreground" />
+              <SelectValue placeholder="All Properties" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Properties</SelectItem>
+              <SelectItem value="vi">2 Bed, VI</SelectItem>
+              <SelectItem value="ikoyi">3 Bed, Ikoyi</SelectItem>
+              <SelectItem value="lekki">Studio, Lekki</SelectItem>
+            </SelectContent>
+          </Select>
+          <div className="flex items-center gap-1 bg-muted/50 rounded-lg p-1">
+            <Button variant="ghost" size="icon" className="h-7 w-7 rounded-md">
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <span className="text-sm font-medium text-foreground px-3 whitespace-nowrap">Mar 18 – 24, 2024</span>
+            <Button variant="ghost" size="icon" className="h-7 w-7 rounded-md">
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {[
-          { label: "This Week", value: "4", sub: "bookings", accent: "text-primary" },
-          { label: "Confirmed", value: "3", sub: "guests", accent: "text-emerald-600" },
-          { label: "Pending", value: "1", sub: "awaiting", accent: "text-amber-600" },
-          { label: "Revenue", value: "₦270K", sub: "this week", accent: "text-foreground" },
-        ].map((s) => (
-          <Card key={s.label} className="border border-border/60 shadow-sm">
-            <CardContent className="p-4">
-              <p className="text-xs text-muted-foreground">{s.label}</p>
-              <p className={`text-xl font-bold mt-0.5 ${s.accent}`}>{s.value}</p>
-              <p className="text-[11px] text-muted-foreground">{s.sub}</p>
+      {/* Stats */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        {stats.map((s) => (
+          <Card key={s.label} className="border border-border/60 shadow-sm hover:shadow-md transition-shadow">
+            <CardContent className="p-4 flex items-start gap-3">
+              <div className={`h-9 w-9 rounded-lg ${s.iconBg} flex items-center justify-center shrink-0`}>
+                <s.icon className={`h-4 w-4 ${s.accent}`} />
+              </div>
+              <div>
+                <p className="text-xs text-muted-foreground font-medium">{s.label}</p>
+                <p className={`text-xl font-bold ${s.accent} leading-tight`}>{s.value}</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">{s.sub}</p>
+              </div>
             </CardContent>
           </Card>
         ))}
       </div>
 
+      {/* Main Content */}
       <Tabs defaultValue="week" className="space-y-4">
         <TabsList className="bg-muted/50 p-1 h-auto">
-          <TabsTrigger value="week" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5">
+          <TabsTrigger value="week" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5 px-4">
             <CalendarDays className="h-3.5 w-3.5" /> Week View
           </TabsTrigger>
-          <TabsTrigger value="upcoming" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5">
-            <Clock className="h-3.5 w-3.5" /> Upcoming ({upcomingBookings.length})
+          <TabsTrigger value="upcoming" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5 px-4">
+            <Clock className="h-3.5 w-3.5" /> Upcoming
+            <Badge variant="secondary" className="ml-1 h-5 px-1.5 text-[10px] font-semibold">{upcomingBookings.length}</Badge>
           </TabsTrigger>
         </TabsList>
 
+        {/* Week View */}
         <TabsContent value="week">
-          <Card className="border border-border/60 shadow-sm">
-            <CardContent className="p-4">
-              <div className="grid grid-cols-8 gap-px bg-border rounded-xl overflow-hidden">
-                <div className="bg-muted/50 p-2.5 text-xs font-medium text-muted-foreground">Time</div>
-                {days.map((d) => (
-                  <div key={d} className="bg-muted/50 p-2.5 text-xs font-medium text-center text-muted-foreground">{d}</div>
-                ))}
-                {hours.map((hour, hi) => (
-                  <div key={`row-${hi}`} className="contents">
-                    <div className="bg-background p-2.5 text-xs text-muted-foreground border-t border-border/60">{hour}</div>
-                    {days.map((_, di) => {
-                      const booking = bookings.find(b => b.day === di && b.startHour === hi);
-                      return (
-                        <div key={`${di}-${hi}`} className="bg-background border-t border-border/60 min-h-[40px] relative hover:bg-accent/30 transition-colors cursor-pointer">
-                          {booking && (
-                            <div
-                              className={`absolute inset-x-0.5 top-0.5 rounded-lg p-1.5 text-xs ${
-                                booking.status === "Confirmed"
-                                  ? "bg-primary/10 text-primary border border-primary/20"
-                                  : "bg-amber-50 text-amber-700 border border-amber-200"
-                              }`}
-                              style={{ height: `${booking.duration * 40 - 2}px`, zIndex: 1 }}
-                            >
-                              <p className="font-medium truncate text-[11px]">{booking.guest}</p>
-                            </div>
-                          )}
+          <div className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-4">
+            <Card className="border border-border/60 shadow-sm overflow-hidden">
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <div className="grid grid-cols-8 min-w-[700px]">
+                    {/* Header Row */}
+                    <div className="bg-muted/40 px-3 py-3 text-xs font-semibold text-muted-foreground border-b border-border/60 sticky left-0 z-10 bg-muted/40">
+                      Time
+                    </div>
+                    {days.map((d, i) => (
+                      <div key={d} className={`px-3 py-3 text-xs font-semibold text-center border-b border-l border-border/60 ${i === new Date().getDay() - 1 ? "bg-primary/5 text-primary" : "bg-muted/40 text-muted-foreground"}`}>
+                        <span className="block">{d}</span>
+                        <span className={`text-lg font-bold mt-0.5 block ${i === new Date().getDay() - 1 ? "text-primary" : "text-foreground"}`}>{18 + i}</span>
+                      </div>
+                    ))}
+
+                    {/* Time Rows */}
+                    {hours.map((hour, hi) => (
+                      <div key={`row-${hi}`} className="contents">
+                        <div className="px-3 py-2 text-[11px] text-muted-foreground border-t border-border/40 sticky left-0 bg-background z-10 flex items-start pt-2.5">
+                          {hour}
                         </div>
-                      );
-                    })}
+                        {days.map((_, di) => {
+                          const booking = bookings.find(b => b.day === di && b.startHour === hi);
+                          const isToday = di === new Date().getDay() - 1;
+                          return (
+                            <div
+                              key={`${di}-${hi}`}
+                              className={`border-t border-l border-border/40 min-h-[44px] relative transition-colors cursor-pointer ${
+                                isToday ? "bg-primary/[0.02]" : "bg-background"
+                              } hover:bg-accent/20`}
+                            >
+                              {booking && (
+                                <div
+                                  className={`absolute inset-x-1 top-1 rounded-md px-2 py-1.5 text-xs transition-shadow hover:shadow-md ${
+                                    booking.status === "Confirmed"
+                                      ? "bg-primary/10 text-primary border border-primary/20"
+                                      : "bg-amber-50 text-amber-700 border border-amber-200"
+                                  }`}
+                                  style={{ height: `${booking.duration * 44 - 4}px`, zIndex: 2 }}
+                                >
+                                  <p className="font-semibold truncate text-[11px] leading-tight">{booking.guest}</p>
+                                  <p className="truncate text-[10px] opacity-70 mt-0.5 flex items-center gap-0.5">
+                                    <Home className="h-2.5 w-2.5" />
+                                    {booking.property}
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Mini Calendar Sidebar */}
+            <div className="space-y-4">
+              <Card className="border border-border/60 shadow-sm">
+                <CardContent className="p-3">
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    className="w-full"
+                  />
+                </CardContent>
+              </Card>
+
+              <Card className="border border-border/60 shadow-sm">
+                <CardContent className="p-4 space-y-3">
+                  <h3 className="text-sm font-semibold text-foreground">Today's Schedule</h3>
+                  <div className="space-y-2">
+                    {[
+                      { time: "10:00 AM", guest: "Emeka N.", type: "Check-in", color: "bg-emerald-500" },
+                      { time: "2:00 PM", guest: "Sarah K.", type: "Check-out", color: "bg-primary" },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-2.5 p-2 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
+                        <div className={`h-1.5 w-1.5 rounded-full ${item.color} shrink-0`} />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-medium text-foreground truncate">{item.guest}</p>
+                          <p className="text-[10px] text-muted-foreground">{item.time} · {item.type}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </TabsContent>
 
+        {/* Upcoming */}
         <TabsContent value="upcoming" className="space-y-3">
           {upcomingBookings.map((b) => {
-            const s = statusStyles[b.status];
+            const s = statusConfig[b.status];
             return (
               <Card key={b.id} className="border border-border/60 shadow-sm hover:shadow-md transition-all group">
                 <CardContent className="p-5">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Avatar className="h-10 w-10 border border-border/60">
-                        <AvatarFallback className="text-xs bg-primary/10 text-primary font-medium">{b.initials}</AvatarFallback>
+                  <div className="flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <Avatar className="h-10 w-10 border border-border/60 shrink-0">
+                        <AvatarFallback className={`text-xs font-semibold ${b.avatar}`}>{b.initials}</AvatarFallback>
                       </Avatar>
-                      <div>
-                        <p className="font-medium text-sm text-foreground">{b.guest}</p>
-                        <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
-                          {b.checkIn} <ArrowRight className="h-3 w-3" /> {b.checkOut} · {b.property}
-                        </p>
+                      <div className="min-w-0">
+                        <p className="font-semibold text-sm text-foreground truncate">{b.guest}</p>
+                        <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground">
+                          <MapPin className="h-3 w-3 shrink-0" />
+                          <span className="truncate">{b.property}</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${s.bg} ${s.color}`}>
-                        <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />{b.status}
+                    <div className="flex items-center gap-4 shrink-0">
+                      <div className="text-right hidden sm:block">
+                        <p className="text-xs text-muted-foreground flex items-center gap-1 justify-end">
+                          {b.checkIn} <ArrowRight className="h-3 w-3" /> {b.checkOut}
+                        </p>
+                        <p className="text-[11px] text-muted-foreground mt-0.5">{b.nights} night{b.nights > 1 ? "s" : ""}</p>
+                      </div>
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${s.className}`}>
+                        <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />{s.label}
                       </span>
-                      <p className="font-bold text-sm text-foreground">{b.amount}</p>
+                      <p className="font-bold text-sm text-foreground min-w-[80px] text-right">{b.amount}</p>
                     </div>
                   </div>
                 </CardContent>
