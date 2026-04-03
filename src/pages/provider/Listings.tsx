@@ -40,7 +40,7 @@ export default function Listings() {
           <h1 className="text-2xl font-bold text-foreground">My Listings</h1>
           <p className="text-sm text-muted-foreground mt-1">Manage your property listings and track performance.</p>
         </div>
-        <Button className="gap-2" size="sm" onClick={() => setAddOpen(true)}>
+        <Button className="gap-2" size="sm" onClick={() => navigate("/provider/listings/new")}>
           <Plus className="h-4 w-4" /> Add Listing
         </Button>
       </div>
