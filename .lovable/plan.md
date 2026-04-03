@@ -1,56 +1,48 @@
 
-Goal: fully fix the dashboard sidebar collapse behavior so the mini-collapsed state looks intentional, aligned, and never leaves a visible “cutout”.
 
-What I found
-- All three dashboards use the same shadcn sidebar pattern, so the bug is shared across Admin, Provider, and Seeker.
-- The sidebar is using `collapsible="icon"` correctly, and the header trigger is outside the sidebar, which is good.
-- The likely cause of the remaining visual break is the custom sidebar content not adapting cleanly to the 3rem collapsed width:
-  - logo/header row keeps desktop spacing/padding even in mini mode
-  - nav links manually hide labels with `!collapsed`, but their layout still keeps left/right padding and icon margins tuned for full width
-  - bottom action area uses the same wide row spacing, which can create the “cutout”/misaligned look in collapsed state
-- Theme-wise, the base sidebar tokens are present in `src/index.css`, so this issue looks structural/layout-related more than color-token-related.
+# KYC Verification During Onboarding & Dashboard Alerts
 
-Implementation plan
-1. Normalize the three sidebar components
-- Refactor `AdminSidebar.tsx`, `ProviderSidebar.tsx`, and `SeekerSidebar.tsx` to use the same collapsed-safe structure and spacing rules.
-- Keep role-specific items/content, but unify wrapper classes so all 3 collapse identically.
+## Overview
+Add an optional KYC step to onboarding for agents and landlords, plus persistent KYC reminder banners on provider/seeker dashboards for users who skip it.
 
-2. Make the logo block collapse-safe
-- Rework the top logo row so collapsed mode centers the icon in the available 3rem width.
-- Remove extra horizontal padding/gap in collapsed state.
-- Ensure the brand text disappears without leaving leftover spacing.
+## What Changes
 
-3. Make nav buttons truly icon-mode friendly
-- Update each menu link/button so collapsed mode uses centered icon alignment instead of full-row left alignment.
-- Remove icon right margins and large horizontal padding when collapsed.
-- Keep active/hover states visible in mini mode without clipping.
+### 1. Expand Onboarding to 4 Steps (for agents/landlords only)
+- Change the step flow from 3 to 4 steps for `agent` and `landlord` roles (tenants keep 3 steps)
+- **New Step 3 — "Verify Your Identity"**: A card-based UI showing what documents are needed (NIN, CAC Certificate for agents; NIN, Property Deed for landlords)
+- Include a file upload area (drag-and-drop style placeholder — non-functional until backend is connected) for each document type
+- A prominent "Skip for now" option with a note: "You can complete this later, but verified profiles get 3× more leads"
+- Update step dots and numbering accordingly
+- Move current Step 3 (success screen) to Step 4
 
-4. Fix the bottom utility section
-- Rebuild the Settings / Back to Site / Sign Out area with the same collapsed-safe alignment as the main nav.
-- Ensure the top border and inner padding do not create a notch/cutout effect at the bottom when the panel is collapsed.
+### 2. Store KYC Status in localStorage
+- Save `dwello_kyc_status: "pending" | "skipped" | "submitted"` so dashboards can read it
+- Set to `"submitted"` if they upload docs, `"skipped"` if they skip
 
-5. Tighten sidebar container styling
-- Adjust the `Sidebar` class usage so border/background are applied in a way that remains visually clean in both expanded and collapsed widths.
-- If needed, move some border/background responsibility from custom child wrappers to the sidebar shell to avoid double edges or exposed gaps.
+### 3. KYC Alert Banner on Provider Dashboard
+- Add a dismissible but persistent banner at the top of the provider dashboard when `dwello_kyc_status !== "submitted"`
+- Design: amber/warning style card with Shield icon, progress indicator ("1 of 3 documents uploaded"), and a CTA button "Complete Verification" linking to a future KYC page or settings
+- Show trust badge benefits: "Verified agents get 3× more leads and appear higher in search"
 
-6. Verify layout interaction points
-- Check all three layout headers (`AdminLayout`, `ProviderLayout`, `SeekerLayout`) to ensure the content area and sticky header align flush with the collapsed mini sidebar.
-- Prevent any mismatch between the sidebar reserved width and the visible fixed panel width.
+### 4. KYC Alert Banner on Seeker Dashboard
+- Lighter version for tenants — a subtle info banner suggesting identity verification for faster booking approvals
+- Can be dismissed permanently (stored in localStorage)
 
-Technical details
-- Files to update:
-  - `src/components/admin/AdminSidebar.tsx`
-  - `src/components/provider/ProviderSidebar.tsx`
-  - `src/components/seeker/SeekerSidebar.tsx`
-  - possibly minor adjustments in:
-    - `src/components/admin/AdminLayout.tsx`
-    - `src/components/provider/ProviderLayout.tsx`
-    - `src/components/seeker/SeekerLayout.tsx`
-- I do not currently expect `src/components/ui/sidebar.tsx` to need major edits unless the issue persists after the custom sidebar cleanup.
-- The safest approach is to rely more on shadcn’s built-in collapsed behavior and reduce custom spacing that fights the mini width.
+### 5. KYC Status Badge in Sidebar/Header
+- Add a small unverified/verified badge next to the user avatar in ProviderLayout and SeekerLayout headers
+- Unverified: amber dot or "Unverified" text; Verified: green checkmark
 
-Expected result
-- Collapsing the sidebar leaves a clean slim icon rail, not a broken or cut-out panel.
-- Icons remain centered and active states still read clearly.
-- All three dashboards behave the same way.
-- No regression to the website color system while fixing the collapse issue.
+## Files to Create/Edit
+- `src/pages/Onboarding.tsx` — Add KYC step, update step logic
+- `src/pages/provider/Dashboard.tsx` — Add KYC alert banner
+- `src/pages/seeker/Dashboard.tsx` — Add lighter KYC reminder
+- `src/components/provider/ProviderLayout.tsx` — Add verification badge
+- `src/components/seeker/SeekerLayout.tsx` — Add verification badge
+- `src/components/KycAlertBanner.tsx` — Reusable KYC reminder component
+
+## Technical Details
+- All state is localStorage-based (no backend yet)
+- The KYC step UI will have upload placeholders that are visually complete but non-functional until Lovable Cloud/Supabase storage is connected
+- Step count dynamically adjusts: tenants see 3 dots, providers see 4 dots
+- Document upload UI uses a dashed-border dropzone pattern with file type icons
+
