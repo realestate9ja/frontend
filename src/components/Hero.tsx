@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 const Hero = () => {
   return (
-    <section className="px-6 lg:px-16 xl:px-20 pt-28 pb-24 flex flex-col lg:flex-row items-center gap-16 bg-secondary/30">
+    <section className="px-6 lg:px-16 xl:px-20 pt-28 pb-24 flex flex-col lg:flex-row items-center justify-center gap-16 bg-secondary/30 min-h-[calc(100vh-64px)]">
       {/* Left */}
       <div className="flex-1 max-w-xl lg:py-4">
         <div className="inline-flex items-center gap-2 bg-primary/8 border border-primary/15 rounded-full px-4 py-1.5 mb-6">
