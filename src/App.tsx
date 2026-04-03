@@ -9,6 +9,10 @@ import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Onboarding from "./pages/Onboarding.tsx";
+import About from "./pages/About.tsx";
+import Contact from "./pages/Contact.tsx";
+import RentPage from "./pages/Rent.tsx";
+import PropertiesPage from "./pages/Properties.tsx";
 
 // Admin
 import AdminLayout from "./components/admin/AdminLayout.tsx";
@@ -56,6 +60,10 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/rent" element={<RentPage />} />
+          <Route path="/properties" element={<PropertiesPage />} />
 
           {/* Admin Dashboard */}
           <Route path="/admin" element={<AdminLayout />}>
