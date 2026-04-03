@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Clock, MapPin, DollarSign, Zap, CheckCircle2, SlidersHorizontal } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { SendOfferSheet } from "@/components/provider/SendOfferSheet";
+
 
 const initialLeads = [
   { id: 1, need: "3 Bed Flat in Lekki Phase 1", budget: "₦2,500,000/yr", location: "Lekki, Lagos", type: "Rent", moveIn: "April 2024", posted: "15 min ago", sla: 12, features: ["24hr Power", "Security", "Parking"], status: "New", initials: "AT" },
