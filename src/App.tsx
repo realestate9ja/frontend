@@ -16,6 +16,9 @@ import Properties from "./pages/admin/Properties.tsx";
 import UsersPage from "./pages/admin/Users.tsx";
 import Transactions from "./pages/admin/Transactions.tsx";
 import Disputes from "./pages/admin/Disputes.tsx";
+import AdminReports from "./pages/admin/Reports.tsx";
+import AdminVerifications from "./pages/admin/Verifications.tsx";
+import AdminAnnouncements from "./pages/admin/Announcements.tsx";
 import AdminSettings from "./pages/admin/Settings.tsx";
 
 // Seeker
@@ -57,6 +60,9 @@ const App = () => (
             <Route path="users" element={<UsersPage />} />
             <Route path="transactions" element={<Transactions />} />
             <Route path="disputes" element={<Disputes />} />
+            <Route path="verifications" element={<AdminVerifications />} />
+            <Route path="reports" element={<AdminReports />} />
+            <Route path="announcements" element={<AdminAnnouncements />} />
             <Route path="settings" element={<AdminSettings />} />
           </Route>
 
