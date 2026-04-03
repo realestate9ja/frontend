@@ -57,17 +57,17 @@ export default function AdminSettings() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="max-w-5xl mx-auto space-y-6 min-w-0">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Admin Settings</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-foreground">Admin Settings</h1>
         <p className="text-sm text-muted-foreground mt-1">Manage your account, platform configuration, and team access.</p>
       </div>
 
       {/* Profile Card */}
       <Card className="border border-border/60 shadow-sm">
-        <CardContent className="flex items-center gap-4 pt-6">
-          <div className="relative group">
-            <Avatar className="h-16 w-16 border-2 border-primary/20">
+        <CardContent className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6">
+          <div className="relative group shrink-0">
+            <Avatar className="h-14 w-14 sm:h-16 sm:w-16 border-2 border-primary/20">
               {avatarUrl ? (
                 <img src={avatarUrl} alt="Profile" className="h-full w-full object-cover" />
               ) : (
@@ -82,36 +82,36 @@ export default function AdminSettings() {
             </button>
             <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarChange} />
           </div>
-          <div className="flex-1">
-            <p className="font-semibold text-foreground">Admin User</p>
-            <p className="text-sm text-muted-foreground">admin@dwello.ng</p>
+          <div className="flex-1 min-w-0">
+            <p className="font-semibold text-foreground truncate">Admin User</p>
+            <p className="text-sm text-muted-foreground truncate">admin@dwello.ng</p>
           </div>
-          <Badge className="bg-primary/10 text-primary border-primary/20" variant="outline">Super Admin</Badge>
+          <Badge className="bg-primary/10 text-primary border-primary/20 shrink-0" variant="outline">Super Admin</Badge>
         </CardContent>
       </Card>
 
       <Tabs defaultValue="general" className="space-y-4">
         <TabsList className="bg-muted/50 p-1 h-auto flex-wrap">
-          <TabsTrigger value="general" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5">
-            <User className="h-3.5 w-3.5" /> General
+          <TabsTrigger value="general" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1">
+            <User className="h-3.5 w-3.5 hidden sm:inline" /> General
           </TabsTrigger>
-          <TabsTrigger value="platform" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5">
-            <Globe className="h-3.5 w-3.5" /> Platform
+          <TabsTrigger value="platform" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1">
+            <Globe className="h-3.5 w-3.5 hidden sm:inline" /> Platform
           </TabsTrigger>
-          <TabsTrigger value="payments" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5">
-            <CreditCard className="h-3.5 w-3.5" /> Payments
+          <TabsTrigger value="payments" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1">
+            <CreditCard className="h-3.5 w-3.5 hidden sm:inline" /> Payments
           </TabsTrigger>
-          <TabsTrigger value="team" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5">
-            <Users className="h-3.5 w-3.5" /> Team
+          <TabsTrigger value="team" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1">
+            <Users className="h-3.5 w-3.5 hidden sm:inline" /> Team
           </TabsTrigger>
-          <TabsTrigger value="notifications" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5">
-            <Bell className="h-3.5 w-3.5" /> Notifications
+          <TabsTrigger value="notifications" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1">
+            <Bell className="h-3.5 w-3.5 hidden sm:inline" /> Alerts
           </TabsTrigger>
-          <TabsTrigger value="security" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5">
-            <Shield className="h-3.5 w-3.5" /> Security
+          <TabsTrigger value="security" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1">
+            <Shield className="h-3.5 w-3.5 hidden sm:inline" /> Security
           </TabsTrigger>
-          <TabsTrigger value="activity" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5">
-            <Activity className="h-3.5 w-3.5" /> Activity
+          <TabsTrigger value="activity" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1">
+            <Activity className="h-3.5 w-3.5 hidden sm:inline" /> Activity
           </TabsTrigger>
         </TabsList>
 
@@ -161,9 +161,9 @@ export default function AdminSettings() {
                   { title: "Allow guest browsing", desc: "Let unregistered users browse property listings", checked: true },
                   { title: "Review before publish", desc: "Manually review all new listings before they go live", checked: true },
                 ].map((item) => (
-                  <div key={item.title} className="flex items-center justify-between py-4 first:pt-0 last:pb-0">
-                    <div><p className="font-medium text-sm text-foreground">{item.title}</p><p className="text-xs text-muted-foreground">{item.desc}</p></div>
-                    <Switch defaultChecked={item.checked} />
+                  <div key={item.title} className="flex items-center justify-between gap-3 py-4 first:pt-0 last:pb-0">
+                    <div className="min-w-0"><p className="font-medium text-sm text-foreground">{item.title}</p><p className="text-xs text-muted-foreground">{item.desc}</p></div>
+                    <Switch defaultChecked={item.checked} className="shrink-0" />
                   </div>
                 ))}
               </div>
@@ -175,13 +175,13 @@ export default function AdminSettings() {
               <div className="flex items-center gap-2"><Zap className="h-4 w-4 text-muted-foreground" /><CardTitle className="text-base">Operational Limits</CardTitle></div>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">Commission Rate (%)</label><Input type="number" defaultValue="5" /></div>
-                <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">SLA Response (min)</label><Input type="number" defaultValue="60" /></div>
-                <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">Max Listings / Agent</label><Input type="number" defaultValue="50" /></div>
-                <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">Min Booking Amount (₦)</label><Input type="number" defaultValue="10000" /></div>
-                <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">Escrow Hold (days)</label><Input type="number" defaultValue="3" /></div>
-                <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">Dispute Window (days)</label><Input type="number" defaultValue="7" /></div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+                <div className="space-y-1.5"><label className="text-xs sm:text-sm font-medium text-foreground">Commission (%)</label><Input type="number" defaultValue="5" /></div>
+                <div className="space-y-1.5"><label className="text-xs sm:text-sm font-medium text-foreground">SLA (min)</label><Input type="number" defaultValue="60" /></div>
+                <div className="space-y-1.5"><label className="text-xs sm:text-sm font-medium text-foreground">Max Listings</label><Input type="number" defaultValue="50" /></div>
+                <div className="space-y-1.5"><label className="text-xs sm:text-sm font-medium text-foreground">Min Booking (₦)</label><Input type="number" defaultValue="10000" /></div>
+                <div className="space-y-1.5"><label className="text-xs sm:text-sm font-medium text-foreground">Escrow (days)</label><Input type="number" defaultValue="3" /></div>
+                <div className="space-y-1.5"><label className="text-xs sm:text-sm font-medium text-foreground">Dispute (days)</label><Input type="number" defaultValue="7" /></div>
               </div>
               <div className="flex justify-end pt-4"><Button>Save Configuration</Button></div>
             </CardContent>
@@ -199,13 +199,13 @@ export default function AdminSettings() {
               <div className="divide-y divide-border/60">
                 {[
                   { title: "Paystack Integration", desc: "Process payments via Paystack", checked: true },
-                  { title: "Flutterwave Fallback", desc: "Use Flutterwave as secondary payment processor", checked: false },
-                  { title: "Auto Payout", desc: "Automatically send payouts after booking completion", checked: true },
-                  { title: "Instant Settlement", desc: "Enable instant payout for premium providers", checked: false },
+                  { title: "Flutterwave Fallback", desc: "Use Flutterwave as secondary processor", checked: false },
+                  { title: "Auto Payout", desc: "Auto send payouts after completion", checked: true },
+                  { title: "Instant Settlement", desc: "Instant payout for premium providers", checked: false },
                 ].map((item) => (
-                  <div key={item.title} className="flex items-center justify-between py-4 first:pt-0 last:pb-0">
-                    <div><p className="font-medium text-sm text-foreground">{item.title}</p><p className="text-xs text-muted-foreground">{item.desc}</p></div>
-                    <Switch defaultChecked={item.checked} />
+                  <div key={item.title} className="flex items-center justify-between gap-3 py-4 first:pt-0 last:pb-0">
+                    <div className="min-w-0"><p className="font-medium text-sm text-foreground">{item.title}</p><p className="text-xs text-muted-foreground">{item.desc}</p></div>
+                    <Switch defaultChecked={item.checked} className="shrink-0" />
                   </div>
                 ))}
               </div>
@@ -238,59 +238,89 @@ export default function AdminSettings() {
           </Card>
         </TabsContent>
 
-        {/* Team */}
+        {/* Team - Mobile cards, Desktop table */}
         <TabsContent value="team">
           <Card className="border border-border/60 shadow-sm">
             <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-2"><Users className="h-4 w-4 text-muted-foreground" /><CardTitle className="text-base">Admin Team</CardTitle></div>
                   <CardDescription>Manage team members and their access levels</CardDescription>
                 </div>
-                <Button size="sm" className="gap-1.5 text-sm"><Users className="h-3.5 w-3.5" /> Invite Member</Button>
+                <Button size="sm" className="gap-1.5 text-sm w-full sm:w-auto"><Users className="h-3.5 w-3.5" /> Invite Member</Button>
               </div>
             </CardHeader>
-            <CardContent className="p-0 overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow className="hover:bg-transparent">
-                    <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Member</TableHead>
-                    <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Role</TableHead>
-                    <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Status</TableHead>
-                    <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70 text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {adminTeam.map((m) => (
-                    <TableRow key={m.email}>
-                      <TableCell>
-                        <div className="flex items-center gap-2.5">
-                          <Avatar className="h-8 w-8 border border-border/60">
-                            <AvatarFallback className="text-[10px] bg-primary/10 text-primary font-medium">{m.initials}</AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <p className="text-sm font-medium text-foreground">{m.name}</p>
-                            <p className="text-[11px] text-muted-foreground">{m.email}</p>
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${roleColors[m.role]}`}>{m.role}</span>
-                      </TableCell>
-                      <TableCell>
-                        <span className={`inline-flex items-center gap-1 text-xs font-medium ${m.status === "Active" ? "text-emerald-600" : "text-muted-foreground"}`}>
-                          <span className={`h-1.5 w-1.5 rounded-full ${m.status === "Active" ? "bg-emerald-500" : "bg-muted-foreground/40"}`} />
-                          {m.status}
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-right">
+            <CardContent>
+              {/* Mobile cards */}
+              <div className="sm:hidden space-y-3">
+                {adminTeam.map((m) => (
+                  <div key={m.email} className="p-3 rounded-lg border border-border/60 bg-secondary/30 space-y-3">
+                    <div className="flex items-center gap-2.5">
+                      <Avatar className="h-8 w-8 border border-border/60 shrink-0">
+                        <AvatarFallback className="text-[10px] bg-primary/10 text-primary font-medium">{m.initials}</AvatarFallback>
+                      </Avatar>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium text-foreground truncate">{m.name}</p>
+                        <p className="text-[11px] text-muted-foreground truncate">{m.email}</p>
+                      </div>
+                      <span className={`inline-flex items-center gap-1 text-xs font-medium shrink-0 ${m.status === "Active" ? "text-emerald-600" : "text-muted-foreground"}`}>
+                        <span className={`h-1.5 w-1.5 rounded-full ${m.status === "Active" ? "bg-emerald-500" : "bg-muted-foreground/40"}`} />
+                        {m.status}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${roleColors[m.role]}`}>{m.role}</span>
+                      <div className="flex gap-1">
                         <Button variant="ghost" size="sm" className="h-7 text-xs">Edit</Button>
                         <Button variant="ghost" size="sm" className="h-7 text-xs text-destructive hover:text-destructive">Remove</Button>
-                      </TableCell>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {/* Desktop table */}
+              <div className="hidden sm:block -mx-6 px-6 overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="hover:bg-transparent">
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Member</TableHead>
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Role</TableHead>
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Status</TableHead>
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70 text-right">Actions</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {adminTeam.map((m) => (
+                      <TableRow key={m.email}>
+                        <TableCell>
+                          <div className="flex items-center gap-2.5">
+                            <Avatar className="h-8 w-8 border border-border/60">
+                              <AvatarFallback className="text-[10px] bg-primary/10 text-primary font-medium">{m.initials}</AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <p className="text-sm font-medium text-foreground">{m.name}</p>
+                              <p className="text-[11px] text-muted-foreground">{m.email}</p>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${roleColors[m.role]}`}>{m.role}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className={`inline-flex items-center gap-1 text-xs font-medium ${m.status === "Active" ? "text-emerald-600" : "text-muted-foreground"}`}>
+                            <span className={`h-1.5 w-1.5 rounded-full ${m.status === "Active" ? "bg-emerald-500" : "bg-muted-foreground/40"}`} />
+                            {m.status}
+                          </span>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Button variant="ghost" size="sm" className="h-7 text-xs">Edit</Button>
+                          <Button variant="ghost" size="sm" className="h-7 text-xs text-destructive hover:text-destructive">Remove</Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -311,9 +341,9 @@ export default function AdminSettings() {
                 { title: "Weekly summary email", desc: "Receive a weekly platform performance digest", checked: false },
                 { title: "Monthly analytics report", desc: "Detailed monthly report sent to your email", checked: true },
               ].map((item) => (
-                <div key={item.title} className="flex items-center justify-between py-4 first:pt-0 last:pb-0">
-                  <div><p className="font-medium text-sm text-foreground">{item.title}</p><p className="text-xs text-muted-foreground">{item.desc}</p></div>
-                  <Switch defaultChecked={item.checked} />
+                <div key={item.title} className="flex items-center justify-between gap-3 py-4 first:pt-0 last:pb-0">
+                  <div className="min-w-0"><p className="font-medium text-sm text-foreground">{item.title}</p><p className="text-xs text-muted-foreground">{item.desc}</p></div>
+                  <Switch defaultChecked={item.checked} className="shrink-0" />
                 </div>
               ))}
             </CardContent>
@@ -328,34 +358,34 @@ export default function AdminSettings() {
               <CardDescription>Manage your account security</CardDescription>
             </CardHeader>
             <CardContent className="divide-y divide-border/60">
-              <div className="flex items-center justify-between py-4 first:pt-0">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary/10"><KeyRound className="h-4 w-4 text-primary" /></div>
-                  <div><p className="font-medium text-sm text-foreground">Change Password</p><p className="text-xs text-muted-foreground">Last changed 30 days ago</p></div>
+              <div className="flex items-center justify-between gap-2 py-4 first:pt-0">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2 rounded-lg bg-primary/10 shrink-0"><KeyRound className="h-4 w-4 text-primary" /></div>
+                  <div className="min-w-0"><p className="font-medium text-sm text-foreground">Change Password</p><p className="text-xs text-muted-foreground">Last changed 30 days ago</p></div>
                 </div>
-                <Button variant="outline" size="sm">Update</Button>
+                <Button variant="outline" size="sm" className="shrink-0">Update</Button>
               </div>
-              <div className="flex items-center justify-between py-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary/10"><Shield className="h-4 w-4 text-primary" /></div>
-                  <div><p className="font-medium text-sm text-foreground">Two-Factor Authentication</p><p className="text-xs text-muted-foreground">Add an extra layer of security</p></div>
+              <div className="flex items-center justify-between gap-2 py-4">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2 rounded-lg bg-primary/10 shrink-0"><Shield className="h-4 w-4 text-primary" /></div>
+                  <div className="min-w-0"><p className="font-medium text-sm text-foreground">Two-Factor Auth</p><p className="text-xs text-muted-foreground">Add an extra layer of security</p></div>
                 </div>
-                <Button variant="outline" size="sm">Enable</Button>
+                <Button variant="outline" size="sm" className="shrink-0">Enable</Button>
               </div>
-              <div className="flex items-center justify-between py-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary/10"><Mail className="h-4 w-4 text-primary" /></div>
-                  <div><p className="font-medium text-sm text-foreground">Login Notifications</p><p className="text-xs text-muted-foreground">Get notified of new login sessions</p></div>
+              <div className="flex items-center justify-between gap-2 py-4">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2 rounded-lg bg-primary/10 shrink-0"><Mail className="h-4 w-4 text-primary" /></div>
+                  <div className="min-w-0"><p className="font-medium text-sm text-foreground">Login Notifications</p><p className="text-xs text-muted-foreground">Get notified of new login sessions</p></div>
                 </div>
-                <Switch defaultChecked />
+                <Switch defaultChecked className="shrink-0" />
               </div>
-              <div className="flex items-center justify-between py-4 last:pb-0">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary/10"><Lock className="h-4 w-4 text-primary" /></div>
-                  <div><p className="font-medium text-sm text-foreground">Session Timeout</p><p className="text-xs text-muted-foreground">Auto-logout after inactivity</p></div>
+              <div className="flex items-center justify-between gap-2 py-4 last:pb-0">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2 rounded-lg bg-primary/10 shrink-0"><Lock className="h-4 w-4 text-primary" /></div>
+                  <div className="min-w-0"><p className="font-medium text-sm text-foreground">Session Timeout</p><p className="text-xs text-muted-foreground">Auto-logout after inactivity</p></div>
                 </div>
                 <Select defaultValue="30">
-                  <SelectTrigger className="w-[120px] h-8 text-sm"><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="w-[100px] sm:w-[120px] h-8 text-sm shrink-0"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="15">15 minutes</SelectItem>
                     <SelectItem value="30">30 minutes</SelectItem>
@@ -372,45 +402,60 @@ export default function AdminSettings() {
               <div className="flex items-center gap-2"><Trash2 className="h-4 w-4 text-destructive" /><CardTitle className="text-base text-destructive">Danger Zone</CardTitle></div>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center justify-between p-4 rounded-xl border border-destructive/20 bg-destructive/5">
-                <div><p className="font-medium text-sm text-foreground">Delete Account</p><p className="text-xs text-muted-foreground">Permanently delete your admin account. This action cannot be undone.</p></div>
-                <Button variant="destructive" size="sm">Delete Account</Button>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-xl border border-destructive/20 bg-destructive/5 gap-3">
+                <div className="min-w-0"><p className="font-medium text-sm text-foreground">Delete Account</p><p className="text-xs text-muted-foreground">Permanently delete your admin account. This action cannot be undone.</p></div>
+                <Button variant="destructive" size="sm" className="shrink-0">Delete Account</Button>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* Activity */}
+        {/* Activity - Mobile cards, Desktop table */}
         <TabsContent value="activity">
           <Card className="border border-border/60 shadow-sm">
             <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-2"><Activity className="h-4 w-4 text-muted-foreground" /><CardTitle className="text-base">Recent Activity</CardTitle></div>
                   <CardDescription>Your recent actions on the platform</CardDescription>
                 </div>
-                <Button variant="outline" size="sm" className="gap-1 text-xs"><FileText className="h-3 w-3" /> Export Log</Button>
+                <Button variant="outline" size="sm" className="gap-1 text-xs w-full sm:w-auto"><FileText className="h-3 w-3" /> Export Log</Button>
               </div>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow className="hover:bg-transparent">
-                    <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Action</TableHead>
-                    <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Type</TableHead>
-                    <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Time</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {activityLog.map((item, i) => (
-                    <TableRow key={i}>
-                      <TableCell className="text-sm font-medium text-foreground">{item.action}</TableCell>
-                      <TableCell><span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${typeStyles[item.type]}`}>{item.type}</span></TableCell>
-                      <TableCell className="text-sm text-muted-foreground">{item.time}</TableCell>
+              {/* Mobile cards */}
+              <div className="sm:hidden space-y-3">
+                {activityLog.map((item, i) => (
+                  <div key={i} className="p-3 rounded-lg border border-border/60 bg-secondary/30 space-y-2">
+                    <p className="text-sm font-medium text-foreground">{item.action}</p>
+                    <div className="flex items-center justify-between">
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${typeStyles[item.type]}`}>{item.type}</span>
+                      <span className="text-xs text-muted-foreground">{item.time}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {/* Desktop table */}
+              <div className="hidden sm:block">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="hover:bg-transparent">
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Action</TableHead>
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Type</TableHead>
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Time</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {activityLog.map((item, i) => (
+                      <TableRow key={i}>
+                        <TableCell className="text-sm font-medium text-foreground">{item.action}</TableCell>
+                        <TableCell><span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${typeStyles[item.type]}`}>{item.type}</span></TableCell>
+                        <TableCell className="text-sm text-muted-foreground">{item.time}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
