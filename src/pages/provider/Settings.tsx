@@ -46,7 +46,7 @@ export default function ProviderSettings() {
       </div>
 
       <Card className="border border-border/60 shadow-sm">
-        <CardContent className="flex items-center gap-4 pt-6">
+        <CardContent className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6">
           <div className="relative group">
             <Avatar className="h-16 w-16 border-2 border-primary/20">
               {avatarUrl ? (
