@@ -59,14 +59,14 @@ export default function SeekerDashboard() {
       <KycAlertBanner variant="seeker" />
 
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-foreground tracking-tight">Welcome back!</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">Welcome back!</h1>
           <p className="text-sm text-muted-foreground mt-0.5">Track your property search, offers, and viewings.</p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" className="h-9 gap-2 text-sm">
-            <Search className="h-4 w-4" /> Browse Properties
+            <Search className="h-4 w-4" /> <span className="hidden sm:inline">Browse</span> Properties
           </Button>
           <Button size="sm" className="h-9 gap-2 text-sm bg-primary text-primary-foreground hover:bg-primary/90" asChild>
             <Link to="/seeker/post"><Plus className="h-4 w-4" /> Post a Need</Link>
@@ -176,15 +176,17 @@ export default function SeekerDashboard() {
         <CardContent className="pt-0">
           <div className="space-y-1">
             {recentOffers.map((offer) => (
-              <div key={offer.id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent/50 transition-colors group">
-                <Avatar className="h-9 w-9 border border-border/60">
-                  <AvatarFallback className="text-[10px] font-medium bg-primary/10 text-primary">{offer.initials}</AvatarFallback>
-                </Avatar>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-foreground truncate">{offer.property}</p>
-                  <p className="text-xs text-muted-foreground">by {offer.provider} · {offer.time} ago</p>
+              <div key={offer.id} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 p-3 rounded-lg hover:bg-accent/50 transition-colors group">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <Avatar className="h-9 w-9 border border-border/60 shrink-0">
+                    <AvatarFallback className="text-[10px] font-medium bg-primary/10 text-primary">{offer.initials}</AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-foreground truncate">{offer.property}</p>
+                    <p className="text-xs text-muted-foreground">by {offer.provider} · {offer.time} ago</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3 shrink-0">
+                <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-12 sm:ml-0">
                   <Badge variant="outline" className={`text-[10px] h-5 ${badgeColors[offer.badge]}`}>{offer.badge}</Badge>
                   <span className="text-xs font-semibold bg-primary/10 text-primary px-2 py-0.5 rounded-full">{offer.match}%</span>
                   <p className="text-sm font-semibold text-foreground">{offer.price}</p>
