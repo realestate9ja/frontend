@@ -67,7 +67,7 @@ export default function AdminReports() {
         </div>
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <Select defaultValue="6months">
-            <SelectTrigger className="w-[150px] h-9 text-sm">
+            <SelectTrigger className="w-full sm:w-[150px] h-9 text-sm">
               <Calendar className="h-3.5 w-3.5 mr-1.5 text-muted-foreground" />
               <SelectValue />
             </SelectTrigger>
