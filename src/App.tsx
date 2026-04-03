@@ -36,6 +36,7 @@ import ProviderLayout from "./components/provider/ProviderLayout.tsx";
 import ProviderDashboard from "./pages/provider/Dashboard.tsx";
 import LeadInbox from "./pages/provider/Inbox.tsx";
 import Listings from "./pages/provider/Listings.tsx";
+import AddListing from "./pages/provider/AddListing.tsx";
 import Payouts from "./pages/provider/Payouts.tsx";
 import ProviderCalendar from "./pages/provider/Calendar.tsx";
 import ProviderSettings from "./pages/provider/Settings.tsx";
@@ -85,6 +86,7 @@ const App = () => (
             <Route path="inbox" element={<LeadInbox />} />
             <Route path="inbox/:id" element={<LeadDetail />} />
             <Route path="listings" element={<Listings />} />
+            <Route path="listings/new" element={<AddListing />} />
             <Route path="payouts" element={<Payouts />} />
             <Route path="calendar" element={<ProviderCalendar />} />
             <Route path="settings" element={<ProviderSettings />} />

@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, Plus, MoreHorizontal, Building2, MapPin, Eye, Inbox, Filter } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AddListingSheet } from "@/components/provider/AddListingSheet";
+
 
 const initialListings = [
   { id: "L-001", title: "3 Bedroom Flat, Lekki Phase 1", type: "Rent", price: "₦2,500,000/yr", location: "Lagos", status: "Active", views: 45, offers: 3 },
@@ -28,8 +29,8 @@ const typeStyles: Record<string, string> = {
 };
 
 export default function Listings() {
-  const [listings, setListings] = useState(initialListings);
-  const [addOpen, setAddOpen] = useState(false);
+  const navigate = useNavigate();
+  const [listings] = useState(initialListings);
   const active = listings.filter(l => l.status === "Active");
 
   return (
@@ -39,7 +40,7 @@ export default function Listings() {
           <h1 className="text-2xl font-bold text-foreground">My Listings</h1>
           <p className="text-sm text-muted-foreground mt-1">Manage your property listings and track performance.</p>
         </div>
-        <Button className="gap-2" size="sm" onClick={() => setAddOpen(true)}>
+        <Button className="gap-2" size="sm" onClick={() => navigate("/provider/listings/new")}>
           <Plus className="h-4 w-4" /> Add Listing
         </Button>
       </div>
@@ -140,11 +141,6 @@ export default function Listings() {
         })}
       </Tabs>
 
-      <AddListingSheet
-        open={addOpen}
-        onOpenChange={setAddOpen}
-        onListingAdded={(listing) => setListings(prev => [listing, ...prev])}
-      />
     </div>
   );
 }
