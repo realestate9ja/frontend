@@ -49,12 +49,12 @@ export default function Listings() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">My Listings</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground">My Listings</h1>
           <p className="text-sm text-muted-foreground mt-1">Manage your property listings and track performance.</p>
         </div>
-        <Button className="gap-2" size="sm" onClick={() => navigate("/provider/listings/new")}>
+        <Button className="gap-2 self-start" size="sm" onClick={() => navigate("/provider/listings/new")}>
           <Plus className="h-4 w-4" /> Add Listing
         </Button>
       </div>
