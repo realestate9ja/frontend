@@ -2,7 +2,7 @@ import { Outlet, Link } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { SeekerSidebar } from "./SeekerSidebar";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Bell, Search } from "lucide-react";
+import { Bell, Search, ShieldCheck, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAvatar } from "@/contexts/AvatarContext";
