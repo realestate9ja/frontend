@@ -167,7 +167,7 @@ export default function Listings() {
                   <CardHeader className="pb-3">
                     <div><CardTitle className="text-base">Listings</CardTitle><CardDescription>Showing {items.length} listings</CardDescription></div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-0 overflow-x-auto">
                     <Table>
                       <TableHeader>
                         <TableRow className="hover:bg-transparent">
