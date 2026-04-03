@@ -8,7 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { User, Bell, Shield, Trash2, KeyRound, MapPin, Activity, Camera } from "lucide-react";
 import { useRef } from "react";
 import { useAvatar } from "@/contexts/AvatarContext";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const activityLog = [
   { action: "Posted need: 3 Bed in Lekki", time: "2 hours ago", type: "Post" },
@@ -39,16 +38,16 @@ export default function SeekerSettings() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6 min-w-0">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Settings</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-foreground">Settings</h1>
         <p className="text-sm text-muted-foreground mt-1">Manage your profile, preferences, and activity.</p>
       </div>
 
       <Card className="border border-border/60 shadow-sm">
-        <CardContent className="flex items-center gap-4 pt-6">
-          <div className="relative group">
-            <Avatar className="h-16 w-16 border-2 border-primary/20">
+        <CardContent className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6">
+          <div className="relative group shrink-0">
+            <Avatar className="h-14 w-14 sm:h-16 sm:w-16 border-2 border-primary/20">
               {avatarUrl ? (
                 <img src={avatarUrl} alt="Profile" className="h-full w-full object-cover" />
               ) : (
@@ -63,22 +62,21 @@ export default function SeekerSettings() {
             </button>
             <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarChange} />
           </div>
-          <div className="flex-1">
-            <p className="font-semibold text-foreground">Tenant User</p>
-            <p className="text-sm text-muted-foreground">tenant@dwello.ng</p>
+          <div className="flex-1 min-w-0">
+            <p className="font-semibold text-foreground truncate">Tenant User</p>
+            <p className="text-sm text-muted-foreground truncate">tenant@dwello.ng</p>
           </div>
-          <Badge className="bg-primary/10 text-primary border-primary/20" variant="outline">Tenant</Badge>
+          <Badge className="bg-primary/10 text-primary border-primary/20 shrink-0" variant="outline">Tenant</Badge>
         </CardContent>
       </Card>
 
-      {/* Tabs */}
       <Tabs defaultValue="general" className="space-y-4">
         <TabsList className="bg-muted/50 p-1 h-auto flex-wrap">
-          <TabsTrigger value="general" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">General</TabsTrigger>
-          <TabsTrigger value="preferences" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Preferences</TabsTrigger>
-          <TabsTrigger value="notifications" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Notifications</TabsTrigger>
-          <TabsTrigger value="security" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Security</TabsTrigger>
-          <TabsTrigger value="activity" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Activity</TabsTrigger>
+          <TabsTrigger value="general" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">General</TabsTrigger>
+          <TabsTrigger value="preferences" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Preferences</TabsTrigger>
+          <TabsTrigger value="notifications" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Alerts</TabsTrigger>
+          <TabsTrigger value="security" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Security</TabsTrigger>
+          <TabsTrigger value="activity" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Activity</TabsTrigger>
         </TabsList>
 
         {/* General */}
@@ -110,17 +108,17 @@ export default function SeekerSettings() {
               <CardDescription>Customize how you receive property matches</CardDescription>
             </CardHeader>
             <CardContent className="divide-y divide-border/60">
-              <div className="flex items-center justify-between py-4 first:pt-0">
-                <div><p className="font-medium text-sm text-foreground">Auto-match new listings</p><p className="text-xs text-muted-foreground">Receive offers from new listings matching your needs</p></div>
-                <Switch defaultChecked />
+              <div className="flex items-center justify-between gap-3 py-4 first:pt-0">
+                <div className="min-w-0"><p className="font-medium text-sm text-foreground">Auto-match new listings</p><p className="text-xs text-muted-foreground">Receive offers from new listings matching your needs</p></div>
+                <Switch defaultChecked className="shrink-0" />
               </div>
-              <div className="flex items-center justify-between py-4">
-                <div><p className="font-medium text-sm text-foreground">Show short-let results</p><p className="text-xs text-muted-foreground">Include short-let properties in search results</p></div>
-                <Switch defaultChecked />
+              <div className="flex items-center justify-between gap-3 py-4">
+                <div className="min-w-0"><p className="font-medium text-sm text-foreground">Show short-let results</p><p className="text-xs text-muted-foreground">Include short-let properties in search results</p></div>
+                <Switch defaultChecked className="shrink-0" />
               </div>
-              <div className="flex items-center justify-between py-4 last:pb-0">
-                <div><p className="font-medium text-sm text-foreground">Verified providers only</p><p className="text-xs text-muted-foreground">Only show offers from verified agents/landlords</p></div>
-                <Switch />
+              <div className="flex items-center justify-between gap-3 py-4 last:pb-0">
+                <div className="min-w-0"><p className="font-medium text-sm text-foreground">Verified providers only</p><p className="text-xs text-muted-foreground">Only show offers from verified agents/landlords</p></div>
+                <Switch className="shrink-0" />
               </div>
             </CardContent>
           </Card>
@@ -134,17 +132,17 @@ export default function SeekerSettings() {
               <CardDescription>Choose what alerts you receive</CardDescription>
             </CardHeader>
             <CardContent className="divide-y divide-border/60">
-              <div className="flex items-center justify-between py-4 first:pt-0">
-                <div><p className="font-medium text-sm text-foreground">New offer alerts</p><p className="text-xs text-muted-foreground">Notify when providers send you offers</p></div>
-                <Switch defaultChecked />
+              <div className="flex items-center justify-between gap-3 py-4 first:pt-0">
+                <div className="min-w-0"><p className="font-medium text-sm text-foreground">New offer alerts</p><p className="text-xs text-muted-foreground">Notify when providers send you offers</p></div>
+                <Switch defaultChecked className="shrink-0" />
               </div>
-              <div className="flex items-center justify-between py-4">
-                <div><p className="font-medium text-sm text-foreground">Booking updates</p><p className="text-xs text-muted-foreground">Escrow status and booking confirmations</p></div>
-                <Switch defaultChecked />
+              <div className="flex items-center justify-between gap-3 py-4">
+                <div className="min-w-0"><p className="font-medium text-sm text-foreground">Booking updates</p><p className="text-xs text-muted-foreground">Escrow status and booking confirmations</p></div>
+                <Switch defaultChecked className="shrink-0" />
               </div>
-              <div className="flex items-center justify-between py-4 last:pb-0">
-                <div><p className="font-medium text-sm text-foreground">Weekly property digest</p><p className="text-xs text-muted-foreground">Curated listings based on your preferences</p></div>
-                <Switch />
+              <div className="flex items-center justify-between gap-3 py-4 last:pb-0">
+                <div className="min-w-0"><p className="font-medium text-sm text-foreground">Weekly property digest</p><p className="text-xs text-muted-foreground">Curated listings based on your preferences</p></div>
+                <Switch className="shrink-0" />
               </div>
             </CardContent>
           </Card>
@@ -158,19 +156,19 @@ export default function SeekerSettings() {
               <CardDescription>Manage your account security</CardDescription>
             </CardHeader>
             <CardContent className="divide-y divide-border/60">
-              <div className="flex items-center justify-between py-4 first:pt-0">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary/10"><KeyRound className="h-4 w-4 text-primary" /></div>
-                  <div><p className="font-medium text-sm text-foreground">Change Password</p><p className="text-xs text-muted-foreground">Last changed 14 days ago</p></div>
+              <div className="flex items-center justify-between gap-2 py-4 first:pt-0">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2 rounded-lg bg-primary/10 shrink-0"><KeyRound className="h-4 w-4 text-primary" /></div>
+                  <div className="min-w-0"><p className="font-medium text-sm text-foreground">Change Password</p><p className="text-xs text-muted-foreground">Last changed 14 days ago</p></div>
                 </div>
-                <Button variant="outline" size="sm">Update</Button>
+                <Button variant="outline" size="sm" className="shrink-0">Update</Button>
               </div>
-              <div className="flex items-center justify-between py-4 last:pb-0">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary/10"><Shield className="h-4 w-4 text-primary" /></div>
-                  <div><p className="font-medium text-sm text-foreground">Two-Factor Authentication</p><p className="text-xs text-muted-foreground">Secure your account with 2FA</p></div>
+              <div className="flex items-center justify-between gap-2 py-4 last:pb-0">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2 rounded-lg bg-primary/10 shrink-0"><Shield className="h-4 w-4 text-primary" /></div>
+                  <div className="min-w-0"><p className="font-medium text-sm text-foreground">Two-Factor Auth</p><p className="text-xs text-muted-foreground">Secure your account with 2FA</p></div>
                 </div>
-                <Button variant="outline" size="sm">Enable</Button>
+                <Button variant="outline" size="sm" className="shrink-0">Enable</Button>
               </div>
             </CardContent>
           </Card>
@@ -181,14 +179,14 @@ export default function SeekerSettings() {
             </CardHeader>
             <CardContent>
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-xl border border-destructive/20 bg-destructive/5 gap-3">
-                <div><p className="font-medium text-sm text-foreground">Delete Account</p><p className="text-xs text-muted-foreground">Permanently delete your account and all data.</p></div>
+                <div className="min-w-0"><p className="font-medium text-sm text-foreground">Delete Account</p><p className="text-xs text-muted-foreground">Permanently delete your account and all data.</p></div>
                 <Button variant="destructive" size="sm" className="shrink-0">Delete Account</Button>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* Activity */}
+        {/* Activity - Mobile-friendly cards */}
         <TabsContent value="activity">
           <Card className="border border-border/60 shadow-sm">
             <CardHeader className="pb-4">
@@ -196,25 +194,16 @@ export default function SeekerSettings() {
               <CardDescription>Your recent actions on the platform</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto -mx-6 px-6">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="hover:bg-transparent">
-                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Action</TableHead>
-                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Type</TableHead>
-                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Time</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {activityLog.map((item, i) => (
-                      <TableRow key={i}>
-                        <TableCell className="text-sm font-medium text-foreground whitespace-nowrap">{item.action}</TableCell>
-                        <TableCell><span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${typeStyles[item.type]}`}>{item.type}</span></TableCell>
-                        <TableCell className="text-sm text-muted-foreground whitespace-nowrap">{item.time}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+              <div className="space-y-3">
+                {activityLog.map((item, i) => (
+                  <div key={i} className="p-3 rounded-lg border border-border/60 bg-secondary/30 space-y-2">
+                    <p className="text-sm font-medium text-foreground">{item.action}</p>
+                    <div className="flex items-center justify-between">
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${typeStyles[item.type]}`}>{item.type}</span>
+                      <span className="text-xs text-muted-foreground">{item.time}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </CardContent>
           </Card>
