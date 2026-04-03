@@ -87,12 +87,10 @@ export default function PostNeed() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">Post a Need</h1>
-          <p className="text-sm text-muted-foreground mt-1">Describe what you're looking for — providers will send you tailored offers.</p>
-        </div>
+    <div className="max-w-5xl mx-auto space-y-6 min-w-0">
+      <div>
+        <h1 className="text-xl sm:text-2xl font-bold text-foreground">Post a Need</h1>
+        <p className="text-sm text-muted-foreground mt-1">Describe what you're looking for — providers will send you tailored offers.</p>
       </div>
 
       <Tabs defaultValue="new" className="space-y-4">
@@ -496,13 +494,13 @@ export default function PostNeed() {
         <TabsContent value="history">
           <Card className="border border-border/60 shadow-sm">
             <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <CardTitle className="text-base">Posted Needs</CardTitle>
                   <CardDescription>Track your published property needs and incoming offers</CardDescription>
                 </div>
                 <Select defaultValue="all">
-                  <SelectTrigger className="w-[120px] h-8 text-xs"><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="w-full sm:w-[120px] h-8 text-xs"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Status</SelectItem>
                     <SelectItem value="active">Active</SelectItem>
@@ -515,20 +513,23 @@ export default function PostNeed() {
               {previousNeeds.map((need) => {
                 const urg = urgencyLevels.find(l => l.label === need.urgency);
                 return (
-                  <div key={need.id} className="flex items-center justify-between py-4 first:pt-0 last:pb-0 group">
-                    <div className="flex items-center gap-4">
-                      <div className="h-10 w-10 rounded-xl bg-primary/5 flex items-center justify-center">
+                  <div key={need.id} className="py-4 first:pt-0 last:pb-0 space-y-2">
+                    <div className="flex items-start gap-3">
+                      <div className="h-9 w-9 rounded-xl bg-primary/5 flex items-center justify-center shrink-0">
                         <FileText className="h-4 w-4 text-primary" />
                       </div>
-                      <div>
-                        <p className="text-sm font-medium text-foreground">{need.title}</p>
-                        <div className="flex items-center gap-3 mt-0.5">
-                          <span className="text-xs text-muted-foreground">{need.budget}</span>
-                          <span className="text-xs text-muted-foreground">{need.date}</span>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium text-foreground truncate">{need.title}</p>
+                        <div className="flex items-center gap-2 mt-0.5 text-xs text-muted-foreground">
+                          <span>{need.budget}</span>
+                          <span>·</span>
+                          <span>{need.date}</span>
+                          <span>·</span>
+                          <span>{need.offers} offers</span>
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 pl-12">
                       {urg && (
                         <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border ${urg.bg} ${urg.color}`}>
                           <span className={`h-1.5 w-1.5 rounded-full ${urg.dot}`} />{urg.label}
@@ -537,10 +538,6 @@ export default function PostNeed() {
                       <Badge variant="outline" className={`text-xs ${need.status === "Active" ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" : "bg-muted text-muted-foreground border-border"}`}>
                         {need.status}
                       </Badge>
-                      <span className="text-xs text-muted-foreground">{need.offers} offers</span>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <ChevronRight className="h-4 w-4" />
-                      </Button>
                     </div>
                   </div>
                 );
