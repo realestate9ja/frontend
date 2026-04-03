@@ -79,7 +79,9 @@ export default function Onboarding() {
                         : "border-transparent bg-muted/40 hover:bg-muted/70"
                     }`}
                   >
-                    <span className="text-2xl shrink-0">{r.emoji}</span>
+                    <div className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 ${selected ? "bg-primary/10" : "bg-muted"}`}>
+                      <r.icon className={`h-5 w-5 ${selected ? "text-primary" : "text-muted-foreground"}`} />
+                    </div>
                     <div className="flex-1">
                       <p className={`text-[15px] font-semibold ${selected ? "text-foreground" : "text-foreground/80"}`}>{r.label}</p>
                       <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{r.desc}</p>
