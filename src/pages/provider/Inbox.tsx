@@ -27,20 +27,9 @@ const slaBg = (sla: number) => sla <= 15 ? "bg-destructive" : "bg-amber-500";
 export default function LeadInbox() {
   const navigate = useNavigate();
   const [leads, setLeads] = useState(initialLeads);
-  const [offerSheet, setOfferSheet] = useState<{ open: boolean; leadId: number | null; leadNeed: string }>({ open: false, leadId: null, leadNeed: "" });
 
   const newLeads = leads.filter(l => l.status === "New");
   const responded = leads.filter(l => l.status === "Responded");
-
-  const handleOfferSent = () => {
-    if (offerSheet.leadId) {
-      setLeads(prev => prev.map(l => l.id === offerSheet.leadId ? { ...l, status: "Responded", sla: 0 } : l));
-    }
-  };
-
-  const openOfferSheet = (lead: typeof initialLeads[0]) => {
-    setOfferSheet({ open: true, leadId: lead.id, leadNeed: lead.need });
-  };
 
   return (
     <div className="space-y-6">
