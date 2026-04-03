@@ -40,10 +40,10 @@ const Features = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Why Choose section */}
       <section className="px-6 lg:px-16 xl:px-20 py-20">
         <div className="text-center mb-14">
-          <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] mb-4">Why Choose Dwello?</p>
+          <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Why Choose Dwello?</p>
           <h2 className="font-serif text-3xl lg:text-4xl text-foreground mb-4">
             Smart Property Intelligence
           </h2>
@@ -58,10 +58,10 @@ const Features = () => {
               key={feature.title}
               className="group bg-card rounded-xl p-8 border border-border/50 hover:border-primary/20 hover:shadow-lg transition-all duration-300"
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/8 flex items-center justify-center mb-6 group-hover:bg-primary/15 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/15 transition-colors">
                 <feature.icon className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="text-base font-semibold text-foreground mb-2">{feature.title}</h3>
+              <h3 className="font-serif text-lg text-foreground mb-2">{feature.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
             </div>
           ))}
@@ -69,31 +69,35 @@ const Features = () => {
       </section>
 
       {/* Trust / Redefining Section */}
-      <section className="px-6 lg:px-16 xl:px-20 py-20 bg-secondary/40">
+      <section className="px-6 lg:px-16 xl:px-20 py-20">
+        <div className="text-center mb-14">
+          <h2 className="font-serif text-3xl lg:text-4xl text-foreground">Redefining Real Estate</h2>
+          <div className="w-16 h-1 bg-primary mx-auto mt-4 rounded-full" />
+        </div>
+
         <div className="flex flex-col lg:flex-row gap-12 items-center">
           <div className="flex-1">
-            <img
-              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=420&fit=crop"
-              alt="Modern home interior"
-              className="w-full h-[380px] object-cover rounded-2xl"
-            />
+            <div className="rounded-xl border border-border/50 p-3 bg-card">
+              <img
+                src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=420&fit=crop"
+                alt="Modern home interior"
+                className="w-full h-[380px] object-cover rounded-lg"
+              />
+            </div>
           </div>
           <div className="flex-1">
-            <h2 className="font-serif text-3xl lg:text-[2.5rem] text-foreground leading-tight mb-8">
-              Redefining Real Estate
-            </h2>
-            <div className="space-y-6">
+            <div className="space-y-8">
               {[
                 { icon: Shield, title: "Verified Listings Only", desc: "Every property on our platform is verified by our team to ensure what you see is what you get." },
                 { icon: Headphones, title: "24/7 Concierge Support", desc: "Our dedicated team is always available to answer questions, schedule viewings, and provide expert advice." },
                 { icon: Eye, title: "Transparent Pricing", desc: "No hidden fees. We provide clear, upfront cost breakdowns so you can budget with confidence." },
               ].map((item) => (
                 <div key={item.title} className="flex gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-primary/8 flex items-center justify-center shrink-0">
+                  <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                     <item.icon className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-foreground mb-1 text-[15px]">{item.title}</h4>
+                    <h4 className="font-serif text-base text-foreground mb-1">{item.title}</h4>
                     <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
                   </div>
                 </div>

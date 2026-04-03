@@ -27,9 +27,9 @@ const Newsletter = () => {
   return (
     <>
       {/* Testimonials */}
-      <section className="px-6 lg:px-16 xl:px-20 py-20 bg-secondary/40">
-        <div className="text-center mb-14">
-          <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] mb-4">Testimonials</p>
+      <section className="px-6 lg:px-16 xl:px-20 py-20">
+        <div className="mb-14">
+          <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Testimonials</p>
           <h2 className="font-serif text-3xl lg:text-4xl text-foreground">What Our Clients Say</h2>
         </div>
 
@@ -38,12 +38,12 @@ const Newsletter = () => {
             <div key={t.name} className="bg-card rounded-xl p-7 border border-border/50">
               <div className="flex gap-0.5 mb-5">
                 {[1,2,3,4,5].map((s) => (
-                  <Star key={s} className="w-4 h-4 fill-primary text-primary" />
+                  <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
                 ))}
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">"{t.text}"</p>
               <div className="flex items-center gap-3">
-                <img src={`https://i.pravatar.cc/40?img=${t.avatar}`} alt={t.name} className="w-10 h-10 rounded-full" />
+                <div className="w-10 h-10 rounded-full bg-muted" />
                 <div>
                   <p className="text-sm font-semibold text-foreground">{t.name}</p>
                   <p className="text-xs text-muted-foreground">{t.location}</p>
@@ -55,22 +55,20 @@ const Newsletter = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="px-6 lg:px-16 xl:px-20 py-20">
-        <div className="bg-[hsl(var(--dark-bg))] rounded-2xl p-10 lg:p-16 text-center">
+      <section className="px-6 lg:px-16 xl:px-20 py-20 bg-[hsl(var(--dark-bg))]">
+        <div className="text-center max-w-2xl mx-auto">
           <h2 className="font-serif text-3xl lg:text-4xl text-white mb-4">
             Ready to Find Your Dream Home?
           </h2>
-          <p className="text-white/40 mb-8 max-w-lg mx-auto text-[15px] leading-relaxed">
+          <p className="text-white/40 mb-10 text-[15px] leading-relaxed">
             Join thousands of satisfied homeowners who found their perfect property with Dwello's platform.
           </p>
-          <div className="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto">
-            <Input
-              type="email"
-              placeholder="Enter your email address"
-              className="rounded-lg px-4 h-12 bg-white/[0.06] border-white/10 text-white placeholder:text-white/30 focus-visible:ring-primary"
-            />
-            <Button className="rounded-lg px-7 h-12 bg-primary text-primary-foreground hover:bg-primary/90 whitespace-nowrap gap-2 text-sm font-medium">
-              Get Started <ArrowRight className="w-4 h-4" />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button variant="outline" className="rounded-lg px-8 py-6 text-sm font-medium border-white/20 text-white hover:bg-white/5 gap-2">
+              Get Started
+            </Button>
+            <Button className="rounded-lg px-8 py-6 bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-medium gap-2">
+              Schedule a Demo
             </Button>
           </div>
         </div>
