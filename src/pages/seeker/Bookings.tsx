@@ -32,14 +32,14 @@ export default function Bookings() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Bookings</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground">Bookings</h1>
           <p className="text-sm text-muted-foreground mt-1">Track your active bookings, escrow payments, and history.</p>
         </div>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search bookings..." className="pl-9 w-[220px] h-9" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <Input placeholder="Search bookings..." className="pl-9 w-full sm:w-[220px] h-9" value={search} onChange={(e) => setSearch(e.target.value)} />
         </div>
       </div>
 
