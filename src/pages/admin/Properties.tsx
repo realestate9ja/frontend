@@ -79,7 +79,7 @@ export default function Properties() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-0 overflow-x-auto">
                   <Table>
                     <TableHeader>
                       <TableRow className="hover:bg-transparent">
