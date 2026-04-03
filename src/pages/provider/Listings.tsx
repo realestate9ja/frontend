@@ -71,13 +71,13 @@ export default function Listings() {
 
       <Tabs defaultValue="all" className="space-y-4">
         <TabsList className="bg-muted/50 p-1 h-auto">
-          <TabsTrigger value="all" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">All ({listings.length})</TabsTrigger>
+         <TabsTrigger value="all" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">All ({filtered.length})</TabsTrigger>
           <TabsTrigger value="active" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Active ({active.length})</TabsTrigger>
           <TabsTrigger value="other" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Pending/Draft</TabsTrigger>
         </TabsList>
 
         {["all", "active", "other"].map((tab) => {
-          const items = tab === "active" ? active : tab === "other" ? listings.filter(l => l.status !== "Active") : listings;
+          const items = tab === "active" ? active : tab === "other" ? filtered.filter(l => l.status !== "Active") : filtered;
           return (
             <TabsContent key={tab} value={tab}>
               <Card className="border border-border/60 shadow-sm">
