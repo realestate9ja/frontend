@@ -9,6 +9,10 @@ import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Onboarding from "./pages/Onboarding.tsx";
+import About from "./pages/About.tsx";
+import Contact from "./pages/Contact.tsx";
+import RentPage from "./pages/Rent.tsx";
+import PropertiesPage from "./pages/Properties.tsx";
 
 // Admin
 import AdminLayout from "./components/admin/AdminLayout.tsx";
