@@ -117,7 +117,7 @@ export default function AdminVerifications() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex items-center gap-2 shrink-0 flex-wrap">
                     <Button variant="outline" size="sm" className="h-8 gap-1 text-xs">
                       <Eye className="h-3 w-3" /> Review
                     </Button>
