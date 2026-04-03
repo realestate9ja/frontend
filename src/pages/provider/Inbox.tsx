@@ -115,7 +115,7 @@ export default function LeadInbox() {
                         <div className="flex gap-2 mt-4 pt-3 border-t border-border/60">
                           {lead.status === "New" ? (
                             <>
-                              <Button size="sm" className="gap-1" onClick={() => openOfferSheet(lead)}><Zap className="h-3.5 w-3.5" /> Send Offer</Button>
+                              <Button size="sm" className="gap-1" onClick={() => navigate(`/provider/inbox/${lead.id}/offer?need=${encodeURIComponent(lead.need)}&leadId=${lead.id}`)}><Zap className="h-3.5 w-3.5" /> Send Offer</Button>
                               <Button size="sm" variant="outline" onClick={() => navigate(`/provider/inbox/${lead.id}`)}>View Details</Button>
                               <Button size="sm" variant="ghost" className="ml-auto text-muted-foreground">Skip</Button>
                             </>
