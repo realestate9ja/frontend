@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Clock, MapPin, DollarSign, Zap, CheckCircle2, SlidersHorizontal } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { SendOfferSheet } from "@/components/provider/SendOfferSheet";
+
 
 const initialLeads = [
   { id: 1, need: "3 Bed Flat in Lekki Phase 1", budget: "₦2,500,000/yr", location: "Lekki, Lagos", type: "Rent", moveIn: "April 2024", posted: "15 min ago", sla: 12, features: ["24hr Power", "Security", "Parking"], status: "New", initials: "AT" },
@@ -27,20 +27,9 @@ const slaBg = (sla: number) => sla <= 15 ? "bg-destructive" : "bg-amber-500";
 export default function LeadInbox() {
   const navigate = useNavigate();
   const [leads, setLeads] = useState(initialLeads);
-  const [offerSheet, setOfferSheet] = useState<{ open: boolean; leadId: number | null; leadNeed: string }>({ open: false, leadId: null, leadNeed: "" });
 
   const newLeads = leads.filter(l => l.status === "New");
   const responded = leads.filter(l => l.status === "Responded");
-
-  const handleOfferSent = () => {
-    if (offerSheet.leadId) {
-      setLeads(prev => prev.map(l => l.id === offerSheet.leadId ? { ...l, status: "Responded", sla: 0 } : l));
-    }
-  };
-
-  const openOfferSheet = (lead: typeof initialLeads[0]) => {
-    setOfferSheet({ open: true, leadId: lead.id, leadNeed: lead.need });
-  };
 
   return (
     <div className="space-y-6">
@@ -126,7 +115,7 @@ export default function LeadInbox() {
                         <div className="flex gap-2 mt-4 pt-3 border-t border-border/60">
                           {lead.status === "New" ? (
                             <>
-                              <Button size="sm" className="gap-1" onClick={() => openOfferSheet(lead)}><Zap className="h-3.5 w-3.5" /> Send Offer</Button>
+                              <Button size="sm" className="gap-1" onClick={() => navigate(`/provider/inbox/${lead.id}/offer?need=${encodeURIComponent(lead.need)}&leadId=${lead.id}`)}><Zap className="h-3.5 w-3.5" /> Send Offer</Button>
                               <Button size="sm" variant="outline" onClick={() => navigate(`/provider/inbox/${lead.id}`)}>View Details</Button>
                               <Button size="sm" variant="ghost" className="ml-auto text-muted-foreground">Skip</Button>
                             </>
@@ -149,12 +138,6 @@ export default function LeadInbox() {
         })}
       </Tabs>
 
-      <SendOfferSheet
-        open={offerSheet.open}
-        onOpenChange={(open) => setOfferSheet(prev => ({ ...prev, open }))}
-        leadNeed={offerSheet.leadNeed}
-        onOfferSent={handleOfferSent}
-      />
     </div>
   );
 }

@@ -41,7 +41,7 @@ import Payouts from "./pages/provider/Payouts.tsx";
 import ProviderCalendar from "./pages/provider/Calendar.tsx";
 import ProviderSettings from "./pages/provider/Settings.tsx";
 import LeadDetail from "./pages/provider/LeadDetail.tsx";
-
+import SendOffer from "./pages/provider/SendOffer.tsx";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -85,6 +85,7 @@ const App = () => (
             <Route index element={<ProviderDashboard />} />
             <Route path="inbox" element={<LeadInbox />} />
             <Route path="inbox/:id" element={<LeadDetail />} />
+            <Route path="inbox/:id/offer" element={<SendOffer />} />
             <Route path="listings" element={<Listings />} />
             <Route path="listings/new" element={<AddListing />} />
             <Route path="payouts" element={<Payouts />} />
