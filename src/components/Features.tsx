@@ -1,5 +1,7 @@
 import { BarChart3, Brain, MapPin, Shield, Headphones, Eye } from "lucide-react";
 
+import MarketingShell from "@/components/layout/MarketingShell";
+
 const stats = [
   { value: "2,450+", label: "Properties Sold" },
   { value: "98%", label: "Client Satisfaction" },
@@ -28,83 +30,86 @@ const features = [
 const Features = () => {
   return (
     <>
-      {/* Stats Bar - Light background like reference */}
       <section className="px-6 lg:px-16 xl:px-20 py-16 border-y border-border/50">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="text-3xl lg:text-4xl font-mono font-medium text-primary mb-1.5 tracking-tight">{stat.value}</p>
-              <p className="text-[11px] text-muted-foreground uppercase tracking-[0.2em] font-medium">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Why Choose section */}
-      <section className="px-6 lg:px-16 xl:px-20 py-20">
-        <div className="text-center mb-14">
-          <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Why Choose Dwello?</p>
-          <h2 className="font-serif text-3xl lg:text-4xl text-foreground mb-4">
-            Smart Property Intelligence
-          </h2>
-          <p className="text-muted-foreground text-[15px] max-w-lg mx-auto leading-relaxed">
-            We leverage advanced tools to give you a competitive edge in the market, turning data into your dream home.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="group bg-card rounded-xl p-8 border border-border/50 hover:border-primary/20 hover:shadow-lg transition-all duration-300"
-            >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/15 transition-colors">
-                <feature.icon className="w-6 h-6 text-primary" />
+        <MarketingShell>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-3xl lg:text-4xl font-mono font-medium text-primary mb-1.5 tracking-tight">{stat.value}</p>
+                <p className="text-[11px] text-muted-foreground uppercase tracking-[0.2em] font-medium">{stat.label}</p>
               </div>
-              <h3 className="font-serif text-lg text-foreground mb-2">{feature.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </MarketingShell>
       </section>
 
-      {/* Trust / Redefining Section */}
       <section className="px-6 lg:px-16 xl:px-20 py-20">
-        <div className="text-center mb-14">
-          <h2 className="font-serif text-3xl lg:text-4xl text-foreground">Redefining Real Estate</h2>
-          <div className="w-16 h-1 bg-primary mx-auto mt-4 rounded-full" />
-        </div>
+        <MarketingShell>
+          <div className="text-center mb-14">
+            <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Why Choose Dwello?</p>
+            <h2 className="font-serif text-3xl lg:text-4xl text-foreground mb-4">
+              Smart Property Intelligence
+            </h2>
+            <p className="text-muted-foreground text-[15px] max-w-lg mx-auto leading-relaxed">
+              We leverage advanced tools to give you a competitive edge in the market, turning data into your dream home.
+            </p>
+          </div>
 
-        <div className="flex flex-col lg:flex-row gap-12 items-center">
-          <div className="flex-1">
-            <div className="rounded-xl border border-border/50 p-3 bg-card">
-              <img
-                src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=420&fit=crop"
-                alt="Modern home interior"
-                className="w-full h-[380px] object-cover rounded-lg"
-              />
-            </div>
-          </div>
-          <div className="flex-1">
-            <div className="space-y-8">
-              {[
-                { icon: Shield, title: "Verified Listings Only", desc: "Every property on our platform is physically verified by our team to ensure what you see is what you get." },
-                { icon: Headphones, title: "24/7 Concierge Support", desc: "Our dedicated team is always available to answer questions, schedule viewings, and provide expert advice." },
-                { icon: Eye, title: "Transparent Pricing", desc: "No hidden fees. We provide clear, upfront cost breakdowns so you can budget with confidence." },
-              ].map((item) => (
-                <div key={item.title} className="flex gap-4">
-                  <div className="w-11 h-11 rounded-full bg-primary flex items-center justify-center shrink-0">
-                    <item.icon className="w-5 h-5 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <h4 className="font-serif text-base text-foreground mb-1">{item.title}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {features.map((feature) => (
+              <div
+                key={feature.title}
+                className="group bg-card rounded-xl p-8 border border-border/50 hover:border-primary/20 hover:shadow-lg transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/15 transition-colors">
+                  <feature.icon className="w-6 h-6 text-primary" />
                 </div>
-              ))}
+                <h3 className="font-serif text-lg text-foreground mb-2">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </MarketingShell>
+      </section>
+
+      <section className="px-6 lg:px-16 xl:px-20 py-20">
+        <MarketingShell>
+          <div className="text-center mb-14">
+            <h2 className="font-serif text-3xl lg:text-4xl text-foreground">Redefining Real Estate</h2>
+            <div className="w-16 h-1 bg-primary mx-auto mt-4 rounded-full" />
+          </div>
+
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
+            <div className="flex-1">
+              <div className="rounded-xl border border-border/50 p-3 bg-card">
+                <img
+                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=420&fit=crop"
+                  alt="Modern home interior"
+                  className="w-full h-[380px] object-cover rounded-lg"
+                />
+              </div>
+            </div>
+            <div className="flex-1">
+              <div className="space-y-8">
+                {[
+                  { icon: Shield, title: "Verified Listings Only", desc: "Every property on our platform is physically verified by our team to ensure what you see is what you get." },
+                  { icon: Headphones, title: "24/7 Concierge Support", desc: "Our dedicated team is always available to answer questions, schedule viewings, and provide expert advice." },
+                  { icon: Eye, title: "Transparent Pricing", desc: "No hidden fees. We provide clear, upfront cost breakdowns so you can budget with confidence." },
+                ].map((item) => (
+                  <div key={item.title} className="flex gap-4">
+                    <div className="w-11 h-11 rounded-full bg-primary flex items-center justify-center shrink-0">
+                      <item.icon className="w-5 h-5 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <h4 className="font-serif text-base text-foreground mb-1">{item.title}</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        </MarketingShell>
       </section>
     </>
   );

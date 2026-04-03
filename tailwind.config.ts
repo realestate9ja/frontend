@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Poppins", "ui-sans-serif", "system-ui", "sans-serif"],
-        serif: ["DM Serif Display", "Georgia", "serif"],
+        sans: ["Manrope", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["Marcellus", "Georgia", "serif"],
         mono: ["DM Mono", "ui-monospace", "monospace"],
       },
       colors: {

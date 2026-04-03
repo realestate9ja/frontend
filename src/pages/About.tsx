@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MarketingShell from "@/components/layout/MarketingShell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Shield, Users, Target, Heart, Award, Eye, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -34,6 +35,7 @@ const About = () => {
 
       {/* Hero */}
       <section className="px-6 lg:px-16 xl:px-20 pt-28 pb-20 bg-secondary/30">
+        <MarketingShell>
         <div className="flex flex-col lg:flex-row items-center gap-16">
           <div className="flex-1 max-w-xl">
             <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">About Dwello</p>
@@ -59,10 +61,12 @@ const About = () => {
             </div>
           </div>
         </div>
+        </MarketingShell>
       </section>
 
       {/* Stats */}
       <section className="px-6 lg:px-16 xl:px-20 py-16 border-y border-border/50">
+        <MarketingShell>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat) => (
             <div key={stat.label} className="text-center">
@@ -71,10 +75,12 @@ const About = () => {
             </div>
           ))}
         </div>
+        </MarketingShell>
       </section>
 
       {/* Values */}
       <section className="px-6 lg:px-16 xl:px-20 py-20">
+        <MarketingShell>
         <div className="text-center mb-14">
           <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Our Foundation</p>
           <h2 className="font-serif text-3xl lg:text-4xl text-foreground mb-4">Core Values</h2>
@@ -96,10 +102,12 @@ const About = () => {
             </div>
           ))}
         </div>
+        </MarketingShell>
       </section>
 
       {/* Team */}
       <section className="px-6 lg:px-16 xl:px-20 py-20 bg-secondary/60">
+        <MarketingShell>
         <div className="text-center mb-14">
           <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Our People</p>
           <h2 className="font-serif text-3xl lg:text-4xl text-foreground mb-4">Meet the Team</h2>
@@ -118,10 +126,12 @@ const About = () => {
             </div>
           ))}
         </div>
+        </MarketingShell>
       </section>
 
       {/* Mission */}
       <section className="px-6 lg:px-16 xl:px-20 py-20">
+        <MarketingShell>
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           <div className="flex-1">
             <div className="rounded-xl border border-border/50 p-3 bg-card">
@@ -157,10 +167,12 @@ const About = () => {
             </div>
           </div>
         </div>
+        </MarketingShell>
       </section>
 
       {/* CTA */}
       <section className="px-6 lg:px-16 xl:px-20 py-20 bg-[hsl(var(--dark-bg))]">
+        <MarketingShell>
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="font-serif text-3xl lg:text-4xl text-primary-foreground mb-4">
             Ready to Join the Dwello Family?
@@ -177,6 +189,7 @@ const About = () => {
             </Button>
           </div>
         </div>
+        </MarketingShell>
       </section>
 
       <Footer />

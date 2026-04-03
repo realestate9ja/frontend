@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MarketingShell from "@/components/layout/MarketingShell";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Search, Shield, FileText, Key, ArrowRight, Users, Clock, Sparkles, Bed, Bath, MapPin, Star, Maximize } from "lucide-react";
@@ -38,6 +39,7 @@ const Rent = () => {
 
       {/* Hero */}
       <section className="px-6 lg:px-16 xl:px-20 pt-28 pb-20 bg-secondary/30">
+        <MarketingShell>
         <div className="flex flex-col lg:flex-row items-center gap-16">
           <div className="flex-1 max-w-xl">
             <div className="inline-flex items-center gap-2 bg-primary/8 border border-primary/15 rounded-full px-4 py-1.5 mb-6">
@@ -89,10 +91,12 @@ const Rent = () => {
             </div>
           </div>
         </div>
+        </MarketingShell>
       </section>
 
       {/* How it Works - matching ValueProposition layout */}
       <section className="px-6 lg:px-16 xl:px-20 py-20 bg-secondary/60">
+        <MarketingShell>
         <div className="flex flex-col lg:flex-row gap-16">
           <div className="lg:w-[340px] shrink-0">
             <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Process</p>
@@ -121,10 +125,12 @@ const Rent = () => {
             ))}
           </div>
         </div>
+        </MarketingShell>
       </section>
 
       {/* Categories - bento grid style */}
       <section className="px-6 lg:px-16 xl:px-20 py-20">
+        <MarketingShell>
         <div className="flex items-end justify-between mb-12">
           <div>
             <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Categories</p>
@@ -148,10 +154,12 @@ const Rent = () => {
             </Link>
           ))}
         </div>
+        </MarketingShell>
       </section>
 
       {/* Featured Properties */}
       <section className="px-6 lg:px-16 xl:px-20 py-20">
+        <MarketingShell>
         <div className="flex items-end justify-between mb-12">
           <div>
             <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Top Picks</p>
@@ -199,10 +207,12 @@ const Rent = () => {
             </div>
           ))}
         </div>
+        </MarketingShell>
       </section>
 
       {/* Benefits */}
       <section className="px-6 lg:px-16 xl:px-20 py-20">
+        <MarketingShell>
         <div className="text-center mb-14">
           <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Why Dwello</p>
           <h2 className="font-serif text-3xl lg:text-4xl text-foreground mb-4">
@@ -223,10 +233,12 @@ const Rent = () => {
             </div>
           ))}
         </div>
+        </MarketingShell>
       </section>
 
       {/* CTA */}
       <section className="px-6 lg:px-16 xl:px-20 py-20 bg-[hsl(var(--dark-bg))]">
+        <MarketingShell>
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="font-serif text-3xl lg:text-4xl text-primary-foreground mb-4">
             Ready to Find Your Dream Home?
@@ -243,6 +255,7 @@ const Rent = () => {
             </Button>
           </div>
         </div>
+        </MarketingShell>
       </section>
 
       <Footer />

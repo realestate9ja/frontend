@@ -54,6 +54,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
   }
 }

@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MarketingShell from "@/components/layout/MarketingShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -37,20 +38,23 @@ const Contact = () => {
 
       {/* Hero */}
       <section className="px-6 lg:px-16 xl:px-20 pt-28 pb-20 bg-secondary/30">
-        <div className="max-w-2xl">
-          <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Contact Us</p>
-          <h1 className="font-serif text-4xl lg:text-5xl text-foreground leading-[1.15] mb-5">
-            We'd Love to{" "}
-            <span className="italic text-primary">Hear From You</span>
-          </h1>
-          <p className="text-muted-foreground text-[15px] leading-relaxed max-w-md">
-            Have questions, feedback, or need support? Our team is here to help you with anything related to your rental journey.
-          </p>
-        </div>
+        <MarketingShell>
+          <div className="max-w-2xl mx-auto text-center">
+            <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Contact Us</p>
+            <h1 className="font-serif text-4xl lg:text-5xl text-foreground leading-[1.15] mb-5">
+              We'd Love to{" "}
+              <span className="italic text-primary">Hear From You</span>
+            </h1>
+            <p className="text-muted-foreground text-[15px] leading-relaxed max-w-md mx-auto">
+              Have questions, feedback, or need support? Our team is here to help you with anything related to your rental journey.
+            </p>
+          </div>
+        </MarketingShell>
       </section>
 
       {/* Form + Info */}
       <section className="px-6 lg:px-16 xl:px-20 py-20">
+        <MarketingShell>
         <div className="flex flex-col lg:flex-row gap-16">
           {/* Form */}
           <div className="flex-1 lg:flex-[1.6]">
@@ -112,10 +116,12 @@ const Contact = () => {
             </div>
           </div>
         </div>
+        </MarketingShell>
       </section>
 
       {/* FAQ */}
       <section className="px-6 lg:px-16 xl:px-20 py-20 bg-secondary/60">
+        <MarketingShell>
         <div className="text-center mb-14">
           <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Support</p>
           <h2 className="font-serif text-3xl lg:text-4xl text-foreground">Frequently Asked Questions</h2>
@@ -128,10 +134,12 @@ const Contact = () => {
             </div>
           ))}
         </div>
+        </MarketingShell>
       </section>
 
       {/* CTA */}
       <section className="px-6 lg:px-16 xl:px-20 py-20 bg-[hsl(var(--dark-bg))]">
+        <MarketingShell>
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="font-serif text-3xl lg:text-4xl text-primary-foreground mb-4">
             Can't Find What You're Looking For?
@@ -143,6 +151,7 @@ const Contact = () => {
             Schedule a Call <ArrowRight className="w-4 h-4" />
           </Button>
         </div>
+        </MarketingShell>
       </section>
 
       <Footer />

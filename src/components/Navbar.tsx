@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import MarketingShell from "@/components/layout/MarketingShell";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -29,52 +30,54 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-background border-b border-border/60">
-      <div className="flex items-center justify-between px-4 sm:px-6 lg:px-16 xl:px-20 py-3 sm:py-4">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 bg-primary rounded-lg flex items-center justify-center">
-            <Home className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
-          </div>
-          <span className="text-lg sm:text-xl font-bold text-foreground tracking-tight">Dwello</span>
-        </Link>
-
-        {/* Desktop nav links */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={cn(
-                "text-sm transition-colors",
-                location.pathname === link.to
-                  ? "font-medium text-primary"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-
-        {/* Desktop auth buttons */}
-        <div className="hidden md:flex items-center gap-5">
-          <Link to="/login" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-            Sign In
+      <MarketingShell className="px-4 sm:px-6 py-3 sm:py-4">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 bg-primary rounded-lg flex items-center justify-center">
+              <Home className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
+            </div>
+            <span className="text-lg sm:text-xl font-bold text-foreground tracking-tight">Dwello</span>
           </Link>
-          <Button asChild className="rounded-lg px-6 py-2.5 bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-medium">
-            <Link to="/signup">Sign Up</Link>
-          </Button>
-        </div>
 
-        {/* Mobile hamburger button */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg hover:bg-accent transition-colors"
-          aria-label={open ? "Close menu" : "Open menu"}
-        >
-          {open ? <X className="w-5 h-5 text-foreground" /> : <Menu className="w-5 h-5 text-foreground" />}
-        </button>
-      </div>
+          {/* Desktop nav links */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={cn(
+                  "text-sm transition-colors",
+                  location.pathname === link.to
+                    ? "font-medium text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Desktop auth buttons */}
+          <div className="hidden md:flex items-center gap-5">
+            <Link to="/login" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+              Sign In
+            </Link>
+            <Button asChild className="rounded-lg px-6 py-2.5 bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-medium">
+              <Link to="/signup">Sign Up</Link>
+            </Button>
+          </div>
+
+          {/* Mobile hamburger button */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg hover:bg-accent transition-colors"
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            {open ? <X className="w-5 h-5 text-foreground" /> : <Menu className="w-5 h-5 text-foreground" />}
+          </button>
+        </div>
+      </MarketingShell>
 
       {/* Mobile menu overlay */}
       {open && (

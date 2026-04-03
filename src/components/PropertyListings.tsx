@@ -1,4 +1,6 @@
 import { Bed, Bath, Maximize, ArrowRight, MapPin, Star } from "lucide-react";
+
+import MarketingShell from "@/components/layout/MarketingShell";
 import { Button } from "@/components/ui/button";
 
 const properties = [
@@ -55,32 +57,26 @@ const properties = [
 const PropertyListings = () => {
   return (
     <section className="px-6 lg:px-16 xl:px-20 py-20">
-      <div className="flex items-end justify-between mb-12">
-        <div>
-          <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">
-            Exclusive Selection
-          </p>
-          <h2 className="font-serif text-3xl lg:text-4xl text-foreground">Curated Listings</h2>
+      <MarketingShell>
+        <div className="flex items-end justify-between mb-12">
+          <div>
+            <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">
+              Exclusive Selection
+            </p>
+            <h2 className="font-serif text-3xl lg:text-4xl text-foreground">Curated Listings</h2>
+          </div>
+          <Button variant="ghost" className="gap-2 text-primary hover:text-primary/80 hover:bg-transparent text-sm font-medium px-0">
+            View All Properties <ArrowRight className="w-4 h-4" />
+          </Button>
         </div>
-        <Button variant="ghost" className="gap-2 text-primary hover:text-primary/80 hover:bg-transparent text-sm font-medium px-0">
-          View All Properties <ArrowRight className="w-4 h-4" />
-        </Button>
-      </div>
 
-      {/* Bento Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {/* Large featured card - spans 2 cols */}
-        <PropertyCard property={properties[0]} className="lg:col-span-2 h-[380px]" featured />
-
-        {/* Smaller card */}
-        <PropertyCard property={properties[1]} className="h-[380px]" />
-
-        {/* Bottom left */}
-        <PropertyCard property={properties[2]} className="h-[380px]" />
-
-        {/* Bottom right - spans 2 cols */}
-        <PropertyCard property={properties[3]} className="lg:col-span-2 h-[380px]" />
-      </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <PropertyCard property={properties[0]} className="lg:col-span-2 h-[380px]" featured />
+          <PropertyCard property={properties[1]} className="h-[380px]" />
+          <PropertyCard property={properties[2]} className="h-[380px]" />
+          <PropertyCard property={properties[3]} className="lg:col-span-2 h-[380px]" />
+        </div>
+      </MarketingShell>
     </section>
   );
 };
@@ -94,7 +90,6 @@ function PropertyCard({ property, className = "", featured = false }: { property
         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
       />
 
-      {/* Match badge */}
       <div className="absolute top-3 left-3">
         {featured && (
           <span className="inline-block bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1 rounded font-mono uppercase tracking-wider">
@@ -103,7 +98,6 @@ function PropertyCard({ property, className = "", featured = false }: { property
         )}
       </div>
 
-      {/* Overlay card */}
       <div className="absolute bottom-3 left-3 right-3 bg-card/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-border/30">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
@@ -126,7 +120,6 @@ function PropertyCard({ property, className = "", featured = false }: { property
           </div>
         </div>
 
-        {/* Bottom row */}
         <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-border/40">
           <div className="flex items-center gap-3 text-xs text-muted-foreground">
             <span className="flex items-center gap-1">

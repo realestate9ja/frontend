@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MarketingShell from "@/components/layout/MarketingShell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -36,18 +37,19 @@ const Properties = () => {
 
       {/* Hero / Filter Bar */}
       <section className="px-6 lg:px-16 xl:px-20 pt-28 pb-16 bg-secondary/30">
-        <div className="max-w-2xl mb-10">
-          <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Explore</p>
-          <h1 className="font-serif text-4xl lg:text-5xl text-foreground leading-[1.15] mb-5">
-            Browse <span className="italic text-primary">Properties</span>
-          </h1>
-          <p className="text-muted-foreground text-[15px] leading-relaxed max-w-md">
-            Discover verified rental properties curated to match your lifestyle, budget, and preferences.
-          </p>
-        </div>
+        <MarketingShell>
+          <div className="max-w-2xl mx-auto mb-10 text-center">
+            <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Explore</p>
+            <h1 className="font-serif text-4xl lg:text-5xl text-foreground leading-[1.15] mb-5">
+              Browse <span className="italic text-primary">Properties</span>
+            </h1>
+            <p className="text-muted-foreground text-[15px] leading-relaxed max-w-md mx-auto">
+              Discover verified rental properties curated to match your lifestyle, budget, and preferences.
+            </p>
+          </div>
 
         {/* Search bar - matching hero style */}
-        <div className="max-w-3xl">
+          <div className="max-w-3xl mx-auto">
           <div className="bg-card border border-border rounded-2xl p-3 shadow-md">
             <div className="flex flex-col sm:flex-row items-center gap-2">
               <div className="relative flex-1 w-full">
@@ -83,117 +85,122 @@ const Properties = () => {
             </div>
           </div>
         </div>
+        </MarketingShell>
       </section>
 
       {/* Results */}
       <section className="px-6 lg:px-16 xl:px-20 py-16">
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-2">Results</p>
-            <p className="text-sm text-muted-foreground">{filtered.length} properties found</p>
+        <MarketingShell>
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-2">Results</p>
+              <p className="text-sm text-muted-foreground">{filtered.length} properties found</p>
+            </div>
           </div>
-        </div>
 
-        {viewMode === "grid" ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {filtered.map((property) => (
-              <div key={property.id} className="relative group rounded-2xl overflow-hidden cursor-pointer h-[340px]">
-                <img
-                  src={property.image}
-                  alt={property.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                {/* Match badge */}
-                <div className="absolute top-3 left-3">
-                  <span className="inline-block bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1 rounded font-mono uppercase tracking-wider">
-                    {property.match}% match
-                  </span>
-                </div>
-                {/* Overlay card */}
-                <div className="absolute bottom-3 left-3 right-3 bg-card/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-border/30">
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <h3 className="font-semibold text-foreground text-sm truncate">{property.title}</h3>
-                    <p className="font-bold text-foreground text-sm font-mono shrink-0">{property.price}</p>
-                  </div>
-                  <p className="text-[11px] text-muted-foreground flex items-center gap-1 font-mono uppercase tracking-wider mb-2.5">
-                    <MapPin className="h-3 w-3 shrink-0" /> {property.location}
-                  </p>
-                  <div className="flex items-center justify-between pt-2.5 border-t border-border/40">
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1"><Bed className="w-3.5 h-3.5" /> {property.beds}</span>
-                      <span className="flex items-center gap-1"><Bath className="w-3.5 h-3.5" /> {property.baths}</span>
-                      <span className="flex items-center gap-1"><Maximize className="w-3 h-3" /> {property.sqft}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1"><Star className="h-3 w-3 fill-amber-400 text-amber-400" /> <span className="font-medium text-foreground">{property.rating}</span></span>
-                      <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {property.views}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {filtered.map((property) => (
-              <div key={property.id} className="bg-card rounded-xl border border-border/50 hover:border-primary/20 hover:shadow-lg transition-all duration-300 overflow-hidden">
-                <div className="flex gap-0">
-                  <div className="relative w-48 h-36 shrink-0">
-                    <img src={property.image} alt={property.title} className="w-full h-full object-cover" />
-                    <span className="absolute top-2 left-2 inline-block bg-primary text-primary-foreground text-[9px] font-bold px-2 py-0.5 rounded font-mono uppercase tracking-wider">
-                      {property.match}%
+          {viewMode === "grid" ? (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {filtered.map((property) => (
+                <div key={property.id} className="relative group rounded-2xl overflow-hidden cursor-pointer h-[340px]">
+                  <img
+                    src={property.image}
+                    alt={property.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  {/* Match badge */}
+                  <div className="absolute top-3 left-3">
+                    <span className="inline-block bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1 rounded font-mono uppercase tracking-wider">
+                      {property.match}% match
                     </span>
                   </div>
-                  <div className="flex-1 p-5 flex flex-col justify-between">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <h3 className="font-serif text-base text-foreground mb-1">{property.title}</h3>
-                        <p className="text-[11px] text-muted-foreground flex items-center gap-1 font-mono uppercase tracking-wider">
-                          <MapPin className="h-3 w-3" /> {property.location}
-                        </p>
-                      </div>
-                      <div className="text-right shrink-0">
-                        <p className="font-bold text-foreground font-mono text-base">{property.price}</p>
-                        <p className="text-[11px] text-muted-foreground font-mono">{property.period}</p>
-                      </div>
+                  {/* Overlay card */}
+                  <div className="absolute bottom-3 left-3 right-3 bg-card/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-border/30">
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h3 className="font-semibold text-foreground text-sm truncate">{property.title}</h3>
+                      <p className="font-bold text-foreground text-sm font-mono shrink-0">{property.price}</p>
                     </div>
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground mt-3 pt-3 border-t border-border/40">
-                      <Badge variant="secondary" className="text-[10px] font-mono uppercase tracking-wider">{property.type}</Badge>
-                      <span className="flex items-center gap-1"><Bed className="w-3.5 h-3.5" /> {property.beds} Beds</span>
-                      <span className="flex items-center gap-1"><Bath className="w-3.5 h-3.5" /> {property.baths} Baths</span>
-                      <span className="flex items-center gap-1"><Maximize className="w-3 h-3" /> {property.sqft} sqft</span>
-                      <span className="flex items-center gap-1"><Star className="h-3 w-3 fill-amber-400 text-amber-400" /> <span className="font-medium text-foreground">{property.rating}</span></span>
-                      <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {property.views}</span>
+                    <p className="text-[11px] text-muted-foreground flex items-center gap-1 font-mono uppercase tracking-wider mb-2.5">
+                      <MapPin className="h-3 w-3 shrink-0" /> {property.location}
+                    </p>
+                    <div className="flex items-center justify-between pt-2.5 border-t border-border/40">
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-1"><Bed className="w-3.5 h-3.5" /> {property.beds}</span>
+                        <span className="flex items-center gap-1"><Bath className="w-3.5 h-3.5" /> {property.baths}</span>
+                        <span className="flex items-center gap-1"><Maximize className="w-3 h-3" /> {property.sqft}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-1"><Star className="h-3 w-3 fill-amber-400 text-amber-400" /> <span className="font-medium text-foreground">{property.rating}</span></span>
+                        <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {property.views}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {filtered.map((property) => (
+                <div key={property.id} className="bg-card rounded-xl border border-border/50 hover:border-primary/20 hover:shadow-lg transition-all duration-300 overflow-hidden">
+                  <div className="flex gap-0">
+                    <div className="relative w-48 h-36 shrink-0">
+                      <img src={property.image} alt={property.title} className="w-full h-full object-cover" />
+                      <span className="absolute top-2 left-2 inline-block bg-primary text-primary-foreground text-[9px] font-bold px-2 py-0.5 rounded font-mono uppercase tracking-wider">
+                        {property.match}%
+                      </span>
+                    </div>
+                    <div className="flex-1 p-5 flex flex-col justify-between">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <h3 className="font-serif text-base text-foreground mb-1">{property.title}</h3>
+                          <p className="text-[11px] text-muted-foreground flex items-center gap-1 font-mono uppercase tracking-wider">
+                            <MapPin className="h-3 w-3" /> {property.location}
+                          </p>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className="font-bold text-foreground font-mono text-base">{property.price}</p>
+                          <p className="text-[11px] text-muted-foreground font-mono">{property.period}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4 text-xs text-muted-foreground mt-3 pt-3 border-t border-border/40">
+                        <Badge variant="secondary" className="text-[10px] font-mono uppercase tracking-wider">{property.type}</Badge>
+                        <span className="flex items-center gap-1"><Bed className="w-3.5 h-3.5" /> {property.beds} Beds</span>
+                        <span className="flex items-center gap-1"><Bath className="w-3.5 h-3.5" /> {property.baths} Baths</span>
+                        <span className="flex items-center gap-1"><Maximize className="w-3 h-3" /> {property.sqft} sqft</span>
+                        <span className="flex items-center gap-1"><Star className="h-3 w-3 fill-amber-400 text-amber-400" /> <span className="font-medium text-foreground">{property.rating}</span></span>
+                        <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {property.views}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
-        {filtered.length === 0 && (
-          <div className="text-center py-20">
-            <Search className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
-            <h3 className="font-serif text-lg text-foreground mb-2">No properties found</h3>
-            <p className="text-sm text-muted-foreground">Try adjusting your search or filters.</p>
-          </div>
-        )}
+          {filtered.length === 0 && (
+            <div className="text-center py-20">
+              <Search className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
+              <h3 className="font-serif text-lg text-foreground mb-2">No properties found</h3>
+              <p className="text-sm text-muted-foreground">Try adjusting your search or filters.</p>
+            </div>
+          )}
+        </MarketingShell>
       </section>
 
       {/* CTA */}
       <section className="px-6 lg:px-16 xl:px-20 py-20 bg-[hsl(var(--dark-bg))]">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="font-serif text-3xl lg:text-4xl text-primary-foreground mb-4">
-            Can't Find What You're Looking For?
-          </h2>
-          <p className="text-primary-foreground/40 mb-10 text-[15px] leading-relaxed">
-            Post your housing need and let verified agents come to you with personalized offers.
-          </p>
-          <Button className="rounded-lg px-8 py-6 bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-medium gap-2" asChild>
-            <Link to="/signup">Post Your Need <ArrowRight className="w-4 h-4" /></Link>
-          </Button>
-        </div>
+        <MarketingShell>
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="font-serif text-3xl lg:text-4xl text-primary-foreground mb-4">
+              Can't Find What You're Looking For?
+            </h2>
+            <p className="text-primary-foreground/40 mb-10 text-[15px] leading-relaxed">
+              Post your housing need and let verified agents come to you with personalized offers.
+            </p>
+            <Button className="rounded-lg px-8 py-6 bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-medium gap-2" asChild>
+              <Link to="/signup">Post Your Need <ArrowRight className="w-4 h-4" /></Link>
+            </Button>
+          </div>
+        </MarketingShell>
       </section>
 
       <Footer />
