@@ -18,6 +18,9 @@ const mainItems = [
   { title: "Users", url: "/admin/users", icon: Users },
   { title: "Transactions", url: "/admin/transactions", icon: CreditCard },
   { title: "Disputes", url: "/admin/disputes", icon: AlertTriangle },
+  { title: "Verifications", url: "/admin/verifications", icon: ShieldCheck },
+  { title: "Reports", url: "/admin/reports", icon: BarChart3 },
+  { title: "Announcements", url: "/admin/announcements", icon: Megaphone },
 ];
 
 export function AdminSidebar() {
