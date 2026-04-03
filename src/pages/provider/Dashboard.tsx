@@ -50,7 +50,7 @@ export default function ProviderDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-foreground tracking-tight">Provider Dashboard</h1>
+          <h1 className="text-2xl font-semibold text-foreground tracking-tight">Welcome back, Provider</h1>
           <p className="text-sm text-muted-foreground mt-0.5">Manage your leads, listings, and payouts.</p>
         </div>
         <div className="flex items-center gap-2">
