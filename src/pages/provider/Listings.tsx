@@ -31,8 +31,13 @@ const typeStyles: Record<string, string> = {
 export default function Listings() {
   const navigate = useNavigate();
   const [listings] = useState(initialListings);
-  const active = listings.filter(l => l.status === "Active");
-
+  const [search, setSearch] = useState("");
+  const filtered = listings.filter(l =>
+    l.title.toLowerCase().includes(search.toLowerCase()) ||
+    l.location.toLowerCase().includes(search.toLowerCase()) ||
+    l.type.toLowerCase().includes(search.toLowerCase())
+  );
+  const active = filtered.filter(l => l.status === "Active");
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -66,13 +71,13 @@ export default function Listings() {
 
       <Tabs defaultValue="all" className="space-y-4">
         <TabsList className="bg-muted/50 p-1 h-auto">
-          <TabsTrigger value="all" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">All ({listings.length})</TabsTrigger>
+         <TabsTrigger value="all" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">All ({filtered.length})</TabsTrigger>
           <TabsTrigger value="active" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Active ({active.length})</TabsTrigger>
           <TabsTrigger value="other" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Pending/Draft</TabsTrigger>
         </TabsList>
 
         {["all", "active", "other"].map((tab) => {
-          const items = tab === "active" ? active : tab === "other" ? listings.filter(l => l.status !== "Active") : listings;
+          const items = tab === "active" ? active : tab === "other" ? filtered.filter(l => l.status !== "Active") : filtered;
           return (
             <TabsContent key={tab} value={tab}>
               <Card className="border border-border/60 shadow-sm">
@@ -85,7 +90,7 @@ export default function Listings() {
                     <div className="flex items-center gap-3">
                       <div className="relative">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input placeholder="Search listings..." className="pl-9 w-[220px] h-9" />
+                        <Input placeholder="Search listings..." className="pl-9 w-[220px] h-9" value={search} onChange={(e) => setSearch(e.target.value)} />
                       </div>
                       <Button variant="outline" size="sm" className="gap-1.5"><Filter className="h-3.5 w-3.5" /> Filter</Button>
                     </div>
