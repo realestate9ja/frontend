@@ -1,9 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Star, ShieldCheck, Clock, ArrowUpRight, Zap } from "lucide-react";
+import { Star, ShieldCheck, Clock, ArrowUpRight, Zap, Filter, SlidersHorizontal, Inbox } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const offers = [
   { id: 1, property: "3 Bed Flat, Lekki Phase 1", provider: "Adebayo Johnson", role: "Agent", price: "₦2,500,000/yr", trust: "Verified", rating: 4.8, responseTime: "12 min", match: 95, features: ["24hr Power", "Security", "Parking"], status: "New", initials: "AJ" },
@@ -12,12 +12,6 @@ const offers = [
   { id: 4, property: "2 Bed Serviced, VI", provider: "ShortStay NG", role: "Short-let", price: "₦45,000/night", trust: "Verified", rating: 4.9, responseTime: "5 min", match: 92, features: ["24hr Power", "Furnished", "Pool"], status: "Saved", initials: "SN" },
 ];
 
-const statusStyles: Record<string, string> = {
-  New: "bg-primary/10 text-primary border-primary/20",
-  Viewed: "bg-slate-100 text-slate-600 border-slate-200",
-  Saved: "bg-amber-50 text-amber-600 border-amber-200",
-};
-
 const roleStyles: Record<string, string> = {
   Agent: "bg-primary/10 text-primary",
   Landlord: "bg-blue-500/10 text-blue-600",
@@ -25,81 +19,121 @@ const roleStyles: Record<string, string> = {
 };
 
 const matchColor = (m: number) => m >= 90 ? "text-emerald-600" : m >= 80 ? "text-blue-600" : "text-amber-600";
+const matchBg = (m: number) => m >= 90 ? "bg-emerald-500" : m >= 80 ? "bg-blue-500" : "bg-amber-500";
 
 export default function Offers() {
+  const newCount = offers.filter(o => o.status === "New").length;
+
   return (
     <div className="space-y-6">
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-primary/70 p-6 text-white">
-        <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/4" />
-        <div className="relative">
-          <h2 className="text-xl font-bold">Incoming Offers</h2>
-          <p className="text-white/70 text-sm mt-1">Offers matched to your posted needs, ranked by fit & trust.</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">My Offers</h1>
+          <p className="text-sm text-muted-foreground mt-1">Offers matched to your posted needs, ranked by fit & trust.</p>
         </div>
+        <Button variant="outline" size="sm" className="gap-1.5">
+          <SlidersHorizontal className="h-3.5 w-3.5" /> Filters
+        </Button>
       </div>
 
-      <div className="space-y-4">
-        {offers.map((offer) => (
-          <Card key={offer.id} className="border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
-            <CardContent className="p-0">
-              <div className="flex">
-                {/* Match indicator */}
-                <div className={`w-1.5 ${offer.match >= 90 ? "bg-emerald-500" : offer.match >= 80 ? "bg-blue-500" : "bg-amber-500"}`} />
-                <div className="flex-1 p-5">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex gap-3">
-                      <Avatar className="h-11 w-11 border-2 border-background shadow-sm mt-0.5">
-                        <AvatarFallback className="text-xs bg-primary/10 text-primary font-medium">
-                          {offer.initials}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="space-y-1.5">
-                        <div className="flex items-center gap-2">
-                          <h3 className="font-semibold text-sm">{offer.property}</h3>
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${statusStyles[offer.status]}`}>
-                            {offer.status}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                          <span>{offer.provider}</span>
-                          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${roleStyles[offer.role]}`}>{offer.role}</span>
-                          <span className="flex items-center gap-1">
-                            {offer.trust === "Verified" ? <ShieldCheck className="h-3 w-3 text-emerald-600" /> : <Clock className="h-3 w-3 text-amber-600" />}
-                            {offer.trust}
-                          </span>
-                        </div>
-                        <div className="flex gap-1.5 flex-wrap">
-                          {offer.features.map((f) => (
-                            <span key={f} className="bg-muted px-2 py-0.5 rounded text-xs text-muted-foreground">{f}</span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-right space-y-1.5 shrink-0">
-                      <p className="text-lg font-bold">{offer.price}</p>
-                      <div className="flex items-center gap-1 justify-end text-sm">
-                        <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
-                        <span className="font-medium">{offer.rating}</span>
-                      </div>
-                      <div className={`text-xs font-semibold ${matchColor(offer.match)}`}>
-                        <span className="flex items-center gap-0.5 justify-end">
-                          <ArrowUpRight className="h-3 w-3" />
-                          {offer.match}% match
-                        </span>
-                      </div>
-                      <p className="text-xs text-muted-foreground flex items-center gap-0.5"><Zap className="h-3 w-3" /> {offer.responseTime}</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-2 mt-4 pt-3 border-t">
-                    <Button size="sm" className="bg-primary hover:bg-primary/90">View Details</Button>
-                    <Button size="sm" variant="outline">Schedule Viewing</Button>
-                    <Button size="sm" variant="ghost">Save</Button>
-                  </div>
-                </div>
-              </div>
+      {/* Stats row */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {[
+          { label: "Total Offers", value: offers.length.toString(), accent: "text-foreground" },
+          { label: "New", value: newCount.toString(), accent: "text-primary" },
+          { label: "Avg Match", value: `${Math.round(offers.reduce((a, o) => a + o.match, 0) / offers.length)}%`, accent: "text-emerald-600" },
+          { label: "Top Rating", value: "4.9", accent: "text-amber-600" },
+        ].map((s) => (
+          <Card key={s.label} className="border border-border/60 shadow-sm">
+            <CardContent className="p-4">
+              <p className="text-xs text-muted-foreground">{s.label}</p>
+              <p className={`text-xl font-bold mt-0.5 ${s.accent}`}>{s.value}</p>
             </CardContent>
           </Card>
         ))}
       </div>
+
+      <Tabs defaultValue="all" className="space-y-4">
+        <TabsList className="bg-muted/50 p-1 h-auto">
+          <TabsTrigger value="all" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">All ({offers.length})</TabsTrigger>
+          <TabsTrigger value="new" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">New ({newCount})</TabsTrigger>
+          <TabsTrigger value="saved" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Saved</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="all" className="space-y-3">
+          {offers.map((offer) => (
+            <OfferCard key={offer.id} offer={offer} />
+          ))}
+        </TabsContent>
+        <TabsContent value="new" className="space-y-3">
+          {offers.filter(o => o.status === "New").map((offer) => (
+            <OfferCard key={offer.id} offer={offer} />
+          ))}
+        </TabsContent>
+        <TabsContent value="saved" className="space-y-3">
+          {offers.filter(o => o.status === "Saved").map((offer) => (
+            <OfferCard key={offer.id} offer={offer} />
+          ))}
+        </TabsContent>
+      </Tabs>
     </div>
+  );
+}
+
+function OfferCard({ offer }: { offer: typeof offers[0] }) {
+  return (
+    <Card className="border border-border/60 shadow-sm hover:shadow-md transition-all duration-200 group">
+      <CardContent className="p-0">
+        <div className="flex">
+          <div className={`w-1 shrink-0 rounded-l-lg ${matchBg(offer.match)}`} />
+          <div className="flex-1 p-5">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex gap-3 min-w-0">
+                <Avatar className="h-10 w-10 border border-border/60 shrink-0">
+                  <AvatarFallback className="text-xs bg-primary/10 text-primary font-medium">{offer.initials}</AvatarFallback>
+                </Avatar>
+                <div className="min-w-0 space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="font-semibold text-sm text-foreground truncate">{offer.property}</h3>
+                    {offer.status === "New" && (
+                      <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
+                    <span className="font-medium">{offer.provider}</span>
+                    <span className={`px-1.5 py-0.5 rounded text-[11px] font-medium ${roleStyles[offer.role]}`}>{offer.role}</span>
+                    <span className="flex items-center gap-0.5">
+                      {offer.trust === "Verified" ? <ShieldCheck className="h-3 w-3 text-emerald-600" /> : <Clock className="h-3 w-3 text-amber-500" />}
+                      {offer.trust}
+                    </span>
+                  </div>
+                  <div className="flex gap-1.5 flex-wrap pt-0.5">
+                    {offer.features.map((f) => (
+                      <span key={f} className="bg-muted px-2 py-0.5 rounded text-[11px] text-muted-foreground">{f}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="text-right space-y-1 shrink-0">
+                <p className="text-base font-bold text-foreground">{offer.price}</p>
+                <div className="flex items-center gap-1 justify-end text-xs">
+                  <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+                  <span className="font-medium text-foreground">{offer.rating}</span>
+                </div>
+                <p className={`text-xs font-semibold ${matchColor(offer.match)} flex items-center gap-0.5 justify-end`}>
+                  <ArrowUpRight className="h-3 w-3" />{offer.match}%
+                </p>
+                <p className="text-[11px] text-muted-foreground flex items-center gap-0.5 justify-end"><Zap className="h-3 w-3" />{offer.responseTime}</p>
+              </div>
+            </div>
+            <div className="flex gap-2 mt-4 pt-3 border-t border-border/60">
+              <Button size="sm">View Details</Button>
+              <Button size="sm" variant="outline">Schedule Viewing</Button>
+              <Button size="sm" variant="ghost" className="ml-auto text-muted-foreground">Save</Button>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
