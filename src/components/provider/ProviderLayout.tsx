@@ -53,7 +53,7 @@ export default function ProviderLayout() {
               </Link>
             </div>
           </header>
-          <main className="flex-1 p-6 overflow-auto">
+          <main className="flex-1 p-3 sm:p-6 overflow-auto">
             <Outlet />
           </main>
         </div>
