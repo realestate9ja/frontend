@@ -31,8 +31,13 @@ const typeStyles: Record<string, string> = {
 export default function Listings() {
   const navigate = useNavigate();
   const [listings] = useState(initialListings);
-  const active = listings.filter(l => l.status === "Active");
-
+  const [search, setSearch] = useState("");
+  const filtered = listings.filter(l =>
+    l.title.toLowerCase().includes(search.toLowerCase()) ||
+    l.location.toLowerCase().includes(search.toLowerCase()) ||
+    l.type.toLowerCase().includes(search.toLowerCase())
+  );
+  const active = filtered.filter(l => l.status === "Active");
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
