@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Search, MoreHorizontal, Building2, MapPin, Plus, Filter } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -49,9 +48,9 @@ export default function Properties() {
           { label: "Rejected", value: "354", sub: "-8% vs last month", accent: "text-destructive" },
         ].map((s) => (
           <Card key={s.label} className="border border-border/60 shadow-sm">
-            <CardContent className="p-4">
+            <CardContent className="p-3 sm:p-4">
               <p className="text-xs text-muted-foreground">{s.label}</p>
-              <p className={`text-xl font-bold mt-0.5 ${s.accent}`}>{s.value}</p>
+              <p className={`text-lg sm:text-xl font-bold mt-0.5 ${s.accent}`}>{s.value}</p>
               <p className="text-[11px] text-muted-foreground mt-0.5">{s.sub}</p>
             </CardContent>
           </Card>
@@ -59,7 +58,7 @@ export default function Properties() {
       </div>
 
       <Tabs defaultValue="all" className="space-y-4">
-        <TabsList className="bg-muted/50 p-1 h-auto">
+        <TabsList className="bg-muted/50 p-1 h-auto flex-wrap">
           <TabsTrigger value="all" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">All ({filtered.length})</TabsTrigger>
           <TabsTrigger value="active" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Active ({active.length})</TabsTrigger>
           <TabsTrigger value="pending" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Pending ({pending.length})</TabsTrigger>
@@ -71,55 +70,84 @@ export default function Properties() {
             <TabsContent key={tab} value={tab}>
               <Card className="border border-border/60 shadow-sm">
                 <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between flex-wrap gap-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div><CardTitle className="text-base">Properties</CardTitle><CardDescription>Showing {items.length} of 2,847</CardDescription></div>
-                    <div className="flex items-center gap-3">
-                      <div className="relative"><Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" /><Input placeholder="Search properties..." className="pl-9 w-[220px] h-9" value={search} onChange={(e) => setSearch(e.target.value)} /></div>
-                      <Button variant="outline" size="sm" className="gap-1.5"><Filter className="h-3.5 w-3.5" /> Filter</Button>
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                      <div className="relative flex-1 sm:flex-none"><Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" /><Input placeholder="Search..." className="pl-9 w-full sm:w-[220px] h-9" value={search} onChange={(e) => setSearch(e.target.value)} /></div>
+                      <Button variant="outline" size="sm" className="gap-1.5 shrink-0"><Filter className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Filter</span></Button>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="p-0 overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow className="hover:bg-transparent">
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">ID</TableHead>
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Property</TableHead>
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Agent</TableHead>
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Price</TableHead>
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Location</TableHead>
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Status</TableHead>
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Date</TableHead>
-                        <TableHead></TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {items.map((p) => {
-                        const s = statusStyles[p.status];
-                        return (
-                          <TableRow key={p.id} className="group">
-                            <TableCell className="font-mono text-xs text-muted-foreground">{p.id}</TableCell>
-                            <TableCell>
-                              <div className="flex items-center gap-2.5">
-                                <div className="w-9 h-9 rounded-lg bg-primary/5 flex items-center justify-center shrink-0"><Building2 className="h-4 w-4 text-primary" /></div>
-                                <span className="font-medium text-sm text-foreground max-w-[180px] truncate">{p.title}</span>
-                              </div>
-                            </TableCell>
-                            <TableCell className="text-sm text-foreground">{p.agent}</TableCell>
-                            <TableCell className="font-semibold text-sm text-foreground">{p.price}</TableCell>
-                            <TableCell><div className="flex items-center gap-1 text-sm text-muted-foreground"><MapPin className="h-3.5 w-3.5" />{p.location}</div></TableCell>
-                            <TableCell>
-                              <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${s.bg} ${s.color}`}>
-                                <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />{p.status}
-                              </span>
-                            </TableCell>
-                            <TableCell className="text-muted-foreground text-sm">{p.date}</TableCell>
-                            <TableCell><Button variant="ghost" size="icon" className="opacity-0 group-hover:opacity-100 transition-opacity"><MoreHorizontal className="h-4 w-4" /></Button></TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>
-                  </Table>
+                <CardContent className="p-3 sm:p-6 pt-0 sm:pt-0">
+                  {/* Mobile card list */}
+                  <div className="sm:hidden space-y-3">
+                    {items.map((p) => {
+                      const s = statusStyles[p.status];
+                      return (
+                        <div key={p.id} className="p-3 rounded-lg border border-border/40 bg-background space-y-2">
+                          <div className="flex items-start gap-2.5">
+                            <div className="w-9 h-9 rounded-lg bg-primary/5 flex items-center justify-center shrink-0"><Building2 className="h-4 w-4 text-primary" /></div>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium text-sm text-foreground leading-tight">{p.title}</p>
+                              <p className="text-xs text-muted-foreground mt-0.5">{p.agent}</p>
+                            </div>
+                            <Button variant="ghost" size="icon" className="h-7 w-7 shrink-0"><MoreHorizontal className="h-4 w-4" /></Button>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className="font-semibold text-sm text-foreground">{p.price}</span>
+                              <div className="flex items-center gap-1 text-xs text-muted-foreground"><MapPin className="h-3 w-3" />{p.location}</div>
+                            </div>
+                            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border ${s.bg} ${s.color}`}>
+                              <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />{p.status}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Desktop table */}
+                  <div className="hidden sm:block overflow-x-auto">
+                    <table className="w-full">
+                      <thead>
+                        <tr className="border-b border-border/60">
+                          <th className="text-left text-xs uppercase tracking-wider text-muted-foreground/70 py-3 px-4">Property</th>
+                          <th className="text-left text-xs uppercase tracking-wider text-muted-foreground/70 py-3 px-4">Agent</th>
+                          <th className="text-left text-xs uppercase tracking-wider text-muted-foreground/70 py-3 px-4">Price</th>
+                          <th className="text-left text-xs uppercase tracking-wider text-muted-foreground/70 py-3 px-4">Location</th>
+                          <th className="text-left text-xs uppercase tracking-wider text-muted-foreground/70 py-3 px-4">Status</th>
+                          <th className="text-left text-xs uppercase tracking-wider text-muted-foreground/70 py-3 px-4">Date</th>
+                          <th className="py-3 px-4"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {items.map((p) => {
+                          const s = statusStyles[p.status];
+                          return (
+                            <tr key={p.id} className="border-b border-border/40 group hover:bg-accent/30">
+                              <td className="py-3 px-4">
+                                <div className="flex items-center gap-2.5">
+                                  <div className="w-9 h-9 rounded-lg bg-primary/5 flex items-center justify-center shrink-0"><Building2 className="h-4 w-4 text-primary" /></div>
+                                  <span className="font-medium text-sm text-foreground max-w-[180px] truncate">{p.title}</span>
+                                </div>
+                              </td>
+                              <td className="text-sm text-foreground py-3 px-4">{p.agent}</td>
+                              <td className="font-semibold text-sm text-foreground py-3 px-4">{p.price}</td>
+                              <td className="py-3 px-4"><div className="flex items-center gap-1 text-sm text-muted-foreground"><MapPin className="h-3.5 w-3.5" />{p.location}</div></td>
+                              <td className="py-3 px-4">
+                                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${s.bg} ${s.color}`}>
+                                  <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />{p.status}
+                                </span>
+                              </td>
+                              <td className="text-muted-foreground text-sm py-3 px-4">{p.date}</td>
+                              <td className="py-3 px-4"><Button variant="ghost" size="icon" className="opacity-0 group-hover:opacity-100 transition-opacity"><MoreHorizontal className="h-4 w-4" /></Button></td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>

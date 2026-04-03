@@ -1,6 +1,5 @@
 import { Search, AlertTriangle, AlertCircle, MessageSquare, Filter, Shield, CheckCircle2, Flame, MoreHorizontal } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -41,7 +40,7 @@ export default function Disputes() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Disputes & Moderation</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-foreground">Disputes & Moderation</h1>
         <p className="text-sm text-muted-foreground mt-1">Review disputes, fraud alerts, and content moderation.</p>
       </div>
 
@@ -53,11 +52,11 @@ export default function Disputes() {
           { label: "Resolved (MTD)", value: "45", icon: CheckCircle2, accent: "text-emerald-600", bg: "bg-emerald-500/10" },
         ].map((c) => (
           <Card key={c.label} className="border border-border/60 shadow-sm">
-            <CardContent className="p-4 flex items-start gap-3">
-              <div className={`p-2 rounded-lg ${c.bg} shrink-0`}><c.icon className={`h-4 w-4 ${c.accent}`} /></div>
+            <CardContent className="p-3 sm:p-4 flex items-start gap-2 sm:gap-3">
+              <div className={`p-1.5 sm:p-2 rounded-lg ${c.bg} shrink-0`}><c.icon className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${c.accent}`} /></div>
               <div>
-                <p className="text-xs text-muted-foreground">{c.label}</p>
-                <p className={`text-xl font-bold ${c.accent}`}>{c.value}</p>
+                <p className="text-[10px] sm:text-xs text-muted-foreground">{c.label}</p>
+                <p className={`text-lg sm:text-xl font-bold ${c.accent}`}>{c.value}</p>
               </div>
             </CardContent>
           </Card>
@@ -65,10 +64,10 @@ export default function Disputes() {
       </div>
 
       <Tabs defaultValue="all" className="space-y-4">
-        <TabsList className="bg-muted/50 p-1 h-auto">
+        <TabsList className="bg-muted/50 p-1 h-auto flex-wrap">
           <TabsTrigger value="all" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">All ({disputes.length})</TabsTrigger>
           <TabsTrigger value="open" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Open ({open.length})</TabsTrigger>
-          <TabsTrigger value="review" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">In Review ({inReview.length})</TabsTrigger>
+          <TabsTrigger value="review" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Review ({inReview.length})</TabsTrigger>
           <TabsTrigger value="resolved" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Resolved</TabsTrigger>
         </TabsList>
 
@@ -78,65 +77,93 @@ export default function Disputes() {
             <TabsContent key={tab} value={tab}>
               <Card className="border border-border/60 shadow-sm">
                 <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between flex-wrap gap-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div><CardTitle className="text-base">Disputes</CardTitle><CardDescription>{items.length} disputes</CardDescription></div>
-                    <div className="flex items-center gap-3">
-                      <div className="relative"><Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" /><Input placeholder="Search..." className="pl-9 w-[200px] h-9" /></div>
-                      <Button variant="outline" size="sm" className="gap-1.5"><Filter className="h-3.5 w-3.5" /> Filter</Button>
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                      <div className="relative flex-1 sm:flex-none"><Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" /><Input placeholder="Search..." className="pl-9 w-full sm:w-[200px] h-9" /></div>
+                      <Button variant="outline" size="sm" className="gap-1.5 shrink-0"><Filter className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Filter</span></Button>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="p-0 overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow className="hover:bg-transparent">
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">ID</TableHead>
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Issue</TableHead>
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Type</TableHead>
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Priority</TableHead>
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Status</TableHead>
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Assigned</TableHead>
-                        <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Date</TableHead>
-                        <TableHead></TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {items.map((d) => {
-                        const p = priorityStyles[d.priority];
-                        const t = typeIcon[d.type];
-                        const TIcon = t.icon;
-                        return (
-                          <TableRow key={d.id} className="group">
-                            <TableCell className="font-mono text-xs text-muted-foreground">{d.id}</TableCell>
-                            <TableCell>
-                              <div className="max-w-[200px]">
-                                <p className="font-medium text-sm text-foreground truncate">{d.title}</p>
-                                <p className="text-xs text-muted-foreground">{d.reporter}</p>
-                              </div>
-                            </TableCell>
-                            <TableCell>
-                              <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${t.bg} ${t.color}`}>
-                                <TIcon className="h-3.5 w-3.5" />{d.type}
-                              </div>
-                            </TableCell>
-                            <TableCell>
-                              <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${p.bg} ${p.color}`}>
-                                <span className={`h-1.5 w-1.5 rounded-full ${p.dot}`} />{d.priority}
-                              </span>
-                            </TableCell>
-                            <TableCell>
-                              <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${statusStyles[d.status]}`}>{d.status}</span>
-                            </TableCell>
-                            <TableCell>
-                              <span className={`text-sm ${d.assigned === "Unassigned" ? "text-destructive font-medium" : "text-muted-foreground"}`}>{d.assigned}</span>
-                            </TableCell>
-                            <TableCell className="text-muted-foreground text-sm">{d.date}</TableCell>
-                            <TableCell><Button variant="ghost" size="icon" className="opacity-0 group-hover:opacity-100 transition-opacity"><MoreHorizontal className="h-4 w-4" /></Button></TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>
-                  </Table>
+                <CardContent className="p-3 sm:p-6 pt-0 sm:pt-0">
+                  {/* Mobile card list */}
+                  <div className="sm:hidden space-y-3">
+                    {items.map((d) => {
+                      const p = priorityStyles[d.priority];
+                      const t = typeIcon[d.type];
+                      const TIcon = t.icon;
+                      return (
+                        <div key={d.id} className="p-3 rounded-lg border border-border/40 bg-background space-y-2">
+                          <div className="flex items-start justify-between gap-2">
+                            <p className="font-medium text-sm text-foreground leading-tight">{d.title}</p>
+                            <Button variant="ghost" size="icon" className="h-7 w-7 shrink-0"><MoreHorizontal className="h-4 w-4" /></Button>
+                          </div>
+                          <p className="text-xs text-muted-foreground">{d.reporter} · {d.date}</p>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium ${t.bg} ${t.color}`}>
+                              <TIcon className="h-3 w-3" />{d.type}
+                            </div>
+                            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium ${p.bg} ${p.color}`}>
+                              <span className={`h-1.5 w-1.5 rounded-full ${p.dot}`} />{d.priority}
+                            </span>
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${statusStyles[d.status]}`}>{d.status}</span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Desktop table */}
+                  <div className="hidden sm:block overflow-x-auto">
+                    <table className="w-full">
+                      <thead>
+                        <tr className="border-b border-border/60">
+                          <th className="text-left text-xs uppercase tracking-wider text-muted-foreground/70 py-3 px-4">Issue</th>
+                          <th className="text-left text-xs uppercase tracking-wider text-muted-foreground/70 py-3 px-4">Type</th>
+                          <th className="text-left text-xs uppercase tracking-wider text-muted-foreground/70 py-3 px-4">Priority</th>
+                          <th className="text-left text-xs uppercase tracking-wider text-muted-foreground/70 py-3 px-4">Status</th>
+                          <th className="text-left text-xs uppercase tracking-wider text-muted-foreground/70 py-3 px-4">Assigned</th>
+                          <th className="text-left text-xs uppercase tracking-wider text-muted-foreground/70 py-3 px-4">Date</th>
+                          <th className="py-3 px-4"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {items.map((d) => {
+                          const p = priorityStyles[d.priority];
+                          const t = typeIcon[d.type];
+                          const TIcon = t.icon;
+                          return (
+                            <tr key={d.id} className="border-b border-border/40 group hover:bg-accent/30">
+                              <td className="py-3 px-4">
+                                <div className="max-w-[200px]">
+                                  <p className="font-medium text-sm text-foreground truncate">{d.title}</p>
+                                  <p className="text-xs text-muted-foreground">{d.reporter}</p>
+                                </div>
+                              </td>
+                              <td className="py-3 px-4">
+                                <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${t.bg} ${t.color}`}>
+                                  <TIcon className="h-3.5 w-3.5" />{d.type}
+                                </div>
+                              </td>
+                              <td className="py-3 px-4">
+                                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${p.bg} ${p.color}`}>
+                                  <span className={`h-1.5 w-1.5 rounded-full ${p.dot}`} />{d.priority}
+                                </span>
+                              </td>
+                              <td className="py-3 px-4">
+                                <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${statusStyles[d.status]}`}>{d.status}</span>
+                              </td>
+                              <td className="py-3 px-4">
+                                <span className={`text-sm ${d.assigned === "Unassigned" ? "text-destructive font-medium" : "text-muted-foreground"}`}>{d.assigned}</span>
+                              </td>
+                              <td className="text-muted-foreground text-sm py-3 px-4">{d.date}</td>
+                              <td className="py-3 px-4"><Button variant="ghost" size="icon" className="opacity-0 group-hover:opacity-100 transition-opacity"><MoreHorizontal className="h-4 w-4" /></Button></td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
