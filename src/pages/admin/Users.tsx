@@ -44,12 +44,12 @@ export default function UsersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Users & Providers</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground">Users & Providers</h1>
           <p className="text-sm text-muted-foreground mt-1">Manage tenants, agents, and landlords on the platform.</p>
         </div>
-        <Button size="sm" className="gap-2"><UserPlus className="h-4 w-4" /> Invite User</Button>
+        <Button size="sm" className="gap-2 self-start"><UserPlus className="h-4 w-4" /> Invite User</Button>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
