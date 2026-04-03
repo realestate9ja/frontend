@@ -9,6 +9,7 @@ import { useAvatar } from "@/contexts/AvatarContext";
 
 export default function ProviderLayout() {
   const { avatarUrl } = useAvatar();
+  const kycStatus = localStorage.getItem("dwello_kyc_status");
 
   return (
     <SidebarProvider>
