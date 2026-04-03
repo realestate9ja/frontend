@@ -9,10 +9,10 @@ import { Input } from "@/components/ui/input";
 
 type Role = "tenant" | "agent" | "landlord";
 
-const roleCards: { value: Role; emoji: string; label: string; desc: string }[] = [
-  { value: "tenant", emoji: "🏠", label: "Find a home", desc: "Browse listings, post needs, and get matched with verified agents." },
-  { value: "agent", emoji: "💼", label: "I'm an agent", desc: "List properties, manage leads, and grow your rental business." },
-  { value: "landlord", emoji: "🏢", label: "I own property", desc: "List your properties directly and connect with quality tenants." },
+const roleCards: { value: Role; icon: React.ElementType; label: string; desc: string }[] = [
+  { value: "tenant", icon: Search, label: "Find a home", desc: "Browse listings, post needs, and get matched with verified agents." },
+  { value: "agent", icon: Briefcase, label: "I'm an agent", desc: "List properties, manage leads, and grow your rental business." },
+  { value: "landlord", icon: Building2, label: "I own property", desc: "List your properties directly and connect with quality tenants." },
 ];
 
 export default function Onboarding() {
