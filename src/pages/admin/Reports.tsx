@@ -60,14 +60,14 @@ const summaryStats = [
 export default function AdminReports() {
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Reports & Analytics</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground">Reports & Analytics</h1>
           <p className="text-sm text-muted-foreground mt-1">Platform performance metrics and insights</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <Select defaultValue="6months">
-            <SelectTrigger className="w-[150px] h-9 text-sm">
+            <SelectTrigger className="w-full sm:w-[150px] h-9 text-sm">
               <Calendar className="h-3.5 w-3.5 mr-1.5 text-muted-foreground" />
               <SelectValue />
             </SelectTrigger>
@@ -106,7 +106,7 @@ export default function AdminReports() {
       </div>
 
       <Tabs defaultValue="revenue" className="space-y-4">
-        <TabsList className="bg-muted/50 p-1 h-auto">
+        <TabsList className="bg-muted/50 p-1 h-auto flex-wrap">
           <TabsTrigger value="revenue" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5 px-4">
             <DollarSign className="h-3.5 w-3.5" /> Revenue
           </TabsTrigger>

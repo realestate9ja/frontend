@@ -80,7 +80,7 @@ export default function AdminAnnouncements() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Announcements</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground">Announcements</h1>
           <p className="text-sm text-muted-foreground mt-1">Broadcast messages and alerts to platform users</p>
         </div>
         <Button size="sm" className="h-9 gap-1.5 text-sm" onClick={() => setShowCompose(!showCompose)}>
@@ -151,12 +151,12 @@ export default function AdminAnnouncements() {
               <label className="text-sm font-medium text-foreground">Message</label>
               <Textarea placeholder="Write your announcement..." rows={3} />
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <Switch />
                 <span className="text-sm text-muted-foreground">Send push notification</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <Button variant="outline" size="sm" onClick={() => setShowCompose(false)}>Cancel</Button>
                 <Button variant="outline" size="sm" className="gap-1"><Clock className="h-3 w-3" /> Save Draft</Button>
                 <Button size="sm" className="gap-1"><Send className="h-3 w-3" /> Publish</Button>
