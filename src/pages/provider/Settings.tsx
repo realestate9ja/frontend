@@ -75,7 +75,7 @@ export default function ProviderSettings() {
       </Card>
 
       <Tabs defaultValue="general" className="space-y-4">
-        <TabsList className="bg-muted/50 p-1 h-auto">
+        <TabsList className="bg-muted/50 p-1 h-auto flex-wrap">
           <TabsTrigger value="general" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">General</TabsTrigger>
           <TabsTrigger value="business" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Business</TabsTrigger>
           <TabsTrigger value="payouts" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Payouts</TabsTrigger>
