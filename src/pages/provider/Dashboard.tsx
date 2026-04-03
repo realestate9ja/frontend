@@ -44,6 +44,9 @@ const topListings = [
 export default function ProviderDashboard() {
   return (
     <div className="space-y-6">
+      {/* KYC Alert */}
+      <KycAlertBanner variant="provider" />
+
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
