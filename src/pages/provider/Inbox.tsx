@@ -138,12 +138,6 @@ export default function LeadInbox() {
         })}
       </Tabs>
 
-      <SendOfferSheet
-        open={offerSheet.open}
-        onOpenChange={(open) => setOfferSheet(prev => ({ ...prev, open }))}
-        leadNeed={offerSheet.leadNeed}
-        onOfferSent={handleOfferSent}
-      />
     </div>
   );
 }

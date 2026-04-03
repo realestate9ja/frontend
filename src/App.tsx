@@ -85,6 +85,7 @@ const App = () => (
             <Route index element={<ProviderDashboard />} />
             <Route path="inbox" element={<LeadInbox />} />
             <Route path="inbox/:id" element={<LeadDetail />} />
+            <Route path="inbox/:id/offer" element={<SendOffer />} />
             <Route path="listings" element={<Listings />} />
             <Route path="listings/new" element={<AddListing />} />
             <Route path="payouts" element={<Payouts />} />
