@@ -83,6 +83,7 @@ const App = () => (
           <Route path="/provider" element={<ProviderLayout />}>
             <Route index element={<ProviderDashboard />} />
             <Route path="inbox" element={<LeadInbox />} />
+            <Route path="inbox/:id" element={<LeadDetail />} />
             <Route path="listings" element={<Listings />} />
             <Route path="payouts" element={<Payouts />} />
             <Route path="calendar" element={<ProviderCalendar />} />
