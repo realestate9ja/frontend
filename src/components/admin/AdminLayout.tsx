@@ -1,6 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AdminSidebar } from "./AdminSidebar";
+import { AdminBottomNav } from "./AdminBottomNav";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Bell, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
