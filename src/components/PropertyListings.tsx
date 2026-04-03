@@ -1,4 +1,4 @@
-import { Bed, Maximize, ArrowRight } from "lucide-react";
+import { Bed, Bath, Maximize, ArrowRight, MapPin, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const properties = [
@@ -8,7 +8,10 @@ const properties = [
     name: "The Glass Pavilion",
     location: "Montecito, California",
     beds: 6,
+    baths: 5,
     sqft: "8,200",
+    rating: 4.9,
+    match: 97,
     featured: true,
   },
   {
@@ -17,7 +20,10 @@ const properties = [
     name: "Skyline Penthouse",
     location: "New York, NY",
     beds: 4,
+    baths: 3,
     sqft: "5,400",
+    rating: 4.7,
+    match: 92,
     featured: false,
   },
   {
@@ -26,7 +32,10 @@ const properties = [
     name: "Desert Oasis",
     location: "Joshua Tree, CA",
     beds: 3,
+    baths: 2,
     sqft: "3,800",
+    rating: 4.6,
+    match: 84,
     featured: false,
   },
   {
@@ -35,7 +44,10 @@ const properties = [
     name: "Coastal Retreat",
     location: "Malibu, California",
     beds: 5,
+    baths: 4,
     sqft: "7,600",
+    rating: 5.0,
+    match: 98,
     featured: false,
   },
 ];
@@ -58,79 +70,78 @@ const PropertyListings = () => {
       {/* Bento Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Large featured card - spans 2 cols */}
-        <div className="lg:col-span-2 relative group rounded-2xl overflow-hidden h-[380px]">
-          <img
-            src={properties[0].image}
-            alt={`${properties[0].name} luxury villa in ${properties[0].location}`}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6">
-            <span className="inline-block bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded font-mono uppercase tracking-wider mb-3">
-              Featured
-            </span>
-            <h3 className="font-serif text-2xl text-white mb-1">{properties[0].name}</h3>
-            <p className="text-white/60 text-sm mb-4">{properties[0].location}</p>
-            <div className="border-t border-white/20 pt-4 flex items-center justify-between">
-              <p className="text-white font-mono font-medium text-lg">{properties[0].price}</p>
-              <div className="flex items-center gap-4 text-white/60 text-xs font-mono">
-                <span className="flex items-center gap-1.5"><Bed className="w-4 h-4" /> {properties[0].beds} Beds</span>
-                <span className="flex items-center gap-1.5"><Maximize className="w-4 h-4" /> {properties[0].sqft} sqft</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PropertyCard property={properties[0]} className="lg:col-span-2 h-[380px]" featured />
 
-        {/* Smaller card - right side */}
-        <div className="relative group rounded-2xl overflow-hidden h-[380px]">
-          <img
-            src={properties[1].image}
-            alt={`${properties[1].name} luxury apartment in ${properties[1].location}`}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6">
-            <h3 className="font-serif text-xl text-white mb-1">{properties[1].name}</h3>
-            <p className="text-white/60 text-sm mb-3">{properties[1].location}</p>
-            <p className="text-white font-mono font-medium">{properties[1].price}</p>
-          </div>
-        </div>
+        {/* Smaller card */}
+        <PropertyCard property={properties[1]} className="h-[380px]" />
 
-        {/* Bottom left - smaller */}
-        <div className="relative group rounded-2xl overflow-hidden h-[380px]">
-          <img
-            src={properties[2].image}
-            alt={`${properties[2].name} modern home in ${properties[2].location}`}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6">
-            <h3 className="font-serif text-xl text-white mb-1">{properties[2].name}</h3>
-            <p className="text-white/60 text-sm mb-3">{properties[2].location}</p>
-            <p className="text-white font-mono font-medium">{properties[2].price}</p>
-          </div>
-        </div>
+        {/* Bottom left */}
+        <PropertyCard property={properties[2]} className="h-[380px]" />
 
-        {/* Bottom right - large, spans 2 cols */}
-        <div className="lg:col-span-2 relative group rounded-2xl overflow-hidden h-[380px]">
-          <img
-            src={properties[3].image}
-            alt={`${properties[3].name} mansion in ${properties[3].location}`}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6">
-            <h3 className="font-serif text-2xl text-white mb-1">{properties[3].name}</h3>
-            <p className="text-white/60 text-sm mb-4">{properties[3].location}</p>
-            <div className="border-t border-white/20 pt-4 flex items-center justify-between">
-              <p className="text-white font-mono font-medium text-lg">{properties[3].price}</p>
-              <ArrowRight className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
-            </div>
-          </div>
-        </div>
+        {/* Bottom right - spans 2 cols */}
+        <PropertyCard property={properties[3]} className="lg:col-span-2 h-[380px]" />
       </div>
     </section>
   );
 };
+
+function PropertyCard({ property, className = "", featured = false }: { property: typeof properties[0]; className?: string; featured?: boolean }) {
+  return (
+    <div className={`relative group rounded-2xl overflow-hidden cursor-pointer ${className}`}>
+      <img
+        src={property.image}
+        alt={`${property.name} in ${property.location}`}
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+      />
+
+      {/* Match badge */}
+      <div className="absolute top-3 left-3">
+        {featured && (
+          <span className="inline-block bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1 rounded font-mono uppercase tracking-wider">
+            Featured
+          </span>
+        )}
+      </div>
+
+      {/* Overlay card */}
+      <div className="absolute bottom-3 left-3 right-3 bg-card/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-border/30">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2 mb-1">
+              <h3 className={`font-semibold text-foreground truncate ${featured ? "text-base" : "text-sm"}`}>{property.name}</h3>
+              <span className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded font-mono uppercase shrink-0">
+                {property.match}% match
+              </span>
+            </div>
+            <p className="text-[11px] text-muted-foreground flex items-center gap-1 font-mono uppercase tracking-wider">
+              <MapPin className="h-3 w-3 shrink-0" /> {property.location}
+            </p>
+          </div>
+          <div className="text-right shrink-0">
+            <p className={`font-bold text-foreground font-mono ${featured ? "text-base" : "text-sm"}`}>{property.price}</p>
+            <div className="flex items-center gap-2.5 text-xs text-muted-foreground mt-0.5">
+              <span className="flex items-center gap-1"><Bed className="w-3.5 h-3.5" /> {property.beds}</span>
+              <span className="flex items-center gap-1"><Bath className="w-3.5 h-3.5" /> {property.baths}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom row */}
+        <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-border/40">
+          <div className="flex items-center gap-3 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+              <span className="font-medium text-foreground">{property.rating}</span>
+            </span>
+            <span className="flex items-center gap-1"><Maximize className="w-3 h-3" /> {property.sqft} sqft</span>
+          </div>
+          <Button size="sm" variant="ghost" className="h-7 text-xs gap-1 text-primary hover:text-primary/80 px-2">
+            View Details <ArrowRight className="h-3 w-3" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default PropertyListings;
