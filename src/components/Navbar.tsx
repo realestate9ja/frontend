@@ -13,13 +13,11 @@ const Navbar = () => {
       </Link>
 
       <div className="hidden md:flex items-center gap-8">
-        <a href="#" className="text-sm font-medium text-primary transition-colors">Home</a>
-        <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Properties</a>
-        <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Rent</a>
-        <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-          About <ChevronDown className="w-3 h-3" />
-        </a>
-        <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Contact</a>
+        <Link to="/" className="text-sm font-medium text-primary transition-colors">Home</Link>
+        <Link to="/properties" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Properties</Link>
+        <Link to="/rent" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Rent</Link>
+        <Link to="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">About</Link>
+        <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
       </div>
 
       <div className="flex items-center gap-5">
