@@ -21,8 +21,16 @@ export default function Onboarding() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [role, setRole] = useState<Role | null>(null);
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
+  const [selectedType, setSelectedType] = useState("");
+  const [selectedBudget, setSelectedBudget] = useState("");
+  const [selectedPropertyCount, setSelectedPropertyCount] = useState("");
+  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState<string[]>([]);
+  const [experience, setExperience] = useState("");
+  const [bio, setBio] = useState("");
 
   const handleComplete = () => {
     if (role) {
