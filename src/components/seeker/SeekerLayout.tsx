@@ -37,8 +37,15 @@ export default function SeekerLayout() {
                   )}
                 </Avatar>
                 <div className="hidden sm:block">
-                  <p className="text-sm font-medium leading-none text-foreground">Tenant</p>
-                  <p className="text-[11px] text-muted-foreground">Property Seeker</p>
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-sm font-medium leading-none text-foreground">Tenant</p>
+                    {kycStatus === "submitted" ? (
+                      <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
+                    ) : (
+                      <ShieldAlert className="h-3.5 w-3.5 text-amber-500" />
+                    )}
+                  </div>
+                  <p className="text-[11px] text-muted-foreground">{kycStatus === "submitted" ? "Verified" : "Unverified"}</p>
                 </div>
               </Link>
             </div>
