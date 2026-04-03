@@ -50,8 +50,11 @@ const badgeColors: Record<string, string> = {
 };
 
 export default function SeekerDashboard() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => { const t = setTimeout(() => setLoading(false), 1200); return () => clearTimeout(t); }, []);
+  if (loading) return <DashboardSkeleton variant="seeker" />;
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-in fade-in duration-300">
       {/* KYC Alert */}
       <KycAlertBanner variant="seeker" />
 
