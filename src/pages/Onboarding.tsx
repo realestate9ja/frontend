@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Home, Search, Building2, ArrowRight, CheckCircle2,
-  MapPin, Phone, Briefcase, Shield, Sparkles, ChevronRight
+  MapPin, Phone, Briefcase, Shield, Sparkles, ChevronRight,
+  User, Mail, Wallet, Clock, Star, HomeIcon, BadgeCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 type Role = "tenant" | "agent" | "landlord";
 
