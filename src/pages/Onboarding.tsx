@@ -118,7 +118,7 @@ export default function Onboarding() {
 
         {/* Step 2: Profile */}
         {step === 2 && (
-          <div className="w-full max-w-xl space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 max-h-[calc(100vh-140px)] overflow-y-auto pr-1 scrollbar-thin">
+          <div className="w-full max-w-xl space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="space-y-2">
               <p className="text-xs font-medium text-primary tracking-widest uppercase">Step 2 of 3</p>
               <h1 className="text-3xl font-bold text-foreground tracking-tight">
