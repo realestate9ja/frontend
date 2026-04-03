@@ -8,6 +8,7 @@ import Index from "./pages/Index.tsx";
 import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import Onboarding from "./pages/Onboarding.tsx";
 
 // Admin
 import AdminLayout from "./components/admin/AdminLayout.tsx";
