@@ -29,6 +29,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDashboardLayout, type DashboardWidgetSize } from "@/hooks/use-dashboard-layout";
+import { useSearchFocus } from "@/hooks/use-search-focus";
+import { toSearchId } from "@/lib/search-id";
 
 const matchData = [
   { week: "W1", matches: 4 },
@@ -40,21 +42,21 @@ const matchData = [
   { week: "W7", matches: 14 },
 ];
 
-const stats = [
+export const stats = [
   { title: "Active Posts", value: "3", change: "2 getting offers", icon: FileText, subtitle: "Needs published" },
   { title: "Offers Received", value: "12", change: "+5 today", icon: Inbox, subtitle: "Across all posts" },
   { title: "Upcoming Viewings", value: "2", change: "This week", icon: CalendarCheck, subtitle: "Next: Tomorrow 2PM" },
   { title: "Match Rate", value: "87%", change: "Above avg", icon: TrendingUp, subtitle: "Offer relevance score" },
 ];
 
-const recentOffers = [
+export const recentOffers = [
   { id: 1, property: "3 Bed Flat, Lekki Phase 1", provider: "Adebayo Johnson", price: "₦2,500,000/yr", badge: "Agent", time: "2h", match: 95, initials: "AJ" },
   { id: 2, property: "Studio, Wuse 2 Abuja", provider: "Chioma Okafor", price: "₦1,200,000/yr", badge: "Landlord", time: "5h", match: 88, initials: "CO" },
   { id: 3, property: "2 Bed Serviced, Victoria Island", provider: "ShortStay NG", price: "₦45,000/night", badge: "Short-let", time: "1d", match: 76, initials: "SN" },
   { id: 4, property: "4 Bed Duplex, Maitama", provider: "Premium Estates", price: "₦5,200,000/yr", badge: "Agent", time: "2d", match: 92, initials: "PE" },
 ];
 
-const savedProperties = [
+export const savedProperties = [
   { name: "Modern 2 Bed, Ikoyi", location: "Ikoyi, Lagos", price: "₦3.8M/yr", img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=200&h=140&fit=crop" },
   { name: "Penthouse, Banana Island", location: "Banana Island, Lagos", price: "₦12M/yr", img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=200&h=140&fit=crop" },
   { name: "Studio, Garki Area 11", location: "Garki, Abuja", price: "₦850K/yr", img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=200&h=140&fit=crop" },
@@ -76,6 +78,7 @@ type WidgetDefinition = {
 };
 
 export default function SeekerDashboard() {
+  useSearchFocus();
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -95,7 +98,7 @@ export default function SeekerDashboard() {
         render: () => (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((stat) => (
-              <Card key={stat.title} className="border border-border/60 shadow-none transition-shadow duration-200 hover:shadow-md">
+              <Card key={stat.title} data-search-id={`seeker-stat-${toSearchId(stat.title)}`} className="border border-border/60 shadow-none transition-shadow duration-200 hover:shadow-md">
                 <CardContent className="p-5">
                   <div className="mb-3 flex items-center justify-between">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/8">
@@ -168,7 +171,7 @@ export default function SeekerDashboard() {
             </CardHeader>
             <CardContent className="space-y-3 pt-0">
               {savedProperties.map((property) => (
-                <div key={property.name} className="group flex gap-3 rounded-xl border border-border/60 p-2 transition-colors hover:border-primary/20">
+                <div key={property.name} data-search-id={`seeker-overview-saved-${toSearchId(property.name)}`} className="group flex gap-3 rounded-xl border border-border/60 p-2 transition-colors hover:border-primary/20">
                   <img src={property.img} alt={property.name} className="h-16 w-16 shrink-0 rounded-lg object-cover" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium text-foreground">{property.name}</p>
@@ -211,7 +214,7 @@ export default function SeekerDashboard() {
             <CardContent className="pt-0">
               <div className="space-y-1">
                 {recentOffers.map((offer) => (
-                  <div key={offer.id} className="group flex flex-col gap-2 rounded-lg p-3 transition-colors hover:bg-accent/50 sm:flex-row sm:items-center sm:gap-3">
+                  <div key={offer.id} data-search-id={`seeker-overview-offer-${offer.id}`} className="group flex flex-col gap-2 rounded-lg p-3 transition-colors hover:bg-accent/50 sm:flex-row sm:items-center sm:gap-3">
                     <div className="flex min-w-0 flex-1 items-center gap-3">
                       <Avatar className="h-9 w-9 shrink-0 border border-border/60">
                         <AvatarFallback className="bg-primary/10 text-[10px] font-medium text-primary">{offer.initials}</AvatarFallback>
@@ -310,7 +313,7 @@ export default function SeekerDashboard() {
         </>
       ) : null}
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 lg:grid-flow-row-dense lg:grid-cols-3">
         {visibleWidgets.map((widget, index) => (
           <DashboardEditableWidget
             key={widget.id}
@@ -336,6 +339,7 @@ export default function SeekerDashboard() {
               canPinTop: index > 0,
               canMoveUp: index > 0,
               currentSize: widget.size,
+              editing,
               onFocus: undefined,
               onHide: () => toggleVisibility(widget.id, false),
               onMove: (direction) => move(widget.id, direction),

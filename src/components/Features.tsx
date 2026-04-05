@@ -3,27 +3,27 @@ import { BarChart3, Brain, MapPin, Shield, Headphones, Eye } from "lucide-react"
 import MarketingShell from "@/components/layout/MarketingShell";
 
 const stats = [
-  { value: "2,450+", label: "Properties Sold" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "150+", label: "Cities Covered" },
-  { value: "$1.2B", label: "Market Value" },
+  { value: "12,400+", label: "Verified Listings" },
+  { value: "18 min", label: "Avg Response Time" },
+  { value: "1,100+", label: "Active Providers" },
+  { value: "8,600+", label: "Successful Matches" },
 ];
 
 const features = [
   {
     icon: BarChart3,
-    title: "Live Market Analysis",
-    description: "Real-time data feeds from every major listing source, aggregating hidden gems before they hit the mainstream market.",
+    title: "Post Your Need Once",
+    description: "Share your preferred location, budget, and move-in plan once, then let matching providers respond with relevant options.",
   },
   {
     icon: Brain,
-    title: "Expert Insights",
-    description: "Predictive analytics on value appreciation and investment potential, tailored to your financial goals.",
+    title: "Compare Verified Offers",
+    description: "Review verified homes from agents and landlords in one place instead of chasing scattered listings and messages.",
   },
   {
     icon: MapPin,
-    title: "Best Area Suggestions",
-    description: "Neighborhood matching based on your lifestyle habits, commute preferences, and local amenities.",
+    title: "Clear Cost Breakdown",
+    description: "See rent, deposit, service charges, and key details early so you can filter faster and decide with confidence.",
   },
 ];
 
@@ -46,12 +46,12 @@ const Features = () => {
       <section className="px-6 lg:px-16 xl:px-20 py-20">
         <MarketingShell>
           <div className="text-center mb-14">
-            <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Why Choose Dwello?</p>
+            <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Why Dwello</p>
             <h2 className="font-serif text-3xl lg:text-4xl text-foreground mb-4">
-              Smart Property Intelligence
+              Rental Matching, Without the Noise
             </h2>
             <p className="text-muted-foreground text-[15px] max-w-lg mx-auto leading-relaxed">
-              We leverage advanced tools to give you a competitive edge in the market, turning data into your dream home.
+              Dwello helps seekers move faster with verified supply, clearer pricing, and providers who can respond with intent.
             </p>
           </div>
 
@@ -75,7 +75,7 @@ const Features = () => {
       <section className="px-6 lg:px-16 xl:px-20 py-20">
         <MarketingShell>
           <div className="text-center mb-14">
-            <h2 className="font-serif text-3xl lg:text-4xl text-foreground">Redefining Real Estate</h2>
+            <h2 className="font-serif text-3xl lg:text-4xl text-foreground">Built for Safer Renting</h2>
             <div className="w-16 h-1 bg-primary mx-auto mt-4 rounded-full" />
           </div>
 
@@ -84,7 +84,7 @@ const Features = () => {
               <div className="rounded-xl border border-border/50 p-3 bg-card">
                 <img
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=420&fit=crop"
-                  alt="Modern home interior"
+                  alt="Verified modern home interior ready for viewing"
                   className="w-full h-[380px] object-cover rounded-lg"
                 />
               </div>
@@ -92,9 +92,9 @@ const Features = () => {
             <div className="flex-1">
               <div className="space-y-8">
                 {[
-                  { icon: Shield, title: "Verified Listings Only", desc: "Every property on our platform is physically verified by our team to ensure what you see is what you get." },
-                  { icon: Headphones, title: "24/7 Concierge Support", desc: "Our dedicated team is always available to answer questions, schedule viewings, and provide expert advice." },
-                  { icon: Eye, title: "Transparent Pricing", desc: "No hidden fees. We provide clear, upfront cost breakdowns so you can budget with confidence." },
+                  { icon: Shield, title: "Verified Providers", desc: "Every listing is tied to an agent or landlord profile so seekers know who they are dealing with before they engage." },
+                  { icon: Headphones, title: "Viewing and Dispute Support", desc: "Track viewings, offers, and next steps in one workflow instead of depending on scattered calls and chats." },
+                  { icon: Eye, title: "Clear Cost Breakdown", desc: "See rent, deposit, service charge, and payment expectations before you commit to a property." },
                 ].map((item) => (
                   <div key={item.title} className="flex gap-4">
                     <div className="w-11 h-11 rounded-full bg-primary flex items-center justify-center shrink-0">

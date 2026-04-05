@@ -3,10 +3,10 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ProviderSidebar } from "./ProviderSidebar";
 import { ProviderBottomNav } from "./ProviderBottomNav";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Bell, Search, ShieldAlert, ShieldCheck } from "lucide-react";
+import { Bell, ShieldAlert, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useAvatar } from "@/contexts/AvatarContext";
+import { DashboardHeaderSearch } from "@/components/search/DashboardHeaderSearch";
 
 export default function ProviderLayout() {
   const { avatarUrl } = useAvatar();
@@ -18,17 +18,11 @@ export default function ProviderLayout() {
         <div className="hidden md:block">
           <ProviderSidebar />
         </div>
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 min-w-0 flex flex-col">
           <header className="h-14 sm:h-16 flex items-center border-b border-border/60 bg-background px-3 sm:px-6 gap-2 sm:gap-4 sticky top-0 z-10">
             <SidebarTrigger className="ml-0 hidden md:flex" />
-            <div className="relative flex-1 max-w-sm hidden sm:block">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input placeholder="Search leads, listings..." className="pl-9 h-9 bg-secondary/50 border-border/50 text-sm rounded-lg" />
-            </div>
+            <DashboardHeaderSearch role="provider" placeholder="Search leads, listings, payouts..." />
             <div className="ml-auto flex items-center gap-2 sm:gap-3">
-              <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-lg sm:hidden">
-                <Search className="h-4 w-4 text-muted-foreground" />
-              </Button>
               <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-lg">
                 <Bell className="h-4 w-4 text-muted-foreground" />
                 <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-primary" />
@@ -56,7 +50,7 @@ export default function ProviderLayout() {
               </Link>
             </div>
           </header>
-          <main className="flex-1 p-3 sm:p-6 pb-20 md:pb-6 overflow-auto">
+          <main className="flex-1 min-w-0 overflow-x-hidden overflow-y-auto p-3 pb-20 sm:p-6 md:pb-6">
             <Outlet />
           </main>
         </div>

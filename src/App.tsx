@@ -55,6 +55,7 @@ import ProviderCalendar from "./pages/provider/Calendar.tsx";
 import ProviderSettings from "./pages/provider/Settings.tsx";
 import LeadDetail from "./pages/provider/LeadDetail.tsx";
 import SendOffer from "./pages/provider/SendOffer.tsx";
+import DashboardSearch from "./pages/shared/DashboardSearch.tsx";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -77,6 +78,7 @@ const App = () => (
           {/* Admin Dashboard */}
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
+            <Route path="search" element={<DashboardSearch role="admin" />} />
             <Route path="properties" element={<Properties />} />
             <Route path="users" element={<UsersPage />} />
             <Route path="transactions" element={<Transactions />} />
@@ -90,6 +92,7 @@ const App = () => (
           {/* Seeker (Tenant) Dashboard */}
           <Route path="/seeker" element={<SeekerLayout />}>
             <Route index element={<SeekerDashboard />} />
+            <Route path="search" element={<DashboardSearch role="seeker" />} />
             <Route path="post" element={<PostNeed />} />
             <Route path="offers" element={<Offers />} />
             <Route path="bookings" element={<Bookings />} />
@@ -100,6 +103,7 @@ const App = () => (
           {/* Provider (Agent/Landlord) Dashboard */}
           <Route path="/provider" element={<ProviderLayout />}>
             <Route index element={<ProviderDashboard />} />
+            <Route path="search" element={<DashboardSearch role="provider" />} />
             <Route path="inbox" element={<LeadInbox />} />
             <Route path="inbox/:id" element={<LeadDetail />} />
             <Route path="inbox/:id/offer" element={<SendOffer />} />
@@ -112,6 +116,7 @@ const App = () => (
 
           <Route path="/landlord" element={<LandlordLayout />}>
             <Route index element={<LandlordDashboard />} />
+            <Route path="search" element={<DashboardSearch role="landlord" />} />
             <Route path="properties" element={<LandlordProperties />} />
             <Route path="properties/new" element={<AddListing />} />
             <Route path="units" element={<LandlordUnits />} />

@@ -1,20 +1,27 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { Building2, DoorOpen, FileWarning, Plus, Search, Wallet, Wrench, MoreHorizontal } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useSearchFocus } from "@/hooks/use-search-focus";
 
-const properties = [
+export const properties = [
   { id: "p1", name: "Palm Residence", location: "Lekki Phase 1", units: 6, occupied: 5, collections: "N4.8M", docs: "Complete", status: "Healthy", vacant: 1, openIssues: 1, yield: "92%" },
   { id: "p2", name: "Admiralty Suites", location: "Victoria Island", units: 8, occupied: 7, collections: "N7.2M", docs: "1 expiring", status: "Attention", vacant: 1, openIssues: 3, yield: "95%" },
   { id: "p3", name: "Lekki Court", location: "Ikate", units: 4, occupied: 3, collections: "N3.1M", docs: "Pending upload", status: "At risk", vacant: 1, openIssues: 2, yield: "77%" },
 ];
 
 export default function LandlordProperties() {
-  const [search, setSearch] = useState("");
+  useSearchFocus();
+  const [searchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("q") ?? "");
+
+  useEffect(() => {
+    setSearch(searchParams.get("q") ?? "");
+  }, [searchParams]);
 
   const filtered = useMemo(
     () => properties.filter((property) => property.name.toLowerCase().includes(search.toLowerCase()) || property.location.toLowerCase().includes(search.toLowerCase())),
@@ -64,7 +71,7 @@ export default function LandlordProperties() {
           </TabsList>
           <div className="relative w-full sm:w-[260px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search properties..." className="pl-9 h-9" value={search} onChange={(e) => setSearch(e.target.value)} />
+            <Input placeholder="Search properties..." className="pl-9 h-9" value={search} onChange={(event) => setSearch(event.target.value)} />
           </div>
         </div>
 
@@ -76,7 +83,7 @@ export default function LandlordProperties() {
           <TabsContent key={group.key} value={group.key}>
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {group.items.map((property) => (
-                <Card key={property.id} className="border border-border/60 shadow-sm hover:shadow-md transition-all">
+                <Card key={property.id} data-search-id={`landlord-property-${property.id}`} className="border border-border/60 shadow-sm hover:shadow-md transition-all">
                   <CardContent className="p-5 space-y-4">
                     <div className="flex items-start justify-between gap-3">
                       <div>

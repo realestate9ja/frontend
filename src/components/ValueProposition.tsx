@@ -7,26 +7,26 @@ const steps = [
   {
     num: "01",
     icon: UserCheck,
-    title: "Profile Analysis",
-    description: "Our AI deep-dives into your preferences, lifestyle needs, and financial goals to build a comprehensive buyer profile.",
+    title: "Post Your Need",
+    description: "Share your preferred location, budget, property type, and move-in timeline in one quick request.",
   },
   {
     num: "02",
     icon: Search,
-    title: "Smart Matching",
-    description: "Algorithms scan thousands of listings to find properties that align with your unique criteria, filtering out the noise.",
+    title: "Receive Matched Offers",
+    description: "Verified agents and landlords respond with homes that fit your request instead of making you search listing by listing.",
   },
   {
     num: "03",
     icon: Eye,
-    title: "Virtual Tours & Insights",
-    description: "Experience homes remotely with immersive 3D tours and receive detailed neighborhood analytics reports.",
+    title: "Compare and Schedule",
+    description: "Review pricing, provider details, and available options before booking a viewing that actually suits your needs.",
   },
   {
     num: "04",
     icon: FileCheck,
-    title: "Seamless Closing",
-    description: "From offer to keys, our digital platform handles paperwork, negotiations, and closing logistics effortlessly.",
+    title: "Proceed with Confidence",
+    description: "Move forward with clearer pricing, verified profiles, and support for the next steps after you choose a property.",
   },
 ];
 
@@ -36,16 +36,16 @@ const ValueProposition = () => {
       <MarketingShell>
         <div className="flex flex-col lg:flex-row gap-16">
           <div className="lg:w-[340px] shrink-0">
-            <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Process</p>
+            <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">How It Works</p>
             <h2 className="font-serif text-3xl lg:text-[2.5rem] text-foreground leading-tight mb-6">
-              The Path to Your{" "}
-              <span className="italic text-primary">New Beginning</span>
+              From Need Post{" "}
+              <span className="italic text-primary">to Move-In</span>
             </h2>
             <p className="text-muted-foreground text-[15px] leading-relaxed mb-8">
-              We&apos;ve simplified the complex journey of buying a home into four seamless, AI-assisted steps.
+              A simpler rental workflow for seekers, agents, and landlords.
             </p>
             <Button className="rounded-lg px-7 py-6 bg-foreground text-background hover:bg-foreground/90 text-sm font-medium">
-              Start Your Journey
+              Post a Need
             </Button>
           </div>
 

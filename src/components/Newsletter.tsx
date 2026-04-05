@@ -5,21 +5,21 @@ import { Button } from "@/components/ui/button";
 
 const testimonials = [
   {
-    text: "Dwello matched us with our dream home in just 2 weeks. The process was seamless and personalized.",
-    name: "Sarah Johnson",
-    location: "Los Angeles, CA",
+    text: "I posted my budget and preferred area once, and serious options started coming in the same day.",
+    name: "Tolu A.",
+    location: "Lekki renter",
     avatar: 15,
   },
   {
-    text: "The neighborhood insights were invaluable. We knew exactly what we were getting before even visiting.",
-    name: "Michael Chen",
-    location: "San Francisco, CA",
+    text: "The pricing breakdown helped me filter out listings that were not actually within my range.",
+    name: "Adaeze N.",
+    location: "Abuja seeker",
     avatar: 32,
   },
   {
-    text: "Best real estate experience ever. The recommendations were spot-on and saved us months of searching.",
-    name: "Emily Rodriguez",
-    location: "Austin, TX",
+    text: "As a provider, I get clearer requests and spend less time filtering casual inquiries before sending offers.",
+    name: "Ibrahim S.",
+    location: "Lagos agent",
     avatar: 44,
   },
 ];
@@ -31,7 +31,7 @@ const Newsletter = () => {
         <MarketingShell>
           <div className="mb-14">
             <p className="text-xs font-medium text-primary uppercase tracking-[0.2em] font-mono mb-4">Testimonials</p>
-            <h2 className="font-serif text-3xl lg:text-4xl text-foreground">What Our Clients Say</h2>
+            <h2 className="font-serif text-3xl lg:text-4xl text-foreground">Trusted by Renters and Providers</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -60,17 +60,17 @@ const Newsletter = () => {
         <MarketingShell>
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="font-serif text-3xl lg:text-4xl text-white mb-4">
-              Ready to Find Your Dream Home?
+              Ready to Start Your Search the Smarter Way?
             </h2>
             <p className="text-white/40 mb-10 text-[15px] leading-relaxed">
-              Join thousands of satisfied homeowners who found their perfect property with Dwello&apos;s platform.
+              Post your need, browse verified homes, or join Dwello as an agent or landlord.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button variant="outline" className="rounded-lg px-8 py-6 text-sm font-medium border-white/20 text-white hover:bg-white/5 gap-2">
-                Get Started
+                Browse Homes
               </Button>
               <Button className="rounded-lg px-8 py-6 bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-medium gap-2">
-                Schedule a Demo
+                Post a Need
               </Button>
             </div>
           </div>

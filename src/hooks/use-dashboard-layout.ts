@@ -71,6 +71,19 @@ const normalizeStoredLayout = (
   return [...validItems, ...missingItems];
 };
 
+const layoutsEqual = (left: DashboardLayoutItem[], right: DashboardLayoutItem[]) => {
+  if (left.length !== right.length) return false;
+
+  return left.every((item, index) => {
+    const candidate = right[index];
+    return (
+      item.id === candidate.id &&
+      item.visible === candidate.visible &&
+      item.size === candidate.size
+    );
+  });
+};
+
 const readStoredLayout = (storageKey: string, defaults: DashboardWidgetDefault[]) => {
   if (typeof window === "undefined") return createDefaultLayout(defaults);
 
@@ -128,7 +141,10 @@ export function useDashboardLayout(storageKey: string, defaults: DashboardWidget
   const [layout, setLayout] = useState<DashboardLayoutItem[]>(() => readStoredLayout(storageKey, defaults));
 
   useEffect(() => {
-    setLayout((current) => normalizeStoredLayout(current, defaults));
+    setLayout((current) => {
+      const normalized = normalizeStoredLayout(current, defaults);
+      return layoutsEqual(current, normalized) ? current : normalized;
+    });
   }, [defaults, defaultsKey]);
 
   useEffect(() => {

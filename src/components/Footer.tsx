@@ -18,7 +18,7 @@ const Footer = () => {
               <span className="text-lg font-bold text-white tracking-tight">Dwello</span>
             </Link>
             <p className="text-sm text-white/35 leading-relaxed mb-5">
-              Smart real estate platform connecting you with your dream home through intelligent matching and personalized recommendations.
+              Dwello helps seekers, agents, and landlords connect through verified listings, clearer pricing, and faster rental matching.
             </p>
             <div className="flex items-center gap-3">
               {[Facebook, Instagram, Twitter, Linkedin, Youtube].map((Icon, i) => (
@@ -32,7 +32,7 @@ const Footer = () => {
           <div>
             <p className="font-serif text-base text-white mb-5">Quick Links</p>
             <ul className="space-y-3">
-              {["Browse Properties", "AI Property Hub", "About Us", "Contact", "Careers", "Blog"].map((link) => (
+              {["Browse Homes", "Post a Need", "For Agents", "For Landlords", "About Us", "Contact"].map((link) => (
                 <li key={link}>
                   <a href="#" className="text-sm text-white/35 hover:text-white/70 transition-colors">{link}</a>
                 </li>
@@ -60,7 +60,7 @@ const Footer = () => {
 
           <div>
             <p className="font-serif text-base text-white mb-5">Stay Updated</p>
-            <p className="text-sm text-white/35 leading-relaxed mb-4">Subscribe to our newsletter for the latest listings, market insights, and exclusive offers.</p>
+            <p className="text-sm text-white/35 leading-relaxed mb-4">Get product updates, market signals, and new verified listing alerts.</p>
             <div className="space-y-3">
               <Input
                 type="email"

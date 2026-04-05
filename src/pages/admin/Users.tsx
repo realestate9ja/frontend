@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useSearchFocus } from "@/hooks/use-search-focus";
 
-const users = [
+export const users = [
   { id: "U-001", name: "Adebayo Johnson", email: "adebayo@mail.com", role: "Agent", verification: "Verified", joined: "Jan 10, 2024", activity: "Active now" },
   { id: "U-002", name: "Chioma Okafor", email: "chioma@mail.com", role: "Landlord", verification: "Pending", joined: "Feb 15, 2024", activity: "2h ago" },
   { id: "U-003", name: "Emeka Nwankwo", email: "emeka@mail.com", role: "Tenant", verification: "Verified", joined: "Jan 22, 2024", activity: "1d ago" },
@@ -34,6 +35,7 @@ const avatarColors: Record<string, string> = {
 };
 
 export default function UsersPage() {
+  useSearchFocus();
   const [search, setSearch] = useState("");
   const filtered = users.filter(u =>
     u.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -98,7 +100,7 @@ export default function UsersPage() {
                       const vStyle = verificationStyles[u.verification];
                       const VIcon = vStyle.icon;
                       return (
-                        <div key={u.id} className="flex items-start gap-3 p-3 rounded-lg border border-border/40 bg-background">
+                        <div key={u.id} data-search-id={`admin-user-${u.id}`} className="flex items-start gap-3 p-3 rounded-lg border border-border/40 bg-background">
                           <div className="relative shrink-0">
                             <Avatar className="h-9 w-9 border border-border/60">
                               <AvatarFallback className={`text-xs font-medium ${avatarColors[u.role]}`}>
@@ -144,7 +146,7 @@ export default function UsersPage() {
                           const vStyle = verificationStyles[u.verification];
                           const VIcon = vStyle.icon;
                           return (
-                            <tr key={u.id} className="border-b border-border/40 group hover:bg-accent/30">
+                            <tr key={u.id} data-search-id={`admin-user-${u.id}`} className="border-b border-border/40 group hover:bg-accent/30">
                               <td className="py-3 px-4">
                                 <div className="flex items-center gap-3">
                                   <div className="relative">

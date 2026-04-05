@@ -1,49 +1,81 @@
 import { useMemo, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AlertTriangle, ArrowUpRight, CheckCircle2, Clock4, Download, Filter, Receipt, Search, Wallet } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Search, Wallet, AlertTriangle, CheckCircle2, Clock4 } from "lucide-react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useSearchFocus } from "@/hooks/use-search-focus";
 
-const rows = [
-  { tenant: "Bode Akin", unit: "Palm Residence A1", amount: "N850,000", state: "Paid", due: "Apr 02" },
-  { tenant: "Amber Foods", unit: "Admiralty Suites 5B", amount: "N1,450,000", state: "Due tomorrow", due: "Apr 07" },
-  { tenant: "Ruth Samuel", unit: "Lekki Court B2", amount: "N620,000", state: "Overdue", due: "Apr 01" },
-  { tenant: "Nova Labs", unit: "Admiralty Suites 4C", amount: "N1,450,000", state: "Paid", due: "Apr 03" },
+export const rows = [
+  { id: "COL-201", tenant: "Bode Akin", unit: "Palm Residence A1", property: "Palm Residence", amount: "N850,000", state: "Paid", due: "Apr 02", method: "Bank transfer" },
+  { id: "COL-202", tenant: "Amber Foods", unit: "Admiralty Suites 5B", property: "Admiralty Suites", amount: "N1,450,000", state: "Due tomorrow", due: "Apr 07", method: "Pending invoice" },
+  { id: "COL-203", tenant: "Ruth Samuel", unit: "Lekki Court B2", property: "Lekki Court", amount: "N620,000", state: "Overdue", due: "Apr 01", method: "Reminder sent" },
+  { id: "COL-204", tenant: "Nova Labs", unit: "Admiralty Suites 4C", property: "Admiralty Suites", amount: "N1,450,000", state: "Paid", due: "Apr 03", method: "Corporate remittance" },
 ];
 
+const stateStyles: Record<string, { className: string }> = {
+  Paid: { className: "bg-emerald-50 border-emerald-200 text-emerald-700" },
+  "Due tomorrow": { className: "bg-amber-50 border-amber-200 text-amber-700" },
+  Overdue: { className: "bg-destructive/5 border-destructive/20 text-destructive" },
+};
+
 export default function LandlordCollections() {
+  useSearchFocus();
   const [search, setSearch] = useState("");
-  const filtered = useMemo(() => rows.filter((row) => [row.tenant, row.unit, row.state].some((value) => value.toLowerCase().includes(search.toLowerCase()))), [search]);
+
+  const filtered = useMemo(
+    () =>
+      rows.filter((row) =>
+        [row.tenant, row.unit, row.state, row.property].some((value) =>
+          value.toLowerCase().includes(search.toLowerCase()),
+        ),
+      ),
+    [search],
+  );
+
   const paid = filtered.filter((row) => row.state === "Paid");
   const due = filtered.filter((row) => row.state === "Due tomorrow");
   const overdue = filtered.filter((row) => row.state === "Overdue");
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center justify-between">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-foreground">Collections</h1>
-          <p className="text-sm text-muted-foreground mt-1">Monitor expected rent, payment status, and follow-up risk across your units.</p>
+          <p className="mt-1 text-sm text-muted-foreground">Monitor rent expected, received, due-soon, and overdue items across your occupied units.</p>
         </div>
-        <div className="relative w-full sm:w-[260px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search ledger..." className="pl-9 h-9" value={search} onChange={(e) => setSearch(e.target.value)} />
+        <div className="flex items-center gap-2 self-start">
+          <Button variant="outline" size="sm" className="gap-1.5">
+            <Filter className="h-3.5 w-3.5" /> Filter
+          </Button>
+          <Button variant="outline" size="sm" className="gap-1.5">
+            <Download className="h-3.5 w-3.5" /> Export
+          </Button>
         </div>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { label: "Expected", value: "N16.0M", icon: Wallet, accent: "text-foreground", bg: "bg-primary/10" },
-          { label: "Collected", value: "N15.7M", icon: CheckCircle2, accent: "text-emerald-600", bg: "bg-emerald-500/10" },
-          { label: "Due Soon", value: due.length.toString(), icon: Clock4, accent: "text-amber-600", bg: "bg-amber-500/10" },
-          { label: "Overdue", value: overdue.length.toString(), icon: AlertTriangle, accent: "text-destructive", bg: "bg-destructive/10" },
+          { label: "Expected", value: "N16.0M", icon: Wallet, accent: "text-foreground", bg: "bg-primary/10", change: "April ledger" },
+          { label: "Collected", value: "N15.7M", icon: CheckCircle2, accent: "text-emerald-600", bg: "bg-emerald-500/10", change: "+98% collected" },
+          { label: "Due Soon", value: due.length.toString(), icon: Clock4, accent: "text-amber-600", bg: "bg-amber-500/10", change: "Needs reminder" },
+          { label: "Overdue", value: overdue.length.toString(), icon: AlertTriangle, accent: "text-destructive", bg: "bg-destructive/10", change: "Escalate follow-up" },
         ].map((item) => (
           <Card key={item.label} className="border border-border/60 shadow-sm">
-            <CardContent className="p-4 flex items-start gap-3">
-              <div className={`p-2 rounded-lg ${item.bg} shrink-0`}><item.icon className={`h-4 w-4 ${item.accent}`} /></div>
-              <div>
-                <p className="text-xs text-muted-foreground">{item.label}</p>
-                <p className={`text-lg font-bold ${item.accent}`}>{item.value}</p>
+            <CardContent className="p-5">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-xs text-muted-foreground">{item.label}</p>
+                  <p className={`mt-1 text-2xl font-bold ${item.accent}`}>{item.value}</p>
+                  <div className="mt-1.5 flex items-center gap-1 text-xs text-muted-foreground">
+                    <ArrowUpRight className="h-3 w-3" />
+                    {item.change}
+                  </div>
+                </div>
+                <div className={`rounded-xl p-2.5 ${item.bg}`}>
+                  <item.icon className={`h-5 w-5 ${item.accent}`} />
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -51,7 +83,7 @@ export default function LandlordCollections() {
       </div>
 
       <Tabs defaultValue="all" className="space-y-4">
-        <TabsList className="bg-muted/50 p-1 h-auto">
+        <TabsList className="h-auto max-w-full flex-wrap justify-start bg-muted/50 p-1">
           <TabsTrigger value="all" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">All ({filtered.length})</TabsTrigger>
           <TabsTrigger value="paid" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Paid ({paid.length})</TabsTrigger>
           <TabsTrigger value="due" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Due Soon ({due.length})</TabsTrigger>
@@ -66,20 +98,88 @@ export default function LandlordCollections() {
         ].map((group) => (
           <TabsContent key={group.key} value={group.key}>
             <Card className="border border-border/60 shadow-sm">
-              <CardHeader className="pb-3"><CardTitle className="text-base">Rent Ledger Snapshot</CardTitle></CardHeader>
-              <CardContent className="space-y-3">
-                {group.items.map((row) => (
-                  <div key={row.unit} className="flex flex-col gap-2 rounded-xl border border-border/60 p-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{row.tenant}</p>
-                      <p className="text-xs text-muted-foreground">{row.unit} • Due {row.due}</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm font-semibold text-foreground">{row.amount}</span>
-                      <span className={`text-xs ${row.state === "Paid" ? "text-emerald-600" : row.state === "Overdue" ? "text-destructive" : "text-amber-600"}`}>{row.state}</span>
-                    </div>
+              <CardHeader className="pb-3">
+                <div className="flex items-center justify-between flex-wrap gap-3">
+                  <div>
+                    <CardTitle className="text-base">Rent Ledger</CardTitle>
+                    <CardDescription>Showing {group.items.length} collection rows</CardDescription>
                   </div>
-                ))}
+                  <div className="relative w-full sm:w-auto">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input placeholder="Search ledger..." className="h-9 w-full pl-9 sm:w-[220px]" value={search} onChange={(e) => setSearch(e.target.value)} />
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="space-y-3 p-4 sm:hidden">
+                  {group.items.map((row) => (
+                    <div key={row.id} data-search-id={`landlord-collection-row-${row.id}`} className="rounded-xl border border-border/60 p-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-sm font-medium text-foreground">{row.tenant}</p>
+                          <p className="mt-1 text-xs text-muted-foreground">{row.unit} · {row.property}</p>
+                        </div>
+                        <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${stateStyles[row.state].className}`}>{row.state}</span>
+                      </div>
+                      <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
+                        <div>
+                          <p className="text-muted-foreground">Amount</p>
+                          <p className="font-semibold text-foreground">{row.amount}</p>
+                        </div>
+                        <div>
+                          <p className="text-muted-foreground">Due</p>
+                          <p className="font-medium text-foreground">{row.due}</p>
+                        </div>
+                      </div>
+                      <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <Receipt className="h-3.5 w-3.5" />
+                        {row.method}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="hidden overflow-x-auto sm:block">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="hover:bg-transparent">
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Ref</TableHead>
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Tenant</TableHead>
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Unit</TableHead>
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Property</TableHead>
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Amount</TableHead>
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Due</TableHead>
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Status</TableHead>
+                      <TableHead className="text-xs uppercase tracking-wider text-muted-foreground/70">Note</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {group.items.map((row) => (
+                      <TableRow key={row.id} data-search-id={`landlord-collection-row-${row.id}`}>
+                        <TableCell className="font-mono text-xs text-muted-foreground">{row.id}</TableCell>
+                        <TableCell className="text-sm font-medium text-foreground">{row.tenant}</TableCell>
+                        <TableCell>
+                          <div>
+                            <p className="text-sm text-foreground">{row.unit}</p>
+                            <p className="text-[11px] text-muted-foreground">{row.due}</p>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-sm text-muted-foreground">{row.property}</TableCell>
+                        <TableCell className="text-sm font-semibold text-foreground">{row.amount}</TableCell>
+                        <TableCell className="text-sm text-muted-foreground">{row.due}</TableCell>
+                        <TableCell>
+                          <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${stateStyles[row.state].className}`}>{row.state}</span>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                            <Receipt className="h-3.5 w-3.5" />
+                            {row.method}
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>

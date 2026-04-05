@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Heart, MapPin, Star, Bed, Bath, ExternalLink, Grid3x3, List, Search, Calendar } from "lucide-react";
+import { useSearchFocus } from "@/hooks/use-search-focus";
 
-const saved = [
+export const saved = [
   { id: 1, property: "3 Bed Flat, Lekki Phase 1", provider: "Adebayo Johnson", price: "₦2,500,000/yr", location: "Lekki, Lagos", rating: 4.8, match: 95, beds: 3, baths: 2, image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop", savedDate: "Mar 15, 2025", views: 128 },
   { id: 2, property: "2 Bed Serviced, Victoria Island", provider: "ShortStay NG", price: "₦45,000/night", location: "VI, Lagos", rating: 4.9, match: 92, beds: 2, baths: 2, image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop", savedDate: "Mar 12, 2025", views: 87 },
   { id: 3, property: "Modern Studio, Garki Area 11", provider: "Abuja Rentals", price: "₦850,000/yr", location: "Garki, Abuja", rating: 4.6, match: 84, beds: 1, baths: 1, image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop", savedDate: "Mar 10, 2025", views: 54 },
@@ -11,6 +12,7 @@ const saved = [
 ];
 
 export default function Saved() {
+  useSearchFocus();
   const [view, setView] = useState<"grid" | "list">("grid");
   const [search, setSearch] = useState("");
   const filtered = saved.filter(s =>
@@ -41,7 +43,7 @@ export default function Saved() {
       {view === "grid" ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
           {filtered.map((item) => (
-            <div key={item.id} className="relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group cursor-pointer">
+            <div key={item.id} data-search-id={`seeker-saved-${item.id}`} className="relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group cursor-pointer">
               {/* Image */}
               <img src={item.image} alt={item.property} className="w-full h-[320px] object-cover group-hover:scale-105 transition-transform duration-500" />
 
@@ -94,7 +96,7 @@ export default function Saved() {
       ) : (
         <div className="space-y-3">
           {filtered.map((item) => (
-            <div key={item.id} className="flex flex-col sm:flex-row bg-card border border-border/60 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all group">
+            <div key={item.id} data-search-id={`seeker-saved-${item.id}`} className="flex flex-col sm:flex-row bg-card border border-border/60 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all group">
               <div className="relative w-full sm:w-40 h-48 sm:h-32 shrink-0">
                 <img src={item.image} alt={item.property} className="w-full h-full object-cover" />
                 <button className="absolute top-2 right-2 w-7 h-7 bg-background/90 backdrop-blur-sm rounded-full flex items-center justify-center">

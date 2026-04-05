@@ -10,6 +10,7 @@ import {
   Plus,
   RotateCcw,
   ScanSearch,
+  SlidersHorizontal,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -46,6 +47,7 @@ export type DashboardWidgetMenuControls = {
   canPinTop: boolean;
   canMoveUp: boolean;
   currentSize: DashboardWidgetSize;
+  editing?: boolean;
   onFocus?: () => void;
   onHide: () => void;
   onMove: (direction: "up" | "down") => void;
@@ -92,6 +94,8 @@ export const dashboardSizeClasses: Record<DashboardWidgetSize, string> = {
 };
 
 export function DashboardWidgetMenu({ controls }: { controls: DashboardWidgetMenuControls }) {
+  if (controls.editing) return null;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -165,48 +169,57 @@ export function DashboardCustomizerToolbar({
 }: DashboardCustomizerToolbarProps) {
   if (!editing) {
     return (
-      <Button variant="outline" size="sm" className="h-9 gap-2 text-sm" onClick={() => onEditChange(true)}>
+      <Button variant="outline" size="sm" className="h-9 gap-2 rounded-full border-border/70 bg-background/90 px-4 text-sm shadow-sm" onClick={() => onEditChange(true)}>
         <LayoutDashboard className="h-4 w-4" /> Customize layout
       </Button>
     );
   }
 
   return (
-    <div className="w-full rounded-2xl border border-border/70 bg-card/95 p-4 shadow-sm">
-      <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-        <div className="space-y-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <p className="text-sm font-semibold text-foreground">Edit dashboard layout</p>
-            <Badge variant="outline" className="h-5 text-[10px] font-normal">
-              Auto-saved
-            </Badge>
-            {hiddenCount > 0 ? (
-              <Badge variant="outline" className="h-5 text-[10px] font-normal">
-                {hiddenCount} hidden
-              </Badge>
-            ) : null}
+    <div className="w-full rounded-2xl border border-border/70 bg-card/95 px-3 py-2.5 shadow-sm">
+      <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex min-w-0 items-start gap-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/8 text-primary">
+            <SlidersHorizontal className="h-4 w-4" />
           </div>
-          <p className="text-xs text-muted-foreground">
-            Resize cards, move them with the controls, or hide anything you do not need.
-          </p>
+          <div className="min-w-0 space-y-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="text-sm font-semibold text-foreground">Customize layout</p>
+              <Badge variant="outline" className="h-5 rounded-full px-2 text-[10px] font-normal">
+                Auto-saved
+              </Badge>
+              {hiddenCount > 0 ? (
+                <Badge variant="outline" className="h-5 rounded-full px-2 text-[10px] font-normal">
+                  {hiddenCount} hidden
+                </Badge>
+              ) : null}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Resize, reorder, or hide cards without leaving the dashboard.
+            </p>
+          </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          <Button type="button" variant="secondary" size="sm" className="h-8" onClick={() => onApplyPreset("balanced")}>
-            Balanced
-          </Button>
-          <Button type="button" variant="secondary" size="sm" className="h-8" onClick={() => onApplyPreset("compact")}>
-            Compact
-          </Button>
-          <Button type="button" variant="secondary" size="sm" className="h-8" onClick={() => onApplyPreset("expanded")}>
-            Expanded
-          </Button>
-          <Button type="button" variant="ghost" size="sm" className="h-8 gap-2" onClick={onReset}>
-            <RotateCcw className="h-3.5 w-3.5" /> Reset
-          </Button>
-          <Button type="button" size="sm" className="h-8 gap-2" onClick={() => onEditChange(false)}>
-            <Check className="h-3.5 w-3.5" /> Done
-          </Button>
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+          <div className="grid w-full grid-cols-3 rounded-2xl border border-border/70 bg-muted/30 p-1 sm:inline-flex sm:w-auto sm:flex-wrap sm:items-center sm:rounded-full">
+            <Button type="button" variant="ghost" size="sm" className="h-7 rounded-full px-3 text-xs" onClick={() => onApplyPreset("balanced")}>
+              Balanced
+            </Button>
+            <Button type="button" variant="ghost" size="sm" className="h-7 rounded-full px-3 text-xs" onClick={() => onApplyPreset("compact")}>
+              Compact
+            </Button>
+            <Button type="button" variant="ghost" size="sm" className="h-7 rounded-full px-3 text-xs" onClick={() => onApplyPreset("expanded")}>
+              Expanded
+            </Button>
+          </div>
+          <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:items-center">
+            <Button type="button" variant="ghost" size="sm" className="h-7 gap-2 rounded-full px-3 text-xs" onClick={onReset}>
+              <RotateCcw className="h-3.5 w-3.5" /> Reset
+            </Button>
+            <Button type="button" size="sm" className="h-7 gap-2 rounded-full px-3 text-xs" onClick={() => onEditChange(false)}>
+              <Check className="h-3.5 w-3.5" /> Done
+            </Button>
+          </div>
         </div>
       </div>
     </div>
@@ -217,11 +230,11 @@ export function DashboardHiddenWidgets({ items, onShow }: DashboardHiddenWidgets
   if (items.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-dashed border-border/70 bg-muted/30 p-4">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div className="rounded-2xl border border-border/60 bg-muted/20 px-3 py-2.5">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-1">
           <p className="text-sm font-medium text-foreground">Hidden widgets</p>
-          <p className="text-xs text-muted-foreground">Bring back any overview block with one click.</p>
+          <p className="text-xs text-muted-foreground">Bring back any cards you removed without leaving edit mode.</p>
         </div>
         <div className="flex flex-wrap gap-2">
           {items.map((item) => (
@@ -230,7 +243,7 @@ export function DashboardHiddenWidgets({ items, onShow }: DashboardHiddenWidgets
               type="button"
               variant="outline"
               size="sm"
-              className="h-8 gap-2 rounded-full"
+              className="h-7 w-full justify-center gap-2 rounded-full sm:w-auto"
               onClick={() => onShow(item.id)}
             >
               <Plus className="h-3.5 w-3.5" /> {item.title}
@@ -254,82 +267,76 @@ export function DashboardEditableWidget({
 }: DashboardEditableWidgetProps) {
   return (
     <div className={cn(dashboardSizeClasses[item.size], "min-w-0 self-start")}>
-      {editing ? (
-        <div className="mb-3 rounded-2xl border border-dashed border-border/80 bg-background/95 p-3 shadow-sm">
-          <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
-            <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <p className="text-sm font-semibold text-foreground">{item.title}</p>
-                <Badge variant="outline" className="h-5 text-[10px] font-normal">
-                  {index + 1} of {total}
+      <div
+        className={cn(
+          "relative transition-all",
+          editing && "rounded-[1.45rem] ring-1 ring-border/80 ring-offset-2 ring-offset-background",
+        )}
+      >
+        {editing ? (
+          <div className="pointer-events-none absolute inset-x-2 top-2 z-20 flex flex-col gap-2 sm:inset-x-3 sm:top-3 sm:flex-row sm:items-start sm:justify-between">
+            <div className="pointer-events-auto inline-flex max-w-full items-center gap-2 self-start rounded-full border border-border/80 bg-background/95 px-2.5 py-1 shadow-sm backdrop-blur">
+              <p className="max-w-[10rem] truncate text-[11px] font-medium text-foreground">{item.title}</p>
+              <Badge variant="outline" className="h-5 rounded-full px-2 text-[10px] font-normal">
+                  {index + 1}/{total}
                 </Badge>
-              </div>
-              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{item.description}</p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2">
-              <div className="inline-flex rounded-xl border border-border/80 bg-muted/60 p-1">
-                {item.availableSizes.map((size) => (
-                  <button
-                    key={size}
-                    type="button"
-                    onClick={() => onSizeChange(item.id, size)}
-                    className={cn(
-                      "rounded-lg px-2.5 py-1 text-[11px] font-medium transition-colors",
-                      item.size === size
-                        ? "bg-background text-foreground shadow-sm"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                  >
-                    {sizeLabels[size]}
-                  </button>
-                ))}
+            <div className="pointer-events-auto flex w-full flex-col gap-2 sm:w-auto sm:items-end">
+              <div className="grid w-full grid-cols-1 rounded-2xl border border-border/80 bg-background/95 p-1 shadow-sm backdrop-blur sm:inline-flex sm:w-auto sm:flex-wrap sm:items-center sm:rounded-full">
+                  {item.availableSizes.map((size) => (
+                    <button
+                      key={size}
+                      type="button"
+                      onClick={() => onSizeChange(item.id, size)}
+                      className={cn(
+                        "rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors",
+                        item.size === size
+                          ? "bg-foreground text-background"
+                          : "text-muted-foreground hover:text-foreground",
+                      )}
+                    >
+                      {sizeLabels[size]}
+                    </button>
+                  ))}
               </div>
 
-              <div className="inline-flex rounded-xl border border-border/80 bg-muted/60 p-1">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 px-2"
-                  onClick={() => onMove(item.id, "up")}
-                  disabled={index === 0}
-                >
-                  <ArrowUp className="h-3.5 w-3.5" />
-                </Button>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 px-2"
-                  onClick={() => onMove(item.id, "down")}
-                  disabled={index === total - 1}
-                >
-                  <ArrowDown className="h-3.5 w-3.5" />
-                </Button>
+              <div className="grid w-full grid-cols-2 gap-1 rounded-2xl border border-border/80 bg-background/95 p-1 shadow-sm backdrop-blur sm:inline-flex sm:w-auto sm:grid-cols-none sm:gap-0 sm:rounded-full">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="h-7 rounded-full px-2"
+                    onClick={() => onMove(item.id, "up")}
+                    disabled={index === 0}
+                  >
+                    <ArrowUp className="h-3.5 w-3.5" />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="h-7 rounded-full px-2"
+                    onClick={() => onMove(item.id, "down")}
+                    disabled={index === total - 1}
+                  >
+                    <ArrowDown className="h-3.5 w-3.5" />
+                  </Button>
               </div>
 
               <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                className="h-8 gap-2 text-muted-foreground hover:text-foreground"
-                onClick={() => onHide(item.id)}
-              >
-                <EyeOff className="h-3.5 w-3.5" /> Hide
-              </Button>
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="h-7 w-full gap-1.5 rounded-full border border-border/80 bg-background/95 px-2.5 text-xs text-muted-foreground shadow-sm backdrop-blur hover:text-foreground sm:w-auto"
+                  onClick={() => onHide(item.id)}
+                >
+                  <EyeOff className="h-3.5 w-3.5" /> Hide
+                </Button>
             </div>
           </div>
-        </div>
-      ) : null}
-
-      <div
-        className={cn(
-          "transition-all",
-          editing && "rounded-[1.35rem] border border-dashed border-border/70 bg-background/40 p-1.5",
-        )}
-      >
-        {children}
+        ) : null}
+        <div className={cn(editing && "pt-32 sm:pt-14")}>{children}</div>
       </div>
     </div>
   );

@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Search, MoreHorizontal, Building2, MapPin, Plus, Filter } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useSearchFocus } from "@/hooks/use-search-focus";
 
-const properties = [
+export const properties = [
   { id: "P-001", title: "3 Bedroom Flat, Lekki Phase 1", agent: "Adebayo Johnson", price: "₦2,500,000/yr", location: "Lagos", status: "Active", date: "Mar 15, 2024" },
   { id: "P-002", title: "Studio Apartment, Wuse 2", agent: "Chioma Okafor", price: "₦1,200,000/yr", location: "Abuja", status: "Pending", date: "Mar 14, 2024" },
   { id: "P-003", title: "4 Bedroom Duplex, GRA", agent: "Emeka Nwankwo", price: "₦5,000,000/yr", location: "Port Harcourt", status: "Active", date: "Mar 13, 2024" },
@@ -21,14 +23,21 @@ const statusStyles: Record<string, { color: string; bg: string; dot: string }> =
 };
 
 export default function Properties() {
-  const [search, setSearch] = useState("");
-  const filtered = properties.filter(p =>
-    p.title.toLowerCase().includes(search.toLowerCase()) ||
-    p.agent.toLowerCase().includes(search.toLowerCase()) ||
-    p.location.toLowerCase().includes(search.toLowerCase())
+  useSearchFocus();
+  const [searchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("q") ?? "");
+
+  useEffect(() => {
+    setSearch(searchParams.get("q") ?? "");
+  }, [searchParams]);
+
+  const filtered = properties.filter((property) =>
+    property.title.toLowerCase().includes(search.toLowerCase()) ||
+    property.agent.toLowerCase().includes(search.toLowerCase()) ||
+    property.location.toLowerCase().includes(search.toLowerCase()),
   );
-  const active = filtered.filter(p => p.status === "Active");
-  const pending = filtered.filter(p => p.status === "Pending");
+  const active = filtered.filter((property) => property.status === "Active");
+  const pending = filtered.filter((property) => property.status === "Pending");
 
   return (
     <div className="space-y-6">
@@ -46,12 +55,12 @@ export default function Properties() {
           { label: "Active", value: "2,104", sub: "73.9%", accent: "text-emerald-600" },
           { label: "Pending Review", value: "389", sub: "12 urgent", accent: "text-amber-600" },
           { label: "Rejected", value: "354", sub: "-8% vs last month", accent: "text-destructive" },
-        ].map((s) => (
-          <Card key={s.label} className="border border-border/60 shadow-sm">
+        ].map((stat) => (
+          <Card key={stat.label} className="border border-border/60 shadow-sm">
             <CardContent className="p-3 sm:p-4">
-              <p className="text-xs text-muted-foreground">{s.label}</p>
-              <p className={`text-lg sm:text-xl font-bold mt-0.5 ${s.accent}`}>{s.value}</p>
-              <p className="text-[11px] text-muted-foreground mt-0.5">{s.sub}</p>
+              <p className="text-xs text-muted-foreground">{stat.label}</p>
+              <p className={`text-lg sm:text-xl font-bold mt-0.5 ${stat.accent}`}>{stat.value}</p>
+              <p className="text-[11px] text-muted-foreground mt-0.5">{stat.sub}</p>
             </CardContent>
           </Card>
         ))}
@@ -71,35 +80,40 @@ export default function Properties() {
               <Card className="border border-border/60 shadow-sm">
                 <CardHeader className="pb-3">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div><CardTitle className="text-base">Properties</CardTitle><CardDescription>Showing {items.length} of 2,847</CardDescription></div>
+                    <div>
+                      <CardTitle className="text-base">Properties</CardTitle>
+                      <CardDescription>Showing {items.length} of 2,847</CardDescription>
+                    </div>
                     <div className="flex items-center gap-2 w-full sm:w-auto">
-                      <div className="relative flex-1 sm:flex-none"><Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" /><Input placeholder="Search..." className="pl-9 w-full sm:w-[220px] h-9" value={search} onChange={(e) => setSearch(e.target.value)} /></div>
+                      <div className="relative flex-1 sm:flex-none">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input placeholder="Search..." className="pl-9 w-full sm:w-[220px] h-9" value={search} onChange={(event) => setSearch(event.target.value)} />
+                      </div>
                       <Button variant="outline" size="sm" className="gap-1.5 shrink-0"><Filter className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Filter</span></Button>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="p-3 sm:p-6 pt-0 sm:pt-0">
-                  {/* Mobile card list */}
                   <div className="sm:hidden space-y-3">
-                    {items.map((p) => {
-                      const s = statusStyles[p.status];
+                    {items.map((property) => {
+                      const status = statusStyles[property.status];
                       return (
-                        <div key={p.id} className="p-3 rounded-lg border border-border/40 bg-background space-y-2">
+                        <div key={property.id} data-search-id={`admin-property-${property.id}`} className="p-3 rounded-lg border border-border/40 bg-background space-y-2">
                           <div className="flex items-start gap-2.5">
                             <div className="w-9 h-9 rounded-lg bg-primary/5 flex items-center justify-center shrink-0"><Building2 className="h-4 w-4 text-primary" /></div>
                             <div className="flex-1 min-w-0">
-                              <p className="font-medium text-sm text-foreground leading-tight">{p.title}</p>
-                              <p className="text-xs text-muted-foreground mt-0.5">{p.agent}</p>
+                              <p className="font-medium text-sm text-foreground leading-tight">{property.title}</p>
+                              <p className="text-xs text-muted-foreground mt-0.5">{property.agent}</p>
                             </div>
                             <Button variant="ghost" size="icon" className="h-7 w-7 shrink-0"><MoreHorizontal className="h-4 w-4" /></Button>
                           </div>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <span className="font-semibold text-sm text-foreground">{p.price}</span>
-                              <div className="flex items-center gap-1 text-xs text-muted-foreground"><MapPin className="h-3 w-3" />{p.location}</div>
+                              <span className="font-semibold text-sm text-foreground">{property.price}</span>
+                              <div className="flex items-center gap-1 text-xs text-muted-foreground"><MapPin className="h-3 w-3" />{property.location}</div>
                             </div>
-                            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border ${s.bg} ${s.color}`}>
-                              <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />{p.status}
+                            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border ${status.bg} ${status.color}`}>
+                              <span className={`h-1.5 w-1.5 rounded-full ${status.dot}`} />{property.status}
                             </span>
                           </div>
                         </div>
@@ -107,7 +121,6 @@ export default function Properties() {
                     })}
                   </div>
 
-                  {/* Desktop table */}
                   <div className="hidden sm:block overflow-x-auto">
                     <table className="w-full">
                       <thead>
@@ -122,25 +135,25 @@ export default function Properties() {
                         </tr>
                       </thead>
                       <tbody>
-                        {items.map((p) => {
-                          const s = statusStyles[p.status];
+                        {items.map((property) => {
+                          const status = statusStyles[property.status];
                           return (
-                            <tr key={p.id} className="border-b border-border/40 group hover:bg-accent/30">
+                            <tr key={property.id} data-search-id={`admin-property-${property.id}`} className="border-b border-border/40 group hover:bg-accent/30">
                               <td className="py-3 px-4">
                                 <div className="flex items-center gap-2.5">
                                   <div className="w-9 h-9 rounded-lg bg-primary/5 flex items-center justify-center shrink-0"><Building2 className="h-4 w-4 text-primary" /></div>
-                                  <span className="font-medium text-sm text-foreground max-w-[180px] truncate">{p.title}</span>
+                                  <span className="font-medium text-sm text-foreground max-w-[180px] truncate">{property.title}</span>
                                 </div>
                               </td>
-                              <td className="text-sm text-foreground py-3 px-4">{p.agent}</td>
-                              <td className="font-semibold text-sm text-foreground py-3 px-4">{p.price}</td>
-                              <td className="py-3 px-4"><div className="flex items-center gap-1 text-sm text-muted-foreground"><MapPin className="h-3.5 w-3.5" />{p.location}</div></td>
+                              <td className="text-sm text-foreground py-3 px-4">{property.agent}</td>
+                              <td className="font-semibold text-sm text-foreground py-3 px-4">{property.price}</td>
+                              <td className="py-3 px-4"><div className="flex items-center gap-1 text-sm text-muted-foreground"><MapPin className="h-3.5 w-3.5" />{property.location}</div></td>
                               <td className="py-3 px-4">
-                                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${s.bg} ${s.color}`}>
-                                  <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />{p.status}
+                                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${status.bg} ${status.color}`}>
+                                  <span className={`h-1.5 w-1.5 rounded-full ${status.dot}`} />{property.status}
                                 </span>
                               </td>
-                              <td className="text-muted-foreground text-sm py-3 px-4">{p.date}</td>
+                              <td className="text-muted-foreground text-sm py-3 px-4">{property.date}</td>
                               <td className="py-3 px-4"><Button variant="ghost" size="icon" className="opacity-0 group-hover:opacity-100 transition-opacity"><MoreHorizontal className="h-4 w-4" /></Button></td>
                             </tr>
                           );

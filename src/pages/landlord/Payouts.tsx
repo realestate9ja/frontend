@@ -58,7 +58,7 @@ export default function LandlordPayouts() {
       </div>
 
       <Tabs defaultValue="all" className="space-y-4">
-        <TabsList className="bg-muted/50 p-1 h-auto">
+        <TabsList className="h-auto max-w-full flex-wrap justify-start bg-muted/50 p-1">
           <TabsTrigger value="all" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">All ({payouts.length})</TabsTrigger>
           <TabsTrigger value="released" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Released</TabsTrigger>
           <TabsTrigger value="pending" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Pending/Escrow</TabsTrigger>
@@ -75,13 +75,44 @@ export default function LandlordPayouts() {
                       <CardTitle className="text-base">Owner Remittance History</CardTitle>
                       <CardDescription>Portfolio payouts and deduction breakdown</CardDescription>
                     </div>
-                    <div className="relative">
+                    <div className="relative w-full sm:w-auto">
                       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                      <Input placeholder="Search payouts..." className="h-9 w-[220px] pl-9" />
+                      <Input placeholder="Search payouts..." className="h-9 w-full pl-9 sm:w-[220px]" />
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="overflow-x-auto p-0">
+                <CardContent className="p-0">
+                  <div className="space-y-3 p-4 sm:hidden">
+                    {items.map((payout) => {
+                      const style = statusStyles[payout.status];
+                      return (
+                        <div key={payout.id} className="rounded-xl border border-border/60 p-3">
+                          <div className="flex items-start justify-between gap-3">
+                            <div>
+                              <p className="text-sm font-medium text-foreground">{payout.property}</p>
+                              <p className="mt-1 text-xs text-muted-foreground">{payout.stream}</p>
+                            </div>
+                            <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium ${style.bg} ${style.color}`}>
+                              <span className={`h-1.5 w-1.5 rounded-full ${style.dot}`} />
+                              {payout.status}
+                            </span>
+                          </div>
+                          <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
+                            <div>
+                              <p className="text-muted-foreground">Net payout</p>
+                              <p className="font-semibold text-emerald-600">{payout.amount}</p>
+                            </div>
+                            <div>
+                              <p className="text-muted-foreground">Deductions</p>
+                              <p className="font-medium text-foreground">{payout.deductions}</p>
+                            </div>
+                          </div>
+                          <p className="mt-3 text-[11px] font-mono text-muted-foreground">{payout.id} · {payout.date}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="hidden overflow-x-auto sm:block">
                   <Table>
                     <TableHeader>
                       <TableRow className="hover:bg-transparent">
@@ -123,6 +154,7 @@ export default function LandlordPayouts() {
                       })}
                     </TableBody>
                   </Table>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>

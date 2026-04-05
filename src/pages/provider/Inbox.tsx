@@ -1,13 +1,14 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Clock, MapPin, DollarSign, Zap, CheckCircle2, SlidersHorizontal, Search } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useSearchFocus } from "@/hooks/use-search-focus";
 
-const initialLeads = [
+export const initialLeads = [
   { id: 1, need: "3 Bed Flat in Lekki Phase 1", budget: "₦2,500,000/yr", location: "Lekki, Lagos", type: "Rent", moveIn: "April 2024", posted: "15 min ago", sla: 12, features: ["24hr Power", "Security", "Parking"], status: "New", initials: "AT" },
   { id: 2, need: "Studio Apartment in Wuse 2", budget: "₦1,200,000/yr", location: "Wuse 2, Abuja", type: "Rent", moveIn: "May 2024", posted: "1 hr ago", sla: 45, features: ["Furnished", "Security"], status: "New", initials: "AT" },
   { id: 3, need: "Short-let in Victoria Island, 3 nights", budget: "₦50,000/night", location: "VI, Lagos", type: "Short-let", moveIn: "Mar 22-25", posted: "2 hrs ago", sla: 0, features: ["Furnished", "Pool", "Gym"], status: "Responded", initials: "CC" },
@@ -24,9 +25,16 @@ const slaColor = (sla: number) => sla <= 15 ? "text-destructive" : "text-amber-6
 const slaBg = (sla: number) => sla <= 15 ? "bg-destructive" : "bg-amber-500";
 
 export default function LeadInbox() {
+  useSearchFocus();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [leads, setLeads] = useState(initialLeads);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(searchParams.get("q") ?? "");
+  const defaultTab = searchParams.get("tab") ?? "new";
+
+  useEffect(() => {
+    setSearch(searchParams.get("q") ?? "");
+  }, [searchParams]);
 
   const filtered = leads.filter(l =>
     l.need.toLowerCase().includes(search.toLowerCase()) ||
@@ -71,7 +79,7 @@ export default function LeadInbox() {
         ))}
       </div>
 
-      <Tabs defaultValue="new" className="space-y-4">
+      <Tabs defaultValue={defaultTab} className="space-y-4">
         <TabsList className="bg-muted/50 p-1 h-auto">
           <TabsTrigger value="new" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">New ({newLeads.length})</TabsTrigger>
           <TabsTrigger value="responded" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Responded ({responded.length})</TabsTrigger>
@@ -83,7 +91,7 @@ export default function LeadInbox() {
           return (
             <TabsContent key={tab} value={tab} className="space-y-3">
               {items.map((lead) => (
-                <Card key={lead.id} className="border border-border/60 shadow-sm hover:shadow-md transition-all group">
+                <Card key={lead.id} data-search-id={`provider-inbox-${lead.id}`} className="border border-border/60 shadow-sm hover:shadow-md transition-all group">
                   <CardContent className="p-0">
                     <div className="flex">
                       <div className={`w-1 shrink-0 rounded-l-lg ${lead.sla > 0 && lead.sla <= 15 ? "bg-destructive" : lead.sla > 15 ? "bg-amber-500" : "bg-emerald-500"}`} />

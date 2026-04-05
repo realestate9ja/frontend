@@ -6,8 +6,9 @@ import { Star, ShieldCheck, Clock, ArrowUpRight, Zap, SlidersHorizontal, Search 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useSearchFocus } from "@/hooks/use-search-focus";
 
-const offers = [
+export const offers = [
   { id: 1, property: "3 Bed Flat, Lekki Phase 1", provider: "Adebayo Johnson", role: "Agent", price: "₦2,500,000/yr", trust: "Verified", rating: 4.8, responseTime: "12 min", match: 95, features: ["24hr Power", "Security", "Parking"], status: "New", initials: "AJ" },
   { id: 2, property: "2 Bed Apartment, Ikeja GRA", provider: "Lagos Homes Ltd", role: "Agent", price: "₦1,800,000/yr", trust: "Verified", rating: 4.5, responseTime: "45 min", match: 88, features: ["Gated Estate", "Water Supply"], status: "Viewed", initials: "LH" },
   { id: 3, property: "Studio, Wuse 2", provider: "Chioma Okafor", role: "Landlord", price: "₦1,200,000/yr", trust: "Pending", rating: 4.2, responseTime: "2 hrs", match: 76, features: ["Furnished", "Security"], status: "New", initials: "CO" },
@@ -24,6 +25,7 @@ const matchColor = (m: number) => m >= 90 ? "text-emerald-600" : m >= 80 ? "text
 const matchBg = (m: number) => m >= 90 ? "bg-emerald-500" : m >= 80 ? "bg-blue-500" : "bg-amber-500";
 
 export default function Offers() {
+  useSearchFocus();
   const [search, setSearch] = useState("");
   const filtered = offers.filter(o =>
     o.property.toLowerCase().includes(search.toLowerCase()) ||
@@ -95,7 +97,7 @@ export default function Offers() {
 
 function OfferCard({ offer }: { offer: typeof offers[0] }) {
   return (
-    <Card className="border border-border/60 shadow-sm hover:shadow-md transition-all duration-200 group">
+    <Card data-search-id={`seeker-offer-${offer.id}`} className="border border-border/60 shadow-sm hover:shadow-md transition-all duration-200 group">
       <CardContent className="p-0">
         <div className="flex">
           <div className={`w-1 shrink-0 rounded-l-lg ${matchBg(offer.match)}`} />

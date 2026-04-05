@@ -7,8 +7,8 @@ import MarketingShell from "@/components/layout/MarketingShell";
 
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/properties", label: "Properties" },
-  { to: "/rent", label: "Rent" },
+  { to: "/properties", label: "Browse Homes" },
+  { to: "/rent", label: "How It Works" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];

@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDashboardLayout, type DashboardWidgetSize } from "@/hooks/use-dashboard-layout";
+import { useSearchFocus } from "@/hooks/use-search-focus";
+import { toSearchId } from "@/lib/search-id";
 
 const occupancyData = [
   { month: "Jan", occupied: 72 },
@@ -28,25 +30,25 @@ const collectionData = [
   { month: "Jun", expected: 16.0, collected: 15.7 },
 ];
 
-const leaseExpiries = [
+export const leaseExpiries = [
   { tenant: "The Okafor Family", unit: "Palm Residence B3", due: "12 days", status: "Renewal due" },
   { tenant: "Kingsley Ude", unit: "Lekki Court A2", due: "18 days", status: "Notice pending" },
   { tenant: "Nova Labs", unit: "Admiralty Suites 4C", due: "24 days", status: "Corporate renewal" },
 ];
 
-const maintenanceItems = [
+export const maintenanceItems = [
   { issue: "Water heater replacement", unit: "Lekki Court A2", priority: "Urgent", age: "2 hrs" },
   { issue: "Generator service request", unit: "Palm Residence B1", priority: "Normal", age: "1 day" },
   { issue: "Ceiling leak inspection", unit: "Admiralty Suites 2A", priority: "Urgent", age: "4 hrs" },
 ];
 
-const collectionAlerts = [
+export const collectionAlerts = [
   { tenant: "Bode Akin", unit: "Palm Residence A1", amount: "N850,000", state: "Overdue 5 days" },
   { tenant: "Amber Foods", unit: "Admiralty Suites 5B", amount: "N1,450,000", state: "Due tomorrow" },
   { tenant: "Ruth Samuel", unit: "Lekki Court B2", amount: "N620,000", state: "Part payment pending" },
 ];
 
-const stats = [
+export const stats = [
   { title: "Properties", value: "6", change: "18 active units", icon: Building2, subtitle: "Owned assets on platform" },
   { title: "Occupied Units", value: "15", change: "83% occupancy", icon: Home, subtitle: "3 currently vacant" },
   { title: "Collections", value: "N15.7M", change: "98% of expected", icon: Wallet, subtitle: "This month" },
@@ -63,6 +65,7 @@ type WidgetDefinition = {
 };
 
 export default function LandlordDashboard() {
+  useSearchFocus();
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -81,7 +84,7 @@ export default function LandlordDashboard() {
       render: () => (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => (
-            <Card key={stat.title} className="border border-border/60 shadow-none transition-shadow duration-200 hover:shadow-md">
+            <Card key={stat.title} data-search-id={`landlord-stat-${toSearchId(stat.title)}`} className="border border-border/60 shadow-none transition-shadow duration-200 hover:shadow-md">
               <CardContent className="p-5">
                 <div className="mb-3 flex items-center justify-between">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/8">
@@ -186,7 +189,7 @@ export default function LandlordDashboard() {
           </CardHeader>
           <CardContent className="space-y-3 pt-0">
             {leaseExpiries.map((lease) => (
-              <div key={lease.unit} className="rounded-xl border border-border/60 p-3">
+              <div key={lease.unit} data-search-id={`landlord-lease-${leaseExpiries.findIndex((item) => item.unit === lease.unit)}`} className="rounded-xl border border-border/60 p-3">
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <p className="text-sm font-medium text-foreground">{lease.unit}</p>
@@ -223,7 +226,7 @@ export default function LandlordDashboard() {
           <CardContent className="pt-0">
             <div className="space-y-2">
               {collectionAlerts.map((alert) => (
-                <div key={alert.unit} className="flex flex-col gap-2 rounded-lg border border-border/60 p-3 sm:flex-row sm:items-center sm:justify-between">
+                <div key={alert.unit} data-search-id={`landlord-collection-alert-${collectionAlerts.findIndex((item) => item.unit === alert.unit)}`} className="flex flex-col gap-2 rounded-lg border border-border/60 p-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <p className="text-sm font-medium text-foreground">{alert.tenant}</p>
                     <p className="text-xs text-muted-foreground">{alert.unit}</p>
@@ -255,7 +258,7 @@ export default function LandlordDashboard() {
           </CardHeader>
           <CardContent className="space-y-3 pt-0">
             {maintenanceItems.map((item) => (
-              <div key={item.issue} className="rounded-xl border border-border/60 p-3">
+              <div key={item.issue} data-search-id={`landlord-maintenance-overview-${maintenanceItems.findIndex((entry) => entry.issue === item.issue)}`} className="rounded-xl border border-border/60 p-3">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-sm font-medium text-foreground">{item.issue}</p>
                   <Badge variant="outline" className={item.priority === "Urgent" ? "text-[10px] border-red-200 bg-red-50 text-red-600" : "text-[10px] border-border bg-muted text-muted-foreground"}>{item.priority}</Badge>
@@ -268,8 +271,8 @@ export default function LandlordDashboard() {
             ))}
           </CardContent>
         </Card>
-      ),
-    },
+        ),
+      },
   ], []);
 
   const { applyPreset, layout, move, moveTo, reset, resetItem, setSize, showWidget, toggleVisibility } = useDashboardLayout("dwello_dashboard_layout_landlord", widgetDefinitions.map((widget) => ({ id: widget.id, size: widget.defaultSize, availableSizes: widget.availableSizes })));
@@ -307,7 +310,7 @@ export default function LandlordDashboard() {
         </>
       ) : null}
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 lg:grid-flow-row-dense lg:grid-cols-3">
         {visibleWidgets.map((widget, index) => (
           <DashboardEditableWidget key={widget.id} editing={editing} index={index} item={{ id: widget.id, title: widget.title, description: widget.description, visible: widget.visible, size: widget.size, availableSizes: widget.availableSizes }} total={visibleWidgets.length} onHide={(itemId) => toggleVisibility(itemId, false)} onMove={move} onSizeChange={setSize}>
             {widget.render({
@@ -317,6 +320,7 @@ export default function LandlordDashboard() {
               canPinTop: index > 0,
               canMoveUp: index > 0,
               currentSize: widget.size,
+              editing,
               onFocus: undefined,
               onHide: () => toggleVisibility(widget.id, false),
               onMove: (direction) => move(widget.id, direction),

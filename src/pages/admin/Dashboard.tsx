@@ -27,6 +27,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDashboardLayout, type DashboardWidgetSize } from "@/hooks/use-dashboard-layout";
+import { useSearchFocus } from "@/hooks/use-search-focus";
+import { toSearchId } from "@/lib/search-id";
 
 const revenueData = [
   { month: "Jan", revenue: 18, users: 12 },
@@ -48,14 +50,14 @@ const propertyData = [
   { day: "Sun", listed: 10, sold: 6 },
 ];
 
-const stats = [
+export const stats = [
   { title: "Total Properties", value: "2,847", change: "142 new this month", icon: Building2, subtitle: "Across all listings" },
   { title: "Active Users", value: "18,392", change: "1,247 online now", icon: Users, subtitle: "Registered accounts" },
   { title: "Monthly Revenue", value: "₦45.2M", change: "+23.1% vs last month", icon: CreditCard, subtitle: "Platform earnings" },
   { title: "Open Disputes", value: "24", change: "6 resolved today", icon: AlertTriangle, subtitle: "Pending resolution" },
 ];
 
-const recentActivity = [
+export const recentActivity = [
   { id: 1, action: "New property listed", user: "Adebayo Johnson", time: "2m", avatar: "AJ", type: "property" },
   { id: 2, action: "KYC verification submitted", user: "Chioma Okafor", time: "15m", avatar: "CO", type: "user" },
   { id: 3, action: "Payment of ₦2.5M completed", user: "Emeka Nwankwo", time: "32m", avatar: "EN", type: "payment" },
@@ -70,7 +72,7 @@ const typeStyles: Record<string, string> = {
   dispute: "bg-destructive/10 text-destructive",
 };
 
-const quickActions = [
+export const quickActions = [
   { label: "Add Property", icon: Building2, to: "/admin/properties" },
   { label: "Manage Users", icon: Users, to: "/admin/users" },
   { label: "View Reports", icon: Activity, to: "/admin/reports" },
@@ -87,6 +89,7 @@ type WidgetDefinition = {
 };
 
 export default function Dashboard() {
+  useSearchFocus();
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -106,7 +109,7 @@ export default function Dashboard() {
         render: () => (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((stat) => (
-              <Card key={stat.title} className="border border-border/60 shadow-none transition-shadow duration-200 hover:shadow-md">
+              <Card key={stat.title} data-search-id={`admin-stat-${toSearchId(stat.title)}`} className="border border-border/60 shadow-none transition-shadow duration-200 hover:shadow-md">
                 <CardContent className="p-5">
                   <div className="mb-3 flex items-center justify-between">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/8">
@@ -223,7 +226,7 @@ export default function Dashboard() {
             <CardContent className="pt-0">
               <div className="space-y-1">
                 {recentActivity.map((item) => (
-                  <div key={item.id} className="group flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-accent/50">
+                  <div key={item.id} data-search-id={`admin-activity-${item.id}`} className="group flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-accent/50">
                     <Avatar className="h-9 w-9 border border-border/60">
                       <AvatarFallback className={`text-[10px] font-medium ${typeStyles[item.type]}`}>
                         {item.avatar}
@@ -372,7 +375,7 @@ export default function Dashboard() {
         </>
       ) : null}
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 lg:grid-flow-row-dense lg:grid-cols-3">
         {visibleWidgets.map((widget, index) => (
           <DashboardEditableWidget
             key={widget.id}
@@ -398,6 +401,7 @@ export default function Dashboard() {
               canPinTop: index > 0,
               canMoveUp: index > 0,
               currentSize: widget.size,
+              editing,
               onFocus: undefined,
               onHide: () => toggleVisibility(widget.id, false),
               onMove: (direction) => move(widget.id, direction),
