@@ -8,10 +8,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 export default function Signup() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
 
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/onboarding");
+    navigate(`/confirm-email?email=${encodeURIComponent(email)}`, { state: { email } });
   };
 
   return (
@@ -74,7 +75,14 @@ export default function Signup() {
                 <label className="text-sm font-medium text-foreground">Email</label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input type="email" placeholder="you@example.com" className="pl-9 h-11 rounded-lg" required />
+                  <Input
+                    type="email"
+                    placeholder="you@example.com"
+                    className="pl-9 h-11 rounded-lg"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
                 </div>
               </div>
               <div className="space-y-1.5">

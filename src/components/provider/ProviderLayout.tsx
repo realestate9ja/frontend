@@ -3,10 +3,10 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ProviderSidebar } from "./ProviderSidebar";
 import { ProviderBottomNav } from "./ProviderBottomNav";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Bell, ShieldAlert, ShieldCheck } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ShieldAlert, ShieldCheck } from "lucide-react";
 import { useAvatar } from "@/contexts/AvatarContext";
 import { DashboardHeaderSearch } from "@/components/search/DashboardHeaderSearch";
+import { DashboardNotifications } from "@/components/dashboard/DashboardNotifications";
 
 export default function ProviderLayout() {
   const { avatarUrl } = useAvatar();
@@ -23,10 +23,7 @@ export default function ProviderLayout() {
             <SidebarTrigger className="ml-0 hidden md:flex" />
             <DashboardHeaderSearch role="provider" placeholder="Search leads, listings, payouts..." />
             <div className="ml-auto flex items-center gap-2 sm:gap-3">
-              <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-lg">
-                <Bell className="h-4 w-4 text-muted-foreground" />
-                <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-primary" />
-              </Button>
+              <DashboardNotifications role="provider" />
               <div className="h-8 w-px bg-border/60 hidden sm:block" />
               <Link to="/provider/settings" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
                 <Avatar className="h-8 w-8 border border-border/60">

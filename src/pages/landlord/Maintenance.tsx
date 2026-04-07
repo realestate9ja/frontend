@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -42,8 +43,10 @@ export default function LandlordMaintenance() {
           <Button variant="outline" size="sm" className="gap-1.5">
             <Filter className="h-3.5 w-3.5" /> Filter
           </Button>
-          <Button size="sm" className="gap-1.5">
-            <Plus className="h-3.5 w-3.5" /> Add Issue
+          <Button size="sm" className="gap-1.5" asChild>
+            <Link to="/landlord/maintenance/new">
+              <Plus className="h-3.5 w-3.5" /> Add Issue
+            </Link>
           </Button>
         </div>
       </div>

@@ -5,9 +5,24 @@ import { Switch } from "@/components/ui/switch";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Bell, Building2, Camera, CreditCard, FileText, Shield, User, Wrench } from "lucide-react";
+import { Bell, Building2, Camera, CreditCard, FileText, Shield, User, Wrench, Activity, Clock, ReceiptText, KeyRound, Trash2 } from "lucide-react";
 import { useRef } from "react";
 import { useAvatar } from "@/contexts/AvatarContext";
+
+const activityLog = [
+  { action: "Recorded rent payment for Palm Residence A1", time: "1 hour ago", type: "Collection" },
+  { action: "Marked Lekki Court B2 as vacant-ready", time: "4 hours ago", type: "Portfolio" },
+  { action: "Uploaded updated ownership file", time: "Yesterday", type: "Document" },
+  { action: "Escalated water heater replacement", time: "Yesterday", type: "Maintenance" },
+  { action: "Sent overdue reminder to Admiralty Suites 5B", time: "2 days ago", type: "Collection" },
+];
+
+const activityStyles: Record<string, string> = {
+  Collection: "bg-primary/10 text-primary border-primary/20",
+  Portfolio: "bg-blue-50 text-blue-600 border-blue-200",
+  Document: "bg-emerald-50 text-emerald-600 border-emerald-200",
+  Maintenance: "bg-amber-50 text-amber-600 border-amber-200",
+};
 
 export default function LandlordSettings() {
   const { avatarUrl, setAvatarUrl } = useAvatar();
@@ -57,6 +72,8 @@ export default function LandlordSettings() {
           <TabsTrigger value="collections" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Collections</TabsTrigger>
           <TabsTrigger value="alerts" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Alerts</TabsTrigger>
           <TabsTrigger value="documents" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Documents</TabsTrigger>
+          <TabsTrigger value="security" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Security</TabsTrigger>
+          <TabsTrigger value="activity" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Activity</TabsTrigger>
         </TabsList>
 
         <TabsContent value="general">
@@ -92,9 +109,17 @@ export default function LandlordSettings() {
                 <div><p className="font-medium text-sm text-foreground">Track unit-level occupancy</p><p className="text-xs text-muted-foreground">Show occupied, vacant, and notice-given units in the dashboard.</p></div>
                 <Switch defaultChecked className="shrink-0" />
               </div>
-              <div className="flex items-center justify-between gap-3 py-4 last:pb-0">
+              <div className="flex items-center justify-between gap-3 py-4">
                 <div><p className="font-medium text-sm text-foreground">Maintenance approval required</p><p className="text-xs text-muted-foreground">Require landlord sign-off before vendors can start work.</p></div>
                 <Switch className="shrink-0" />
+              </div>
+              <div className="flex items-center justify-between gap-3 py-4">
+                <div><p className="font-medium text-sm text-foreground">Publish vacancies automatically</p><p className="text-xs text-muted-foreground">Push vacant-ready units to your marketing inventory without manual relisting.</p></div>
+                <Switch defaultChecked className="shrink-0" />
+              </div>
+              <div className="flex items-center justify-between gap-3 py-4 last:pb-0">
+                <div><p className="font-medium text-sm text-foreground">Allow agent collaboration</p><p className="text-xs text-muted-foreground">Let assigned agents manage inspections and tenant conversations on your behalf.</p></div>
+                <Switch defaultChecked className="shrink-0" />
               </div>
             </CardContent>
           </Card>
@@ -110,8 +135,19 @@ export default function LandlordSettings() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">Bank Name</label><Input defaultValue="GTBank" /></div>
                 <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">Account Number</label><Input defaultValue="0123456789" /></div>
+                <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">Account Name</label><Input defaultValue="Landlord Account" /></div>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium text-foreground">Settlement Schedule</label>
+                  <select className="w-full h-10 rounded-lg border border-input bg-background px-3 text-sm text-foreground">
+                    <option>As payments clear</option>
+                    <option>Weekly</option>
+                    <option>Monthly</option>
+                  </select>
+                </div>
                 <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">Collection Cycle</label><Input defaultValue="Monthly" /></div>
                 <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">Reminder Offset</label><Input defaultValue="3 days before due date" /></div>
+                <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">Grace Period</label><Input defaultValue="2 days after due date" /></div>
+                <div className="space-y-1.5"><label className="text-sm font-medium text-foreground">Default Rent Due Day</label><Input defaultValue="1st of every month" /></div>
               </div>
               <div className="flex justify-end pt-2"><Button>Update Collection Settings</Button></div>
             </CardContent>
@@ -156,12 +192,110 @@ export default function LandlordSettings() {
                 <div><p className="font-medium text-sm text-foreground">Property compliance documents</p><p className="text-xs text-muted-foreground">Track expiring C of O, tax receipts, and inspection records.</p></div>
                 <Button variant="outline" size="sm" className="shrink-0"><Shield className="h-3.5 w-3.5 mr-1.5" /> Review</Button>
               </div>
-              <div className="flex items-center justify-between gap-3 py-4 last:pb-0">
+              <div className="flex items-center justify-between gap-3 py-4">
                 <div><p className="font-medium text-sm text-foreground">Maintenance vendor files</p><p className="text-xs text-muted-foreground">Store invoices, receipts, and service reports per issue.</p></div>
                 <Button variant="outline" size="sm" className="shrink-0"><Wrench className="h-3.5 w-3.5 mr-1.5" /> Manage</Button>
               </div>
+              <div className="flex items-center justify-between gap-3 py-4 last:pb-0">
+                <div><p className="font-medium text-sm text-foreground">Expiry reminders</p><p className="text-xs text-muted-foreground">Get alerted before compliance certificates, tenancy files, or receipts lapse.</p></div>
+                <Switch defaultChecked className="shrink-0" />
+              </div>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value="security" className="space-y-4">
+          <Card className="border border-border/60 shadow-sm">
+            <CardHeader className="pb-4">
+              <div className="flex items-center gap-2"><Shield className="h-4 w-4 text-muted-foreground" /><CardTitle className="text-base">Security</CardTitle></div>
+              <CardDescription>Protect your landlord account, payment access, and portfolio controls.</CardDescription>
+            </CardHeader>
+            <CardContent className="divide-y divide-border/60">
+              <div className="flex items-center justify-between gap-2 py-4 first:pt-0">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2 rounded-lg bg-primary/10 shrink-0"><KeyRound className="h-4 w-4 text-primary" /></div>
+                  <div className="min-w-0"><p className="font-medium text-sm text-foreground">Change Password</p><p className="text-xs text-muted-foreground">Last updated 12 days ago.</p></div>
+                </div>
+                <Button variant="outline" size="sm" className="shrink-0">Update</Button>
+              </div>
+              <div className="flex items-center justify-between gap-2 py-4">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2 rounded-lg bg-primary/10 shrink-0"><Shield className="h-4 w-4 text-primary" /></div>
+                  <div className="min-w-0"><p className="font-medium text-sm text-foreground">Two-Factor Authentication</p><p className="text-xs text-muted-foreground">Require a second verification step for sign-in and rent disbursement changes.</p></div>
+                </div>
+                <Button variant="outline" size="sm" className="shrink-0">Enable</Button>
+              </div>
+              <div className="flex items-center justify-between gap-3 py-4">
+                <div><p className="font-medium text-sm text-foreground">Login notifications</p><p className="text-xs text-muted-foreground">Alert when a new browser or device accesses your portfolio.</p></div>
+                <Switch defaultChecked className="shrink-0" />
+              </div>
+              <div className="flex items-center justify-between gap-3 py-4 last:pb-0">
+                <div><p className="font-medium text-sm text-foreground">Require approval for bank detail changes</p><p className="text-xs text-muted-foreground">Pause disbursement updates until you confirm them by email.</p></div>
+                <Switch defaultChecked className="shrink-0" />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border border-destructive/30 shadow-sm">
+            <CardHeader className="pb-4">
+              <div className="flex items-center gap-2"><Trash2 className="h-4 w-4 text-destructive" /><CardTitle className="text-base text-destructive">Danger Zone</CardTitle></div>
+              <CardDescription>Take care with irreversible account actions.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-xl border border-destructive/20 bg-destructive/5 p-4">
+                <div className="min-w-0">
+                  <p className="font-medium text-sm text-foreground">Delete Account</p>
+                  <p className="text-xs text-muted-foreground">Permanently remove your landlord account, portfolio history, and rent collection records.</p>
+                </div>
+                <Button variant="destructive" size="sm" className="shrink-0">Delete Account</Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="activity">
+          <div className="space-y-4">
+            <Card className="border border-border/60 shadow-sm">
+              <CardHeader className="pb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <Activity className="h-4 w-4 text-muted-foreground" />
+                      <CardTitle className="text-base">Recent Activity</CardTitle>
+                    </div>
+                    <CardDescription>Track recent collection, portfolio, maintenance, and document actions.</CardDescription>
+                  </div>
+                  <Button variant="outline" size="sm" className="gap-1.5 w-full sm:w-auto">
+                    <ReceiptText className="h-3.5 w-3.5" /> Export Log
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-3 pt-0">
+                {activityLog.map((item) => (
+                  <div key={`${item.type}-${item.action}`} className="rounded-xl border border-border/60 bg-secondary/30 p-3 sm:p-4">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-foreground">{item.action}</p>
+                        <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                          <span className={`inline-flex items-center rounded-full border px-2 py-0.5 font-medium ${activityStyles[item.type]}`}>
+                            {item.type}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            {item.time}
+                          </span>
+                        </div>
+                      </div>
+                      <Button variant="ghost" size="sm" className="justify-start sm:justify-center">
+                        View
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+
+          </div>
         </TabsContent>
       </Tabs>
     </div>

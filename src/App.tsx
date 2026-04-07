@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
+import ConfirmEmail from "./pages/ConfirmEmail.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Onboarding from "./pages/Onboarding.tsx";
 import About from "./pages/About.tsx";
@@ -30,9 +31,11 @@ import LandlordLayout from "./components/landlord/LandlordLayout.tsx";
 import LandlordDashboard from "./pages/landlord/Dashboard.tsx";
 import LandlordProperties from "./pages/landlord/Properties.tsx";
 import LandlordUnits from "./pages/landlord/Units.tsx";
+import LandlordNewUnit from "./pages/landlord/NewUnit.tsx";
 import LandlordCollections from "./pages/landlord/Collections.tsx";
 import LandlordPayouts from "./pages/landlord/Payouts.tsx";
 import LandlordMaintenance from "./pages/landlord/Maintenance.tsx";
+import LandlordNewMaintenanceIssue from "./pages/landlord/NewMaintenanceIssue.tsx";
 import LandlordCalendar from "./pages/landlord/Calendar.tsx";
 import LandlordSettings from "./pages/landlord/Settings.tsx";
 
@@ -70,6 +73,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/confirm-email" element={<ConfirmEmail />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
@@ -122,9 +126,11 @@ const App = () => (
             <Route path="properties" element={<LandlordProperties />} />
             <Route path="properties/new" element={<AddListing />} />
             <Route path="units" element={<LandlordUnits />} />
+            <Route path="units/new" element={<LandlordNewUnit />} />
             <Route path="collections" element={<LandlordCollections />} />
             <Route path="payouts" element={<LandlordPayouts />} />
             <Route path="maintenance" element={<LandlordMaintenance />} />
+            <Route path="maintenance/new" element={<LandlordNewMaintenanceIssue />} />
             <Route path="calendar" element={<LandlordCalendar />} />
             <Route path="settings" element={<LandlordSettings />} />
           </Route>

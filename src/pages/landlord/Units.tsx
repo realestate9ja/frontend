@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -54,8 +55,10 @@ export default function LandlordUnits() {
           <Button variant="outline" size="sm" className="gap-1.5">
             <Filter className="h-3.5 w-3.5" /> Filter
           </Button>
-          <Button size="sm" className="gap-1.5">
-            <Plus className="h-3.5 w-3.5" /> Add Unit
+          <Button size="sm" className="gap-1.5" asChild>
+            <Link to="/landlord/units/new">
+              <Plus className="h-3.5 w-3.5" /> Add Unit
+            </Link>
           </Button>
         </div>
       </div>

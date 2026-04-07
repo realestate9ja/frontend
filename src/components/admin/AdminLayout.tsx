@@ -3,10 +3,9 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AdminSidebar } from "./AdminSidebar";
 import { AdminBottomNav } from "./AdminBottomNav";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Bell } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useAvatar } from "@/contexts/AvatarContext";
 import { DashboardHeaderSearch } from "@/components/search/DashboardHeaderSearch";
+import { DashboardNotifications } from "@/components/dashboard/DashboardNotifications";
 
 export default function AdminLayout() {
   const { avatarUrl } = useAvatar();
@@ -19,13 +18,10 @@ export default function AdminLayout() {
         </div>
         <div className="flex-1 min-w-0 flex flex-col">
           <header className="h-14 sm:h-16 flex items-center border-b border-border/60 bg-background px-3 sm:px-6 gap-2 sm:gap-4 sticky top-0 z-10">
-             <SidebarTrigger className="ml-0 hidden md:flex" />
+            <SidebarTrigger className="ml-0 hidden md:flex" />
             <DashboardHeaderSearch role="admin" placeholder="Search users, KYC, reports, settings..." />
             <div className="ml-auto flex items-center gap-2 sm:gap-3">
-              <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-lg">
-                <Bell className="h-4 w-4 text-muted-foreground" />
-                <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-primary" />
-              </Button>
+              <DashboardNotifications role="admin" />
               <div className="h-8 w-px bg-border/60 hidden sm:block" />
               <Link to="/admin/settings" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
                 <Avatar className="h-8 w-8 border border-border/60">
