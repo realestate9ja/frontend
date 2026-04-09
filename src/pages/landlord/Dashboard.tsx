@@ -42,12 +42,6 @@ export const maintenanceItems = [
   { issue: "Ceiling leak inspection", unit: "Admiralty Suites 2A", priority: "Urgent", age: "4 hrs" },
 ];
 
-export const collectionAlerts = [
-  { tenant: "Bode Akin", unit: "Palm Residence A1", amount: "N850,000", state: "Overdue 5 days" },
-  { tenant: "Amber Foods", unit: "Admiralty Suites 5B", amount: "N1,450,000", state: "Due tomorrow" },
-  { tenant: "Ruth Samuel", unit: "Lekki Court B2", amount: "N620,000", state: "Part payment pending" },
-];
-
 export const stats = [
   { title: "Properties", value: "6", change: "18 active units", icon: Building2, subtitle: "Owned assets on platform" },
   { title: "Occupied Units", value: "15", change: "83% occupancy", icon: Home, subtitle: "3 currently vacant" },
@@ -205,47 +199,6 @@ export default function LandlordDashboard() {
       ),
     },
     {
-      id: "rent-alerts",
-      title: "Collections alerts",
-      description: "Surface overdue, due-soon, and part-payment rent items.",
-      defaultSize: "wide",
-      availableSizes: ["wide", "full"],
-      render: () => (
-        <Card className="border border-border/60 shadow-none">
-          <CardHeader className="pb-3">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex flex-wrap items-center gap-2">
-                <CardTitle className="text-base font-semibold">Collections Alerts</CardTitle>
-                <Badge variant="outline" className="inline-flex h-auto min-h-5 shrink-0 items-center gap-1 whitespace-nowrap px-2 py-0.5 text-[10px] font-normal">
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
-                  Action needed
-                </Badge>
-              </div>
-              <Button variant="ghost" size="sm" className="h-8 self-start text-xs text-primary sm:self-auto" asChild>
-                <Link to="/landlord/collections">Open ledger <ArrowRight className="ml-1 h-3 w-3" /></Link>
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="space-y-2">
-              {collectionAlerts.map((alert) => (
-                <div key={alert.unit} data-search-id={`landlord-collection-alert-${collectionAlerts.findIndex((item) => item.unit === alert.unit)}`} className="flex flex-col gap-2 rounded-lg border border-border/60 p-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-foreground">{alert.tenant}</p>
-                    <p className="text-xs text-muted-foreground">{alert.unit}</p>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2 sm:justify-end">
-                    <span className="text-sm font-semibold text-foreground">{alert.amount}</span>
-                    <Badge variant="outline" className="shrink-0 whitespace-nowrap text-[10px] border-amber-200 bg-amber-50 text-amber-700">{alert.state}</Badge>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      ),
-    },
-    {
       id: "maintenance",
       title: "Maintenance queue",
       description: "Track open work items across the portfolio.",
@@ -278,7 +231,7 @@ export default function LandlordDashboard() {
       },
   ], []);
 
-  const { applyPreset, layout, move, moveTo, reset, resetItem, setSize, showWidget, toggleVisibility } = useDashboardLayout("dwello_dashboard_layout_landlord", widgetDefinitions.map((widget) => ({ id: widget.id, size: widget.defaultSize, availableSizes: widget.availableSizes })));
+  const { applyPreset, layout, move, moveTo, reset, resetItem, setSize, showWidget, toggleVisibility } = useDashboardLayout("dwello_dashboard_layout_landlord_v2", widgetDefinitions.map((widget) => ({ id: widget.id, size: widget.defaultSize, availableSizes: widget.availableSizes })));
   const widgetMap = useMemo(() => new Map(widgetDefinitions.map((widget) => [widget.id, widget])), [widgetDefinitions]);
   const visibleWidgets = layout.flatMap((item) => {
     const widget = widgetMap.get(item.id);

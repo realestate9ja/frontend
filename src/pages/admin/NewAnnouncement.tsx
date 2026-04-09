@@ -416,23 +416,53 @@ export default function NewAnnouncement() {
         </TabsContent>
 
         <TabsContent value="history">
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {announcements.map((item) => (
-              <Card key={item.id} className="border border-border/60 shadow-sm">
-                <CardContent className="space-y-3 p-4">
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="text-sm font-semibold text-foreground">{item.title}</p>
-                    <Badge variant="outline">{item.status}</Badge>
+          <Card className="border border-border/60 shadow-sm">
+            <CardHeader className="pb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <CardTitle className="text-base">Recent Posts</CardTitle>
+                  <CardDescription>Review previously published or drafted announcements.</CardDescription>
+                </div>
+                <Select defaultValue="all">
+                  <SelectTrigger className="w-full sm:w-[120px] h-8 text-xs"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Status</SelectItem>
+                    <SelectItem value="published">Published</SelectItem>
+                    <SelectItem value="draft">Draft</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </CardHeader>
+            <CardContent className="divide-y divide-border/60">
+              {announcements.map((item) => (
+                <div key={item.id} className="py-4 first:pt-0 last:pb-0 space-y-2">
+                  <div className="flex items-start gap-3">
+                    <div className="h-9 w-9 rounded-xl bg-primary/5 flex items-center justify-center shrink-0">
+                      <Megaphone className="h-4 w-4 text-primary" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium text-foreground truncate">{item.title}</p>
+                      <div className="flex items-center gap-2 mt-0.5 text-xs text-muted-foreground flex-wrap">
+                        <span>{item.audience}</span>
+                        <span>·</span>
+                        <span>{item.date}</span>
+                        <span>·</span>
+                        <span>{item.views.toLocaleString()} views</span>
+                      </div>
+                    </div>
                   </div>
-                  <p className="line-clamp-3 text-xs text-muted-foreground">{item.message}</p>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span>{item.audience}</span>
-                    <span>{item.date}</span>
+                  <div className="flex items-center gap-2 pl-12 flex-wrap">
+                    <Badge variant="outline" className="text-[10px] bg-muted text-muted-foreground border-border/60">
+                      {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      {item.status}
+                    </Badge>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

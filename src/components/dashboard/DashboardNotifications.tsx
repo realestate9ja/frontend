@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bell, CheckCheck, Clock3 } from "lucide-react";
+import { Bell, CheckCheck, ChevronRight, Clock3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -47,9 +46,16 @@ const notificationData: Record<DashboardRole, NotificationItem[]> = {
 };
 
 const toneStyles: Record<NonNullable<NotificationItem["tone"]>, string> = {
-  default: "bg-primary/10",
-  warning: "bg-amber-500/10",
-  success: "bg-emerald-500/10",
+  default: "border border-primary/20 bg-primary/10 text-primary",
+  warning: "border border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-300",
+  success: "border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300",
+};
+
+const roleLabels: Record<DashboardRole, string> = {
+  admin: "Admin workspace",
+  provider: "Provider workspace",
+  seeker: "Seeker workspace",
+  landlord: "Landlord workspace",
 };
 
 export function DashboardNotifications({ role }: { role: DashboardRole }) {
@@ -93,7 +99,7 @@ export function DashboardNotifications({ role }: { role: DashboardRole }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-lg" aria-label="Open notifications">
+        <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-lg border border-transparent bg-background/70" aria-label="Open notifications">
           <Bell className="h-4 w-4 text-muted-foreground" />
           {unreadCount > 0 && (
             <>
@@ -103,42 +109,63 @@ export function DashboardNotifications({ role }: { role: DashboardRole }) {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[min(92vw,380px)] p-0">
-        <div className="flex items-center justify-between px-4 py-3">
-          <DropdownMenuLabel className="p-0 text-sm font-semibold">Notifications</DropdownMenuLabel>
+      <DropdownMenuContent align="end" className="w-[min(92vw,400px)] rounded-2xl border border-border/70 bg-background/98 p-0 shadow-xl backdrop-blur">
+        <div className="px-4 py-4">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <DropdownMenuLabel className="p-0 text-sm font-semibold">Notifications</DropdownMenuLabel>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {roleLabels[role]} · {unreadCount > 0 ? `${unreadCount} unread` : "All caught up"}
+              </p>
+            </div>
+            <Badge variant="outline" className="shrink-0 border-border/70 bg-secondary/30 text-[10px] font-medium">
+              {items.length} items
+            </Badge>
+          </div>
+        </div>
+        <div className="flex items-center justify-between border-t border-border/60 px-4 py-3">
+          <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground/70">
+            Activity feed
+          </span>
           {unreadCount > 0 ? (
             <Button variant="ghost" size="sm" className="h-8 gap-1.5 px-2 text-xs" onClick={markAllAsRead}>
               <CheckCheck className="h-3.5 w-3.5" /> Mark all read
             </Button>
           ) : (
-            <Badge variant="outline" className="text-[10px]">Up to date</Badge>
+            <Badge variant="outline" className="border-emerald-500/20 bg-emerald-500/10 text-[10px] text-emerald-600 dark:text-emerald-300">Up to date</Badge>
           )}
         </div>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="bg-border/60" />
         <div className="max-h-[420px] overflow-y-auto p-2">
           {items.map((item) => {
             const unread = !readIds.includes(item.id);
             return (
-              <DropdownMenuItem
+              <button
+                type="button"
                 key={item.id}
                 onClick={() => openNotification(item)}
-                className="mb-1 flex cursor-pointer items-start gap-3 rounded-xl border border-transparent p-3 focus:bg-secondary/60"
+                className="mb-2 flex w-full items-start gap-3 rounded-2xl border border-border/60 bg-card px-3 py-3 text-left transition-colors last:mb-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                <div className={`mt-0.5 h-9 w-1 rounded-full ${toneStyles[item.tone ?? "default"]}`} />
+                <div className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${toneStyles[item.tone ?? "default"]}`}>
+                  <Bell className="h-4 w-4" />
+                </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-foreground">{item.title}</p>
-                      <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{item.message}</p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm font-medium text-foreground">{item.title}</p>
+                        {unread ? <span className="h-2 w-2 shrink-0 rounded-full bg-primary" /> : null}
+                      </div>
+                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{item.message}</p>
                     </div>
-                    {unread && <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-primary" />}
+                    <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground/60" />
                   </div>
                   <div className="mt-2 flex items-center gap-1 text-[11px] text-muted-foreground">
                     <Clock3 className="h-3 w-3" />
                     {item.time}
                   </div>
                 </div>
-              </DropdownMenuItem>
+              </button>
             );
           })}
         </div>
@@ -146,3 +173,4 @@ export function DashboardNotifications({ role }: { role: DashboardRole }) {
     </DropdownMenu>
   );
 }
+

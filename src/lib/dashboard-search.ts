@@ -7,7 +7,7 @@ import { saved as seekerSaved } from "@/pages/seeker/Saved";
 import { stats as adminStats, recentActivity as adminRecentActivity, quickActions as adminQuickActions } from "@/pages/admin/Dashboard";
 import { properties as adminProperties } from "@/pages/admin/Properties";
 import { users as adminUsers } from "@/pages/admin/Users";
-import { stats as landlordStats, leaseExpiries, maintenanceItems, collectionAlerts } from "@/pages/landlord/Dashboard";
+import { stats as landlordStats, leaseExpiries, maintenanceItems } from "@/pages/landlord/Dashboard";
 import { properties as landlordProperties } from "@/pages/landlord/Properties";
 import { units as landlordUnits } from "@/pages/landlord/Units";
 import { rows as landlordCollectionRows } from "@/pages/landlord/Collections";
@@ -141,9 +141,6 @@ function landlordEntries(): DashboardSearchEntry[] {
     ),
     ...maintenanceItems.map((item, index) =>
       entry(`landlord-maintenance-overview-${index}`, item.issue, `${item.unit}. ${item.priority}. ${item.age}.`, withFocus("/landlord", `landlord-maintenance-overview-${index}`), "Overview", [item.unit, item.priority, item.age]),
-    ),
-    ...collectionAlerts.map((item, index) =>
-      entry(`landlord-collection-alert-${index}`, item.tenant, `${item.unit}. ${item.amount}. ${item.state}.`, withFocus("/landlord", `landlord-collection-alert-${index}`), "Overview", [item.unit, item.amount, item.state]),
     ),
     entry("landlord-properties", "Properties", "Manage owned buildings, occupancy, documentation, and issues.", "/landlord/properties", "Operations", ["properties"]),
     ...landlordProperties.map((item) =>

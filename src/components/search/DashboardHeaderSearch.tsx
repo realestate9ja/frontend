@@ -1,9 +1,9 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ArrowRight, Search, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { DashboardSearchRole, dashboardSearchConfig } from "@/lib/dashboard-search";
+import { DashboardSearchRole } from "@/lib/dashboard-search";
 import { useDashboardSearchResults } from "@/hooks/use-dashboard-search-results";
 import { searchDashboardEntriesLive } from "@/lib/typesense-search";
 
@@ -15,7 +15,6 @@ type DashboardHeaderSearchProps = {
 export function DashboardHeaderSearch({ role, placeholder }: DashboardHeaderSearchProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { searchPath } = dashboardSearchConfig[role];
   const containerRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
@@ -40,12 +39,24 @@ export function DashboardHeaderSearch({ role, placeholder }: DashboardHeaderSear
     return () => document.removeEventListener("mousedown", handlePointerDown);
   }, []);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileOpen]);
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const trimmed = query.trim();
     if (!trimmed) return;
     const bestMatch = results[0] ?? (await searchDashboardEntriesLive(role, trimmed))[0];
-    navigate(bestMatch ? bestMatch.path : `${searchPath}?q=${encodeURIComponent(trimmed)}`);
+    if (!bestMatch) return;
+    navigate(bestMatch.path);
     setOpen(false);
     setMobileOpen(false);
   };
@@ -94,19 +105,6 @@ export function DashboardHeaderSearch({ role, placeholder }: DashboardHeaderSear
                     </span>
                   </Link>
                 ))}
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="mt-1 h-9 w-full justify-between text-sm text-primary hover:text-primary"
-                  onClick={() => {
-                    navigate(`${searchPath}?q=${encodeURIComponent(query.trim())}`);
-                    setOpen(false);
-                    setMobileOpen(false);
-                  }}
-                >
-                  View all results
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
               </div>
             ) : (
               <div className="px-3 py-4 text-sm text-muted-foreground">
@@ -121,89 +119,118 @@ export function DashboardHeaderSearch({ role, placeholder }: DashboardHeaderSear
         type="button"
         variant="ghost"
         size="icon"
-        className="relative h-9 w-9 rounded-lg sm:hidden"
+        className="relative h-9 w-9 rounded-lg border border-border/60 bg-background sm:hidden"
         onClick={() => setMobileOpen((value) => !value)}
+        aria-label="Open dashboard search"
       >
         <Search className="h-4 w-4 text-muted-foreground" />
       </Button>
 
       {mobileOpen ? (
-        <div className="fixed inset-x-3 top-[4.25rem] z-40 rounded-xl border border-border/60 bg-background p-3 shadow-2xl sm:hidden">
-          <form onSubmit={handleSubmit} className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              autoFocus
-              placeholder={placeholder}
-              className="h-10 rounded-lg border-border/50 bg-secondary/50 pl-9 pr-10 text-sm"
-              value={query}
-              onChange={(event) => {
-                setQuery(event.target.value);
-              }}
-            />
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2 rounded-md"
-              onClick={() => {
-                setMobileOpen(false);
-                setQuery("");
-              }}
-            >
-              <X className="h-4 w-4 text-muted-foreground" />
-            </Button>
-          </form>
-
-          <div className="mt-3 max-h-[60vh] overflow-y-auto">
-            {query.trim() ? (
-              loading ? (
-                <div className="px-1 py-3 text-sm text-muted-foreground">
-                  Searching...
+        <div className="fixed inset-0 z-50 sm:hidden">
+          <button
+            type="button"
+            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+            aria-label="Close dashboard search"
+            onClick={() => {
+              setMobileOpen(false);
+              setQuery("");
+            }}
+          />
+          <div className="absolute inset-x-0 top-0 flex max-h-[100dvh] flex-col rounded-b-3xl border-b border-border/70 bg-background shadow-2xl">
+            <div className="border-b border-border/60 px-4 pb-4 pt-3">
+              <div className="mb-3 flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Search dashboard</p>
+                  <p className="text-xs text-muted-foreground">Only results from this workspace</p>
                 </div>
-              ) : results.length > 0 ? (
-                <div className="space-y-1">
-                  {results.map((result) => (
-                    <Link
-                      key={result.id}
-                      to={result.path}
-                      className="flex items-start justify-between gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-accent/50"
-                      onClick={() => {
-                        setMobileOpen(false);
-                        setQuery("");
-                      }}
-                    >
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium text-foreground">{result.title}</p>
-                        <p className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">{result.description}</p>
-                      </div>
-                      <span className="shrink-0 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-                        {result.category}
-                      </span>
-                    </Link>
-                  ))}
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="h-9 w-9 rounded-lg"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    setQuery("");
+                  }}
+                  aria-label="Close dashboard search"
+                >
+                  <X className="h-4 w-4 text-muted-foreground" />
+                </Button>
+              </div>
+
+              <form onSubmit={handleSubmit} className="relative">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  autoFocus
+                  placeholder={placeholder}
+                  className="h-11 rounded-xl border-border/60 bg-muted/30 pl-10 pr-20 text-sm"
+                  value={query}
+                  onChange={(event) => {
+                    setQuery(event.target.value);
+                  }}
+                />
+                {query ? (
                   <Button
                     type="button"
                     variant="ghost"
-                    className="mt-1 h-9 w-full justify-between text-sm text-primary hover:text-primary"
-                    onClick={() => {
-                      navigate(`${searchPath}?q=${encodeURIComponent(query.trim())}`);
-                      setMobileOpen(false);
-                    }}
+                    size="sm"
+                    className="absolute right-1 top-1/2 h-8 -translate-y-1/2 rounded-lg px-2.5 text-xs text-muted-foreground"
+                    onClick={() => setQuery("")}
                   >
-                    View all results
-                    <ArrowRight className="h-4 w-4" />
+                    Clear
                   </Button>
-                </div>
+                ) : null}
+              </form>
+            </div>
+
+            <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
+              {query.trim() ? (
+                loading ? (
+                  <div className="py-8 text-center text-sm text-muted-foreground">
+                    Searching...
+                  </div>
+                ) : results.length > 0 ? (
+                  <div className="space-y-2">
+                    {results.map((result) => (
+                      <Link
+                        key={result.id}
+                        to={result.path}
+                        className="block rounded-2xl border border-border/60 bg-card px-4 py-3"
+                        onClick={() => {
+                          setMobileOpen(false);
+                          setQuery("");
+                        }}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <p className="text-sm font-medium text-foreground">{result.title}</p>
+                            <p className="mt-1 line-clamp-2 text-xs leading-5 text-muted-foreground">{result.description}</p>
+                          </div>
+                          <span className="shrink-0 rounded-md bg-muted px-2 py-1 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                            {result.category}
+                          </span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="rounded-2xl border border-dashed border-border/70 px-4 py-8 text-center">
+                    <p className="text-sm font-medium text-foreground">No matching content found</p>
+                    <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                      Try a property name, page title, or dashboard term.
+                    </p>
+                  </div>
+                )
               ) : (
-                <div className="px-1 py-3 text-sm text-muted-foreground">
-                  No matching dashboard content found.
+                <div className="rounded-2xl border border-dashed border-border/70 px-4 py-8 text-center">
+                  <p className="text-sm font-medium text-foreground">Start typing to search</p>
+                  <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                    Search stays inside the dashboard you are using now.
+                  </p>
                 </div>
-              )
-            ) : (
-              <div className="px-1 py-3 text-sm text-muted-foreground">
-                Start typing to search this dashboard.
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       ) : null}

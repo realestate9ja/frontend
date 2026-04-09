@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { properties } from "./Properties";
 import { units } from "./Units";
@@ -67,6 +69,18 @@ export default function LandlordNewUnit() {
         </Badge>
       </div>
 
+      <Tabs defaultValue="new" className="space-y-4">
+        <TabsList className="bg-muted/50 p-1 h-auto">
+          <TabsTrigger value="new" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5">
+            <Plus className="h-3.5 w-3.5" /> New Unit
+          </TabsTrigger>
+          <TabsTrigger value="history" className="text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm gap-1.5">
+            <FileText className="h-3.5 w-3.5" /> Unit History
+            <Badge variant="secondary" className="ml-1 h-5 px-1.5 text-[10px] font-semibold">{units.length}</Badge>
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="new">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(280px,0.9fr)]">
         <Card className="border border-border/60 shadow-sm">
           <CardHeader className="pb-4">
@@ -203,6 +217,58 @@ export default function LandlordNewUnit() {
           </Card>
         </div>
       </div>
+        </TabsContent>
+
+        <TabsContent value="history">
+          <Card className="border border-border/60 shadow-sm">
+            <CardHeader className="pb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <CardTitle className="text-base">Unit History</CardTitle>
+                  <CardDescription>Track units already created across your portfolio.</CardDescription>
+                </div>
+                <Select defaultValue="all">
+                  <SelectTrigger className="w-full sm:w-[120px] h-8 text-xs"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Status</SelectItem>
+                    <SelectItem value="occupied">Occupied</SelectItem>
+                    <SelectItem value="vacant">Vacant</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </CardHeader>
+            <CardContent className="divide-y divide-border/60">
+              {units.map((item) => (
+                <div key={item.id} className="py-4 first:pt-0 last:pb-0 space-y-2">
+                  <div className="flex items-start gap-3">
+                    <div className="h-9 w-9 rounded-xl bg-primary/5 flex items-center justify-center shrink-0">
+                      <Building2 className="h-4 w-4 text-primary" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium text-foreground truncate">{item.name}</p>
+                      <div className="flex items-center gap-2 mt-0.5 text-xs text-muted-foreground flex-wrap">
+                        <span>{item.property}</span>
+                        <span>·</span>
+                        <span>{item.rent}</span>
+                        <span>·</span>
+                        <span>{item.tenant}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 pl-12 flex-wrap">
+                    <Badge variant="outline" className="text-[10px] bg-muted text-muted-foreground border-border/60">
+                      {item.type}
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      {item.state}
+                    </Badge>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

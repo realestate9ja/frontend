@@ -517,13 +517,13 @@ export default function AddListing() {
         <TabsContent value="history">
           <Card className="border border-border/60 shadow-sm">
             <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <CardTitle className="text-base">My Listings</CardTitle>
                   <CardDescription>Track your published properties and their performance</CardDescription>
                 </div>
                 <Select defaultValue="all">
-                  <SelectTrigger className="w-[120px] h-8 text-xs"><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="w-full sm:w-[120px] h-8 text-xs"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Status</SelectItem>
                     <SelectItem value="active">Active</SelectItem>
@@ -536,27 +536,29 @@ export default function AddListing() {
               {previousListings.map((listing) => {
                 const s = statusStyles[listing.status] || statusStyles.Draft;
                 return (
-                  <div key={listing.id} className="flex items-center justify-between py-4 first:pt-0 last:pb-0 group">
-                    <div className="flex items-center gap-4">
-                      <div className="h-10 w-10 rounded-xl bg-primary/5 flex items-center justify-center">
+                  <div key={listing.id} className="py-4 first:pt-0 last:pb-0 space-y-2">
+                    <div className="flex items-start gap-3">
+                      <div className="h-9 w-9 rounded-xl bg-primary/5 flex items-center justify-center shrink-0">
                         <Building2 className="h-4 w-4 text-primary" />
                       </div>
-                      <div>
-                        <p className="text-sm font-medium text-foreground">{listing.title}</p>
-                        <div className="flex items-center gap-3 mt-0.5">
-                          <span className="text-xs text-muted-foreground">{listing.price}</span>
-                          <span className="text-xs text-muted-foreground">{listing.date}</span>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium text-foreground truncate">{listing.title}</p>
+                        <div className="flex items-center gap-2 mt-0.5 text-xs text-muted-foreground flex-wrap">
+                          <span>{listing.price}</span>
+                          <span>·</span>
+                          <span>{listing.date}</span>
+                          <span>·</span>
+                          <span>{listing.views} views</span>
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 pl-12 flex-wrap">
+                      <Badge variant="outline" className="text-[10px] bg-muted text-muted-foreground border-border/60">
+                        {listing.type}
+                      </Badge>
                       <Badge variant="outline" className={`text-xs ${s.bg} ${s.color}`}>
                         {listing.status}
                       </Badge>
-                      <span className="text-xs text-muted-foreground flex items-center gap-1"><Eye className="h-3 w-3" />{listing.views}</span>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <ChevronRight className="h-4 w-4" />
-                      </Button>
                     </div>
                   </div>
                 );

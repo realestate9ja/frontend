@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MapPin, DollarSign, Zap, CheckCircle2, SlidersHorizontal, Search } from "lucide-react";
+import { MapPin, DollarSign, Zap, CheckCircle2, Filter, Search } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSearchFocus } from "@/hooks/use-search-focus";
@@ -52,15 +52,6 @@ export default function LeadInbox() {
           <h1 className="text-xl font-bold text-foreground sm:text-2xl">Lead Inbox</h1>
           <p className="mt-1 text-sm text-muted-foreground">Tenant needs matching your listings. Respond fast to stay boosted.</p>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="relative flex-1 sm:flex-none">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input placeholder="Search leads..." className="h-9 w-full pl-9 sm:w-[200px]" value={search} onChange={(e) => setSearch(e.target.value)} />
-          </div>
-          <Button variant="outline" size="sm" className="gap-1.5 shrink-0">
-            <SlidersHorizontal className="h-3.5 w-3.5" /> Filters
-          </Button>
-        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -80,11 +71,22 @@ export default function LeadInbox() {
       </div>
 
       <Tabs defaultValue={defaultTab} className="space-y-4">
-        <TabsList className="h-auto max-w-full flex-wrap justify-start bg-muted/50 p-1">
-          <TabsTrigger value="new" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">New ({newLeads.length})</TabsTrigger>
-          <TabsTrigger value="responded" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Responded ({responded.length})</TabsTrigger>
-          <TabsTrigger value="all" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">All ({filtered.length})</TabsTrigger>
-        </TabsList>
+        <div className="flex items-center justify-between flex-wrap gap-3">
+          <TabsList className="h-auto max-w-full flex-wrap justify-start bg-muted/50 p-1">
+            <TabsTrigger value="new" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">New ({newLeads.length})</TabsTrigger>
+            <TabsTrigger value="responded" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">Responded ({responded.length})</TabsTrigger>
+            <TabsTrigger value="all" className="text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">All ({filtered.length})</TabsTrigger>
+          </TabsList>
+          <div className="flex w-full items-center gap-2 sm:w-auto">
+            <div className="relative flex-1 sm:flex-none">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input placeholder="Search leads..." className="h-9 w-full pl-9 sm:w-[200px]" value={search} onChange={(e) => setSearch(e.target.value)} />
+            </div>
+            <Button variant="outline" size="sm" className="gap-1.5 shrink-0">
+              <Filter className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Filter</span>
+            </Button>
+          </div>
+        </div>
 
         {["new", "responded", "all"].map((tab) => {
           const items = tab === "new" ? newLeads : tab === "responded" ? responded : filtered;
