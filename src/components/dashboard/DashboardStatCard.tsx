@@ -23,12 +23,12 @@ export function DashboardStatCard({
   className,
 }: DashboardStatCardProps) {
   return (
-    <Card className={cn("border border-border/60 shadow-none", className)}>
+    <Card className={cn("border border-border/70 bg-card/95 shadow-none", className)}>
       <CardContent className="p-5">
         <div className="mb-3 flex items-center justify-between gap-3">
           <div
             className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-xl bg-primary/8 text-primary",
+              "flex h-10 w-10 items-center justify-center rounded-xl bg-primary/8 text-primary dark:bg-primary/12",
               iconToneClassName,
             )}
           >

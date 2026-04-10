@@ -172,27 +172,27 @@ export function DashboardCustomizerToolbar({
 }: DashboardCustomizerToolbarProps) {
   if (!editing) {
     return (
-      <Button variant="outline" size="sm" className="h-9 gap-2 border-border/70 bg-background px-4 text-sm" onClick={() => onEditChange(true)}>
+      <Button variant="outline" size="sm" className="h-9 gap-2 border-border/60 bg-background px-3.5 text-sm text-foreground shadow-none" onClick={() => onEditChange(true)}>
         <LayoutDashboard className="h-4 w-4" /> Customize layout
       </Button>
     );
   }
 
   return (
-    <div className="w-full rounded-2xl border border-border/70 bg-card px-4 py-3">
+    <div className="w-full rounded-xl border border-border/60 bg-background px-3.5 py-3">
       <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
         <div className="flex min-w-0 items-start gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-muted/30 text-muted-foreground">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-muted/30 text-muted-foreground">
             <SlidersHorizontal className="h-4 w-4" />
           </div>
           <div className="min-w-0 space-y-1">
             <div className="flex flex-wrap items-center gap-2">
               <p className="text-sm font-semibold text-foreground">Customize layout</p>
-              <Badge variant="outline" className="h-5 rounded-md px-2 text-[10px] font-normal text-muted-foreground">
+              <Badge variant="outline" className="h-5 rounded-md border-border/60 px-2 text-[10px] font-normal text-muted-foreground">
                 Auto-saved
               </Badge>
               {hiddenCount > 0 ? (
-                <Badge variant="outline" className="h-5 rounded-md px-2 text-[10px] font-normal text-muted-foreground">
+                <Badge variant="outline" className="h-5 rounded-md border-border/60 px-2 text-[10px] font-normal text-muted-foreground">
                   {hiddenCount} hidden
                 </Badge>
               ) : null}
@@ -204,22 +204,22 @@ export function DashboardCustomizerToolbar({
         </div>
 
         <div className="flex w-full flex-col gap-2 lg:w-auto lg:flex-row lg:items-center">
-          <div className="grid w-full grid-cols-3 gap-1 rounded-xl border border-border/70 bg-muted/20 p-1 lg:w-auto">
-            <Button type="button" variant="ghost" size="sm" className="h-8 rounded-lg px-3 text-xs" onClick={() => onApplyPreset("balanced")}>
+          <div className="grid w-full grid-cols-3 gap-1 rounded-lg border border-border/60 bg-muted/20 p-1 lg:w-auto">
+            <Button type="button" variant="ghost" size="sm" className="h-8 rounded-md px-3 text-xs text-muted-foreground" onClick={() => onApplyPreset("balanced")}>
               Balanced
             </Button>
-            <Button type="button" variant="ghost" size="sm" className="h-8 rounded-lg px-3 text-xs" onClick={() => onApplyPreset("compact")}>
+            <Button type="button" variant="ghost" size="sm" className="h-8 rounded-md px-3 text-xs text-muted-foreground" onClick={() => onApplyPreset("compact")}>
               Compact
             </Button>
-            <Button type="button" variant="ghost" size="sm" className="h-8 rounded-lg px-3 text-xs" onClick={() => onApplyPreset("expanded")}>
+            <Button type="button" variant="ghost" size="sm" className="h-8 rounded-md px-3 text-xs text-muted-foreground" onClick={() => onApplyPreset("expanded")}>
               Expanded
             </Button>
           </div>
           <div className="grid w-full grid-cols-2 gap-2 lg:w-auto">
-            <Button type="button" variant="outline" size="sm" className="h-8 gap-2 rounded-lg px-3 text-xs" onClick={onReset}>
+            <Button type="button" variant="outline" size="sm" className="h-8 gap-2 rounded-md border-border/60 px-3 text-xs" onClick={onReset}>
               <RotateCcw className="h-3.5 w-3.5" /> Reset
             </Button>
-            <Button type="button" size="sm" className="h-8 gap-2 rounded-lg px-3 text-xs" onClick={() => onEditChange(false)}>
+            <Button type="button" size="sm" className="h-8 gap-2 rounded-md px-3 text-xs" onClick={() => onEditChange(false)}>
               <Check className="h-3.5 w-3.5" /> Done
             </Button>
           </div>
@@ -233,7 +233,7 @@ export function DashboardHiddenWidgets({ items, onShow }: DashboardHiddenWidgets
   if (items.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-dashed border-border/70 bg-muted/10 px-4 py-3">
+    <div className="rounded-xl border border-dashed border-border/60 bg-muted/10 px-3.5 py-3">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div className="space-y-1">
           <p className="text-sm font-medium text-foreground">Hidden widgets</p>
@@ -246,7 +246,7 @@ export function DashboardHiddenWidgets({ items, onShow }: DashboardHiddenWidgets
               type="button"
               variant="outline"
               size="sm"
-              className="h-8 w-full justify-center gap-2 rounded-lg bg-background sm:w-auto"
+              className="h-8 w-full justify-center gap-2 rounded-md border-border/60 bg-background sm:w-auto"
               onClick={() => onShow(item.id)}
             >
               <Plus className="h-3.5 w-3.5" /> {item.title}
@@ -343,31 +343,31 @@ export function DashboardEditableWidget({
       <div
         className={cn(
           "relative transition-all",
-          editing && "rounded-2xl border border-dashed border-border/80 bg-muted/5",
+          editing && "rounded-xl border border-dashed border-border/60 bg-muted/5",
           isResizing && "ring-primary/50",
         )}
       >
         {editing ? (
           <div className="pointer-events-none absolute inset-x-3 top-3 z-20 flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
-            <div className="pointer-events-auto inline-flex max-w-full items-center gap-2 self-start rounded-lg border border-border/80 bg-background px-2.5 py-1.5">
+            <div className="pointer-events-auto inline-flex max-w-full items-center gap-2 self-start rounded-md border border-border/60 bg-background/95 px-2.5 py-1.5 backdrop-blur">
               <p className="max-w-[10rem] truncate text-[11px] font-medium text-foreground">{item.title}</p>
-              <Badge variant="outline" className="h-5 rounded-md px-2 text-[10px] font-normal text-muted-foreground">
+              <Badge variant="outline" className="h-5 rounded-md border-border/60 px-2 text-[10px] font-normal text-muted-foreground">
                   {index + 1}/{total}
                 </Badge>
             </div>
 
             <div className="pointer-events-auto flex w-full flex-col gap-2 lg:w-auto lg:items-end">
-              <div className="grid w-full grid-cols-3 gap-1 rounded-lg border border-border/80 bg-background p-1 lg:w-auto">
+              <div className="grid w-full grid-cols-3 gap-1 rounded-md border border-border/60 bg-background/95 p-1 backdrop-blur lg:w-auto">
                   {item.availableSizes.map((size) => (
                     <button
                       key={size}
                       type="button"
                       onClick={() => onSizeChange(item.id, size)}
                       className={cn(
-                        "rounded-md px-2.5 py-1.5 text-[11px] font-medium transition-colors",
+                        "rounded px-2.5 py-1.5 text-[11px] font-medium transition-colors",
                         effectiveSize === size
                           ? "bg-foreground text-background"
-                          : "text-muted-foreground",
+                          : "text-muted-foreground hover:text-foreground",
                       )}
                     >
                       {sizeLabels[size]}
@@ -375,12 +375,12 @@ export function DashboardEditableWidget({
                   ))}
               </div>
 
-              <div className="grid w-full grid-cols-3 gap-1 rounded-lg border border-border/80 bg-background p-1 lg:w-auto">
+              <div className="grid w-full grid-cols-3 gap-1 rounded-md border border-border/60 bg-background/95 p-1 backdrop-blur lg:w-auto">
                   <Button
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="h-8 rounded-md px-2"
+                    className="h-8 rounded px-2 text-muted-foreground hover:text-foreground"
                     onClick={() => onMove(item.id, "up")}
                     disabled={index === 0}
                   >
@@ -390,7 +390,7 @@ export function DashboardEditableWidget({
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="h-8 rounded-md px-2"
+                    className="h-8 rounded px-2 text-muted-foreground hover:text-foreground"
                     onClick={() => onMove(item.id, "down")}
                     disabled={index === total - 1}
                   >
@@ -400,7 +400,7 @@ export function DashboardEditableWidget({
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="h-8 rounded-md px-2 text-muted-foreground"
+                    className="h-8 rounded px-2 text-muted-foreground hover:text-foreground"
                     onClick={() => onHide(item.id)}
                   >
                     <EyeOff className="h-3.5 w-3.5" />
@@ -414,7 +414,7 @@ export function DashboardEditableWidget({
             type="button"
             aria-label={`Resize ${item.title}`}
             className={cn(
-              "absolute bottom-3 right-3 z-20 hidden h-8 w-8 items-center justify-center rounded-lg border border-border/80 bg-background text-muted-foreground lg:inline-flex",
+              "absolute bottom-3 right-3 z-20 hidden h-8 w-8 items-center justify-center rounded-md border border-border/60 bg-background/95 text-muted-foreground backdrop-blur lg:inline-flex",
               isResizing && "cursor-ew-resize text-foreground",
             )}
             onPointerDown={handleResizeStart}

@@ -42,18 +42,18 @@ const propertyTypes = [
 ];
 
 const topLocations = [
-  { location: "Victoria Island", bookings: 842, revenue: "₦38.2M", growth: 15.3 },
-  { location: "Lekki Phase 1", bookings: 634, revenue: "₦28.5M", growth: 22.1 },
-  { location: "Ikoyi", bookings: 521, revenue: "₦31.8M", growth: 8.7 },
-  { location: "Ikeja GRA", bookings: 398, revenue: "₦15.2M", growth: -3.2 },
-  { location: "Banana Island", bookings: 187, revenue: "₦42.1M", growth: 31.5 },
+  { location: "Victoria Island", bookings: 842, revenue: "N38.2M", growth: 15.3 },
+  { location: "Lekki Phase 1", bookings: 634, revenue: "N28.5M", growth: 22.1 },
+  { location: "Ikoyi", bookings: 521, revenue: "N31.8M", growth: 8.7 },
+  { location: "Ikeja GRA", bookings: 398, revenue: "N15.2M", growth: -3.2 },
+  { location: "Banana Island", bookings: 187, revenue: "N42.1M", growth: 31.5 },
 ];
 
 const summaryStats = [
-  { label: "Total Revenue", value: "₦293M", change: "+23.1%", up: true, icon: DollarSign, iconBg: "bg-emerald-50", accent: "text-emerald-600" },
+  { label: "Total Revenue", value: "N293M", change: "+23.1%", up: true, icon: DollarSign, iconBg: "bg-emerald-500/10 dark:bg-emerald-500/15", accent: "text-emerald-600 dark:text-emerald-300" },
   { label: "Total Bookings", value: "12,847", change: "+18.4%", up: true, icon: Building2, iconBg: "bg-primary/10", accent: "text-primary" },
-  { label: "Active Users", value: "18,392", change: "+12.7%", up: true, icon: Users, iconBg: "bg-blue-50", accent: "text-blue-600" },
-  { label: "Avg. Occupancy", value: "78.3%", change: "-2.1%", up: false, icon: PieChart, iconBg: "bg-amber-50", accent: "text-amber-600" },
+  { label: "Active Users", value: "18,392", change: "+12.7%", up: true, icon: Users, iconBg: "bg-blue-500/10 dark:bg-blue-500/15", accent: "text-blue-600 dark:text-blue-300" },
+  { label: "Avg. Occupancy", value: "78.3%", change: "-2.1%", up: false, icon: PieChart, iconBg: "bg-amber-500/10 dark:bg-amber-500/15", accent: "text-amber-600 dark:text-amber-300" },
 ];
 
 export default function AdminReports() {
@@ -136,10 +136,10 @@ export default function AdminReports() {
                       </defs>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(30, 12%, 90%)" vertical={false} />
                       <XAxis dataKey="month" tick={{ fontSize: 12, fill: 'hsl(220, 10%, 50%)' }} axisLine={false} tickLine={false} />
-                      <YAxis tick={{ fontSize: 12, fill: 'hsl(220, 10%, 50%)' }} axisLine={false} tickLine={false} tickFormatter={(v) => `₦${v}M`} />
+                      <YAxis tick={{ fontSize: 12, fill: 'hsl(220, 10%, 50%)' }} axisLine={false} tickLine={false} tickFormatter={(v) => `N${v}M`} />
                       <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid hsl(30, 12%, 90%)', fontSize: '12px' }} />
-                      <Area type="monotone" dataKey="revenue" stroke="hsl(18, 55%, 58%)" strokeWidth={2} fill="url(#revGrad)" name="Revenue (₦M)" />
-                      <Area type="monotone" dataKey="commission" stroke="hsl(142, 40%, 48%)" strokeWidth={2} fill="none" name="Commission (₦M)" />
+                      <Area type="monotone" dataKey="revenue" stroke="hsl(18, 55%, 58%)" strokeWidth={2} fill="url(#revGrad)" name="Revenue (N M)" />
+                      <Area type="monotone" dataKey="commission" stroke="hsl(142, 40%, 48%)" strokeWidth={2} fill="none" name="Commission (N M)" />
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>

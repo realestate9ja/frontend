@@ -33,9 +33,9 @@ const steps = [
 ];
 
 const urgencyLevels = [
-  { value: "flexible", label: "Flexible", desc: "No rush, exploring options", icon: Clock, color: "text-blue-600", bg: "bg-blue-50 border-blue-200", dot: "bg-blue-500" },
-  { value: "soon", label: "Soon", desc: "Within 2-4 weeks", icon: Calendar, color: "text-amber-600", bg: "bg-amber-50 border-amber-200", dot: "bg-amber-500" },
-  { value: "urgent", label: "Urgent", desc: "Need ASAP", icon: Zap, color: "text-red-600", bg: "bg-red-50 border-red-200", dot: "bg-red-500" },
+  { value: "flexible", label: "Flexible", desc: "No rush, exploring options", icon: Clock, color: "text-blue-600 dark:text-blue-300", bg: "bg-blue-500/10 border-blue-500/20 dark:bg-blue-500/15 dark:border-blue-500/30", dot: "bg-blue-500" },
+  { value: "soon", label: "Soon", desc: "Within 2-4 weeks", icon: Calendar, color: "text-amber-600 dark:text-amber-300", bg: "bg-amber-500/10 border-amber-500/20 dark:bg-amber-500/15 dark:border-amber-500/30", dot: "bg-amber-500" },
+  { value: "urgent", label: "Urgent", desc: "Need ASAP", icon: Zap, color: "text-red-600 dark:text-red-300", bg: "bg-red-500/10 border-red-500/20 dark:bg-red-500/15 dark:border-red-500/30", dot: "bg-red-500" },
 ];
 
 const formatBudget = (val: number) => {
@@ -353,7 +353,7 @@ export default function PostNeed() {
                                 <Badge variant="outline" className="text-[10px] bg-primary/10 text-primary border-primary/20">
                                   <Eye className="h-2.5 w-2.5 mr-0.5" /> 3x visibility
                                 </Badge>
-                                <Badge variant="outline" className="text-[10px] bg-emerald-50 text-emerald-600 border-emerald-200">
+                                <Badge variant="outline" className="border-emerald-500/20 bg-emerald-500/10 text-[10px] text-emerald-600 dark:border-emerald-500/30 dark:bg-emerald-500/15 dark:text-emerald-300">
                                   <Zap className="h-2.5 w-2.5 mr-0.5" /> Priority matching
                                 </Badge>
                               </div>

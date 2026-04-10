@@ -228,7 +228,7 @@ export default function LeadInbox() {
                 />
               </div>
               <Select value={typeFilter} onValueChange={setTypeFilter}>
-                <SelectTrigger className="h-9 w-[132px] shrink-0">
+                <SelectTrigger className="h-9 w-full shrink-0 sm:w-[132px]">
                   <SlidersHorizontal className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
                   <SelectValue />
                 </SelectTrigger>
@@ -238,8 +238,8 @@ export default function LeadInbox() {
                   <SelectItem value="Short-let">Short-let</SelectItem>
                 </SelectContent>
               </Select>
-              <Button variant="outline" size="sm" className="hidden gap-1.5 lg:inline-flex">
-                <Filter className="h-3.5 w-3.5" /> Filter
+              <Button variant="outline" size="sm" className="gap-1.5 shrink-0">
+                <Filter className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Filter</span>
               </Button>
             </>
           }
@@ -431,7 +431,7 @@ export default function LeadInbox() {
                           <p className="mt-1 text-sm font-medium text-foreground">{lead.moveIn}</p>
                         </div>
                       </div>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="grid grid-cols-1 gap-2 sm:flex sm:flex-wrap">
                         <DashboardStatusBadge tone={getTypeTone(lead.type)}>{lead.type}</DashboardStatusBadge>
                         <DashboardStatusBadge tone={getUrgencyTone(lead.urgency)}>{lead.urgency}</DashboardStatusBadge>
                         <span className="text-xs text-muted-foreground">{lead.posted}</span>

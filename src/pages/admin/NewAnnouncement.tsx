@@ -39,15 +39,15 @@ const steps = [
 
 const audienceOptions = [
   { value: "all", label: "All Users", desc: "Broadcast platform-wide", icon: Users, color: "text-primary", bg: "bg-primary/5 border-primary/20" },
-  { value: "seekers", label: "Seekers Only", desc: "Tenant-facing update", icon: ShieldCheck, color: "text-blue-600", bg: "bg-blue-50 border-blue-200" },
-  { value: "providers", label: "Providers Only", desc: "Agents and landlords", icon: Megaphone, color: "text-emerald-600", bg: "bg-emerald-50 border-emerald-200" },
-  { value: "agents", label: "Agents Only", desc: "Provider subset", icon: Sparkles, color: "text-amber-600", bg: "bg-amber-50 border-amber-200" },
+  { value: "seekers", label: "Seekers Only", desc: "Tenant-facing update", icon: ShieldCheck, color: "text-blue-600 dark:text-blue-300", bg: "bg-blue-500/10 border-blue-500/20 dark:bg-blue-500/15 dark:border-blue-500/30" },
+  { value: "providers", label: "Providers Only", desc: "Agents and landlords", icon: Megaphone, color: "text-emerald-600 dark:text-emerald-300", bg: "bg-emerald-500/10 border-emerald-500/20 dark:bg-emerald-500/15 dark:border-emerald-500/30" },
+  { value: "agents", label: "Agents Only", desc: "Provider subset", icon: Sparkles, color: "text-amber-600 dark:text-amber-300", bg: "bg-amber-500/10 border-amber-500/20 dark:bg-amber-500/15 dark:border-amber-500/30" },
 ];
 
 const typeOptions = [
-  { value: "info", label: "Info", desc: "General notice", icon: Info, color: "text-blue-600", bg: "bg-blue-50 border-blue-200" },
-  { value: "warning", label: "Warning", desc: "Operational alert", icon: AlertTriangle, color: "text-amber-600", bg: "bg-amber-50 border-amber-200" },
-  { value: "critical", label: "Critical", desc: "Immediate attention", icon: AlertTriangle, color: "text-red-600", bg: "bg-red-50 border-red-200" },
+  { value: "info", label: "Info", desc: "General notice", icon: Info, color: "text-blue-600 dark:text-blue-300", bg: "bg-blue-500/10 border-blue-500/20 dark:bg-blue-500/15 dark:border-blue-500/30" },
+  { value: "warning", label: "Warning", desc: "Operational alert", icon: AlertTriangle, color: "text-amber-600 dark:text-amber-300", bg: "bg-amber-500/10 border-amber-500/20 dark:bg-amber-500/15 dark:border-amber-500/30" },
+  { value: "critical", label: "Critical", desc: "Immediate attention", icon: AlertTriangle, color: "text-red-600 dark:text-red-300", bg: "bg-red-500/10 border-red-500/20 dark:bg-red-500/15 dark:border-red-500/30" },
 ];
 
 export default function NewAnnouncement() {

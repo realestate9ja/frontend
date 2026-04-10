@@ -36,7 +36,7 @@ const steps = [
 const statusStyles: Record<string, { color: string; bg: string; dot: string }> = {
   Active: { color: "text-emerald-600", bg: "bg-emerald-500/10 border-emerald-500/20", dot: "bg-emerald-500" },
   Draft: { color: "text-muted-foreground", bg: "bg-muted border-border", dot: "bg-muted-foreground" },
-  Pending: { color: "text-amber-600", bg: "bg-amber-50 border-amber-200", dot: "bg-amber-500" },
+  Pending: { color: "text-amber-700 dark:text-amber-300", bg: "bg-amber-500/10 border-amber-500/20 dark:bg-amber-500/15 dark:border-amber-500/30", dot: "bg-amber-500" },
 };
 
 export default function AddListing() {
@@ -367,7 +367,7 @@ export default function AddListing() {
                                 <Badge variant="outline" className="text-[10px] bg-primary/10 text-primary border-primary/20">
                                   <Eye className="h-2.5 w-2.5 mr-0.5" /> 3x visibility
                                 </Badge>
-                                <Badge variant="outline" className="text-[10px] bg-emerald-50 text-emerald-600 border-emerald-200">
+                                <Badge variant="outline" className="border-emerald-500/20 bg-emerald-500/10 text-[10px] text-emerald-600 dark:border-emerald-500/30 dark:bg-emerald-500/15 dark:text-emerald-300">
                                   <Tag className="h-2.5 w-2.5 mr-0.5" /> Featured badge
                                 </Badge>
                               </div>

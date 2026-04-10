@@ -57,20 +57,15 @@ function HeaderSkeleton({ withBanner }: { withBanner: boolean }) {
         </DashboardLoaderFrame>
       ) : null}
 
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <DashboardLoaderFrame className="flex-1">
-          <SkeletonSvg height={72}>
-            <rect x="0" y="12" rx="8" ry="8" width="240" height="18" />
-            <rect x="0" y="42" rx="6" ry="6" width="320" height="12" />
+          <SkeletonSvg height={68}>
+            <rect x="0" y="10" rx="8" ry="8" width="220" height="18" />
+            <rect x="0" y="38" rx="6" ry="6" width="300" height="12" />
           </SkeletonSvg>
         </DashboardLoaderFrame>
-        <div className="flex gap-2">
-          <DashboardLoaderFrame className="w-36">
-            <SkeletonSvg height={40}>
-              <rect x="0" y="0" rx="10" ry="10" width="1000" height="40" />
-            </SkeletonSvg>
-          </DashboardLoaderFrame>
-          <DashboardLoaderFrame className="w-36">
+        <div className="flex gap-2 sm:w-auto">
+          <DashboardLoaderFrame className="w-32">
             <SkeletonSvg height={40}>
               <rect x="0" y="0" rx="10" ry="10" width="1000" height="40" />
             </SkeletonSvg>
@@ -87,10 +82,10 @@ function StatsRowSkeleton() {
       {Array.from({ length: 4 }).map((_, index) => (
         <DashboardLoaderFrame key={index}>
           <SkeletonSvg height={132}>
-            <rect x="20" y="20" rx="16" ry="16" width="56" height="56" />
-            <rect x="840" y="28" rx="6" ry="6" width="120" height="10" />
-            <rect x="20" y="88" rx="8" ry="8" width="180" height="20" />
-            <rect x="20" y="114" rx="6" ry="6" width="220" height="10" />
+            <rect x="20" y="22" rx="12" ry="12" width="40" height="40" />
+            <rect x="78" y="24" rx="6" ry="6" width="120" height="10" />
+            <rect x="78" y="42" rx="8" ry="8" width="70" height="18" />
+            <rect x="20" y="88" rx="6" ry="6" width="180" height="10" />
           </SkeletonSvg>
         </DashboardLoaderFrame>
       ))}

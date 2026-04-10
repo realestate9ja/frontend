@@ -19,20 +19,20 @@ export const users = [
 ];
 
 const verificationStyles: Record<string, { icon: typeof ShieldCheck; color: string; bg: string }> = {
-  Verified: { icon: ShieldCheck, color: "text-emerald-600", bg: "bg-emerald-50" },
-  Pending: { icon: Clock, color: "text-amber-600", bg: "bg-amber-50" },
-  Unverified: { icon: ShieldX, color: "text-destructive", bg: "bg-destructive/5" },
+  Verified: { icon: ShieldCheck, color: "text-emerald-600 dark:text-emerald-300", bg: "bg-emerald-500/10 border border-emerald-500/20 dark:bg-emerald-500/15 dark:border-emerald-500/30" },
+  Pending: { icon: Clock, color: "text-amber-600 dark:text-amber-300", bg: "bg-amber-500/10 border border-amber-500/20 dark:bg-amber-500/15 dark:border-amber-500/30" },
+  Unverified: { icon: ShieldX, color: "text-destructive", bg: "bg-destructive/10 border border-destructive/20" },
 };
 
 const roleStyles: Record<string, string> = {
   Agent: "bg-primary/10 text-primary border-primary/20",
-  Landlord: "bg-blue-500/10 text-blue-600 border-blue-500/20",
+  Landlord: "bg-blue-500/10 text-blue-600 border-blue-500/20 dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/30",
   Tenant: "bg-muted text-muted-foreground border-border",
 };
 
 const avatarColors: Record<string, string> = {
   Agent: "bg-primary/10 text-primary",
-  Landlord: "bg-blue-500/10 text-blue-600",
+  Landlord: "bg-blue-500/10 text-blue-600 dark:bg-blue-500/15 dark:text-blue-300",
   Tenant: "bg-muted text-muted-foreground",
 };
 

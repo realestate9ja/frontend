@@ -24,8 +24,10 @@ export default function ProviderLayout() {
             <SidebarTrigger className="ml-0 hidden md:flex" />
             <DashboardHeaderSearch role="provider" placeholder="Search leads, listings, payouts..." />
             <div className="ml-auto flex items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-2 rounded-lg border border-border/60 bg-background/70 px-1.5 py-1">
               <DashboardThemeToggle />
               <DashboardNotifications role="provider" />
+              </div>
               <div className="h-8 w-px bg-border/60 hidden sm:block" />
               <Link to="/provider/settings" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
                 <Avatar className="h-8 w-8 border border-border/60">

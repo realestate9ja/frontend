@@ -21,9 +21,9 @@ const activityLog = [
 
 const activityStyles: Record<string, string> = {
   Collection: "bg-primary/10 text-primary border-primary/20",
-  Portfolio: "bg-blue-50 text-blue-600 border-blue-200",
-  Document: "bg-emerald-50 text-emerald-600 border-emerald-200",
-  Maintenance: "bg-amber-50 text-amber-600 border-amber-200",
+  Portfolio: "bg-blue-500/10 text-blue-600 border-blue-500/20 dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/30",
+  Document: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30",
+  Maintenance: "bg-amber-500/10 text-amber-600 border-amber-500/20 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30",
 };
 
 export default function LandlordSettings() {

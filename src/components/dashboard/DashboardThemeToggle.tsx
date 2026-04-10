@@ -10,7 +10,7 @@ export function DashboardThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      className="h-9 w-9 rounded-lg"
+      className="h-9 w-9 rounded-lg border border-border/60 bg-background/70 shadow-none"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       title={isDark ? "Switch to light mode" : "Switch to dark mode"}

@@ -35,21 +35,21 @@ const events = [
 ];
 
 const upcomingEvents = [
-  { id: 1, guest: "Palm Residence A1", property: "Victoria Island", checkIn: "Apr 08", checkOut: "Apr 08", nights: 1, amount: "N850,000", status: "Scheduled", initials: "PA", avatar: "bg-emerald-100 text-emerald-700" },
-  { id: 2, guest: "Admiralty Suites 4C", property: "Ikoyi", checkIn: "Apr 12", checkOut: "Apr 12", nights: 1, amount: "N1,450,000", status: "Pending", initials: "AS", avatar: "bg-amber-100 text-amber-700" },
+  { id: 1, guest: "Palm Residence A1", property: "Victoria Island", checkIn: "Apr 08", checkOut: "Apr 08", nights: 1, amount: "N850,000", status: "Scheduled", initials: "PA", avatar: "bg-emerald-500/10 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300" },
+  { id: 2, guest: "Admiralty Suites 4C", property: "Ikoyi", checkIn: "Apr 12", checkOut: "Apr 12", nights: 1, amount: "N1,450,000", status: "Pending", initials: "AS", avatar: "bg-amber-500/10 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300" },
   { id: 3, guest: "Lekki Court B2", property: "Lekki Phase 1", checkIn: "Apr 15", checkOut: "Apr 15", nights: 1, amount: "Vendor Visit", status: "Scheduled", initials: "LC", avatar: "bg-primary/10 text-primary" },
-  { id: 4, guest: "Palm Residence B3", property: "Victoria Island", checkIn: "Apr 18", checkOut: "Apr 18", nights: 1, amount: "Exit review", status: "Scheduled", initials: "PB", avatar: "bg-violet-100 text-violet-700" },
+  { id: 4, guest: "Palm Residence B3", property: "Victoria Island", checkIn: "Apr 18", checkOut: "Apr 18", nights: 1, amount: "Exit review", status: "Scheduled", initials: "PB", avatar: "bg-violet-500/10 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300" },
 ];
 
 const statusConfig: Record<string, { label: string; className: string; dot: string }> = {
-  Scheduled: { label: "Scheduled", className: "bg-emerald-50 text-emerald-700 border-emerald-200", dot: "bg-emerald-500" },
-  Pending: { label: "Pending", className: "bg-amber-50 text-amber-700 border-amber-200", dot: "bg-amber-500" },
+  Scheduled: { label: "Scheduled", className: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30", dot: "bg-emerald-500" },
+  Pending: { label: "Pending", className: "bg-amber-500/10 text-amber-700 border-amber-500/20 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30", dot: "bg-amber-500" },
 };
 
 const stats = [
   { label: "This Week", value: "5", sub: "portfolio events", icon: CalendarDays, accent: "text-primary", iconBg: "bg-primary/10" },
-  { label: "Scheduled", value: "4", sub: "confirmed actions", icon: Users, accent: "text-emerald-600", iconBg: "bg-emerald-50" },
-  { label: "Pending", value: "1", sub: "needs review", icon: Clock, accent: "text-amber-600", iconBg: "bg-amber-50" },
+  { label: "Scheduled", value: "4", sub: "confirmed actions", icon: Users, accent: "text-emerald-600 dark:text-emerald-300", iconBg: "bg-emerald-500/10 dark:bg-emerald-500/15" },
+  { label: "Pending", value: "1", sub: "needs review", icon: Clock, accent: "text-amber-600 dark:text-amber-300", iconBg: "bg-amber-500/10 dark:bg-amber-500/15" },
   { label: "Collections", value: "N2.3M", sub: "in tracked actions", icon: TrendingUp, accent: "text-foreground", iconBg: "bg-muted" },
 ];
 
@@ -163,7 +163,7 @@ export default function LandlordCalendar() {
                                   className={`absolute inset-x-1 top-1 rounded-md border px-2 py-1.5 text-xs ${
                                     event.status === "Scheduled"
                                       ? "border-primary/20 bg-primary/10 text-primary"
-                                      : "border-amber-200 bg-amber-50 text-amber-700"
+                                      : "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300"
                                   }`}
                                   style={{ height: `${event.duration * 44 - 4}px`, zIndex: 2 }}
                                 >

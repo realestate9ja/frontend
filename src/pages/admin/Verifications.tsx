@@ -13,9 +13,9 @@ import { DashboardControlRow } from "@/components/dashboard/DashboardControlRow"
 import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader";
 
 const stats = [
-  { label: "Pending Review", value: "18", icon: Clock, iconBg: "bg-amber-50", accent: "text-amber-600" },
-  { label: "Verified", value: "284", icon: ShieldCheck, iconBg: "bg-emerald-50", accent: "text-emerald-600" },
-  { label: "Rejected", value: "12", icon: XCircle, iconBg: "bg-red-50", accent: "text-red-500" },
+  { label: "Pending Review", value: "18", icon: Clock, iconBg: "bg-amber-500/10 dark:bg-amber-500/15", accent: "text-amber-600 dark:text-amber-300" },
+  { label: "Verified", value: "284", icon: ShieldCheck, iconBg: "bg-emerald-500/10 dark:bg-emerald-500/15", accent: "text-emerald-600 dark:text-emerald-300" },
+  { label: "Rejected", value: "12", icon: XCircle, iconBg: "bg-red-500/10 dark:bg-red-500/15", accent: "text-red-500 dark:text-red-300" },
   { label: "Avg. Review Time", value: "2.4h", icon: UserCheck, iconBg: "bg-primary/10", accent: "text-primary" },
 ];
 
@@ -34,15 +34,15 @@ const recentlyVerified = [
 ];
 
 const riskColors: Record<string, string> = {
-  Low: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  Medium: "bg-amber-50 text-amber-700 border-amber-200",
-  High: "bg-red-50 text-red-700 border-red-200",
+  Low: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30",
+  Medium: "bg-amber-500/10 text-amber-700 border-amber-500/20 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30",
+  High: "bg-red-500/10 text-red-700 border-red-500/20 dark:bg-red-500/15 dark:text-red-300 dark:border-red-500/30",
 };
 
 const typeColors: Record<string, string> = {
   Agent: "bg-primary/10 text-primary border-primary/20",
-  Landlord: "bg-blue-50 text-blue-600 border-blue-200",
-  Corporate: "bg-violet-50 text-violet-600 border-violet-200",
+  Landlord: "bg-blue-500/10 text-blue-600 border-blue-500/20 dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/30",
+  Corporate: "bg-violet-500/10 text-violet-600 border-violet-500/20 dark:bg-violet-500/15 dark:text-violet-300 dark:border-violet-500/30",
 };
 
 export default function AdminVerifications() {
@@ -123,7 +123,7 @@ export default function AdminVerifications() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 shrink-0 flex-wrap">
+                  <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:flex-wrap">
                     <Button variant="outline" size="sm" className="h-8 gap-1 text-xs">
                       <Eye className="h-3 w-3" /> Review
                     </Button>
@@ -159,7 +159,7 @@ export default function AdminVerifications() {
                       <TableCell>
                         <div className="flex items-center gap-2.5">
                           <Avatar className="h-8 w-8 border border-border/60">
-                            <AvatarFallback className="text-[10px] bg-emerald-50 text-emerald-700 font-medium">{v.initials}</AvatarFallback>
+                            <AvatarFallback className="bg-emerald-500/10 text-[10px] font-medium text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">{v.initials}</AvatarFallback>
                           </Avatar>
                           <span className="text-sm font-medium text-foreground">{v.name}</span>
                         </div>
@@ -170,7 +170,7 @@ export default function AdminVerifications() {
                       <TableCell className="text-sm text-muted-foreground">{v.verified}</TableCell>
                       <TableCell className="text-sm text-muted-foreground">{v.reviewer}</TableCell>
                       <TableCell>
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border bg-emerald-50 text-emerald-700 border-emerald-200">
+                        <span className="inline-flex items-center gap-1 rounded-full border bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-700 border-emerald-500/20 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30">
                           <ShieldCheck className="h-2.5 w-2.5" /> Verified
                         </span>
                       </TableCell>

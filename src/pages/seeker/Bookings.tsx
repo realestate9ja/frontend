@@ -88,14 +88,14 @@ export const viewings = [
 ];
 
 const bookingStatusStyles: Record<string, string> = {
-  Confirmed: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  Confirmed: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30",
   "Awaiting viewing": "bg-primary/10 text-primary border-primary/20",
-  "Pending balance": "bg-amber-50 text-amber-700 border-amber-200",
+  "Pending balance": "bg-amber-500/10 text-amber-700 border-amber-500/20 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30",
 };
 
 const viewingStatusStyles: Record<string, string> = {
-  Scheduled: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  "Pending confirmation": "bg-amber-50 text-amber-700 border-amber-200",
+  Scheduled: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30",
+  "Pending confirmation": "bg-amber-500/10 text-amber-700 border-amber-500/20 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30",
 };
 
 function StatusTabs({
@@ -249,7 +249,7 @@ export default function SeekerBookings() {
             {visibleBookings.map((item) => (
               <Card key={item.id} data-search-id={`seeker-booking-${item.id}`} className="border border-border/60 bg-card shadow-sm">
                 <CardContent className="space-y-4 p-5">
-                  <div className="flex items-start justify-between gap-3">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="min-w-0">
                       <p className="truncate text-base font-semibold text-foreground">{item.property}</p>
                       <div className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -285,7 +285,7 @@ export default function SeekerBookings() {
                     {item.detail}
                   </div>
 
-                  <div className="flex items-center justify-between gap-2 border-t border-border/50 pt-3">
+                  <div className="flex flex-col gap-2 border-t border-border/50 pt-3 sm:flex-row sm:items-center sm:justify-between">
                     <Button variant="outline" size="sm" className="h-8 rounded-lg px-3 text-xs">
                       Open booking
                     </Button>
@@ -307,7 +307,7 @@ export default function SeekerBookings() {
             {visibleViewings.map((item) => (
               <Card key={item.id} data-search-id={`seeker-viewing-${item.id}`} className="border border-border/60 bg-card shadow-sm">
                 <CardContent className="space-y-4 p-5">
-                  <div className="flex items-start justify-between gap-3">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="min-w-0">
                       <p className="truncate text-base font-semibold text-foreground">{item.property}</p>
                       <div className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -343,7 +343,7 @@ export default function SeekerBookings() {
                     {item.note}
                   </div>
 
-                  <div className="flex items-center justify-between gap-2 border-t border-border/50 pt-3">
+                  <div className="flex flex-col gap-2 border-t border-border/50 pt-3 sm:flex-row sm:items-center sm:justify-between">
                     <Button variant="outline" size="sm" className="h-8 rounded-lg px-3 text-xs">
                       Get directions
                     </Button>

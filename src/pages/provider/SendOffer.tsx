@@ -285,7 +285,7 @@ export default function SendOffer() {
                             <Badge variant="outline" className="border-primary/20 bg-primary/10 text-[10px] text-primary">
                               <Eye className="mr-0.5 h-2.5 w-2.5" /> Top placement
                             </Badge>
-                            <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-[10px] text-emerald-600">
+                            <Badge variant="outline" className="border-emerald-500/20 bg-emerald-500/10 text-[10px] text-emerald-600 dark:border-emerald-500/30 dark:bg-emerald-500/15 dark:text-emerald-300">
                               <Tag className="mr-0.5 h-2.5 w-2.5" /> Featured badge
                             </Badge>
                           </div>

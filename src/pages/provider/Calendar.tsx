@@ -14,6 +14,7 @@ const hours = Array.from({ length: 12 }, (_, i) => {
   return h <= 12 ? `${h}:00 AM` : `${h - 12}:00 PM`;
 });
 
+
 const bookings = [
   { day: 0, startHour: 3, duration: 2, guest: "Emeka N.", property: "2 Bed Serviced, VI", status: "Confirmed" },
   { day: 2, startHour: 1, duration: 3, guest: "Corporate Client", property: "3 Bed Penthouse, Ikoyi", status: "Pending" },
@@ -23,24 +24,23 @@ const bookings = [
 ];
 
 const upcomingBookings = [
-  { id: 1, guest: "Emeka Nwankwo", property: "2 Bed Serviced Apartment, Victoria Island", checkIn: "Mar 22", checkOut: "Mar 24", nights: 2, amount: "₦90,000", status: "Confirmed", initials: "EN", avatar: "bg-emerald-100 text-emerald-700" },
-  { id: 2, guest: "Corporate Client", property: "3 Bed Penthouse, Ikoyi", checkIn: "Mar 25", checkOut: "Mar 28", nights: 3, amount: "₦135,000", status: "Pending", initials: "CC", avatar: "bg-amber-100 text-amber-700" },
-  { id: 3, guest: "Fatima Abdullahi", property: "Studio Apartment, Lekki Phase 1", checkIn: "Mar 30", checkOut: "Mar 31", nights: 1, amount: "₦45,000", status: "Confirmed", initials: "FA", avatar: "bg-primary/10 text-primary" },
-  { id: 4, guest: "Sarah Kolawole", property: "1 Bed Luxury, Banana Island", checkIn: "Apr 2", checkOut: "Apr 5", nights: 3, amount: "₦210,000", status: "Confirmed", initials: "SK", avatar: "bg-violet-100 text-violet-700" },
+  { id: 1, guest: "Emeka Nwankwo", property: "2 Bed Serviced Apartment, Victoria Island", checkIn: "Mar 22", checkOut: "Mar 24", nights: 2, amount: "N90,000", status: "Confirmed", initials: "EN", avatar: "bg-emerald-500/10 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300" },
+  { id: 2, guest: "Corporate Client", property: "3 Bed Penthouse, Ikoyi", checkIn: "Mar 25", checkOut: "Mar 28", nights: 3, amount: "N135,000", status: "Pending", initials: "CC", avatar: "bg-amber-500/10 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300" },
+  { id: 3, guest: "Fatima Abdullahi", property: "Studio Apartment, Lekki Phase 1", checkIn: "Mar 30", checkOut: "Mar 31", nights: 1, amount: "N45,000", status: "Confirmed", initials: "FA", avatar: "bg-primary/10 text-primary" },
+  { id: 4, guest: "Sarah Kolawole", property: "1 Bed Luxury, Banana Island", checkIn: "Apr 2", checkOut: "Apr 5", nights: 3, amount: "N210,000", status: "Confirmed", initials: "SK", avatar: "bg-violet-500/10 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300" },
 ];
 
 const statusConfig: Record<string, { label: string; className: string; dot: string }> = {
-  Confirmed: { label: "Confirmed", className: "bg-emerald-50 text-emerald-700 border-emerald-200", dot: "bg-emerald-500" },
-  Pending: { label: "Pending", className: "bg-amber-50 text-amber-700 border-amber-200", dot: "bg-amber-500" },
+  Confirmed: { label: "Confirmed", className: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30", dot: "bg-emerald-500" },
+  Pending: { label: "Pending", className: "bg-amber-500/10 text-amber-700 border-amber-500/20 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30", dot: "bg-amber-500" },
 };
 
 const stats = [
   { label: "This Week", value: "5", sub: "total bookings", icon: CalendarDays, accent: "text-primary", iconBg: "bg-primary/10" },
-  { label: "Confirmed", value: "4", sub: "ready to host", icon: Users, accent: "text-emerald-600", iconBg: "bg-emerald-50" },
-  { label: "Pending", value: "1", sub: "needs action", icon: Clock, accent: "text-amber-600", iconBg: "bg-amber-50" },
-  { label: "Revenue", value: "₦480K", sub: "projected", icon: TrendingUp, accent: "text-foreground", iconBg: "bg-muted" },
+  { label: "Confirmed", value: "4", sub: "ready to host", icon: Users, accent: "text-emerald-600 dark:text-emerald-300", iconBg: "bg-emerald-500/10 dark:bg-emerald-500/15" },
+  { label: "Pending", value: "1", sub: "needs action", icon: Clock, accent: "text-amber-600 dark:text-amber-300", iconBg: "bg-amber-500/10 dark:bg-amber-500/15" },
+  { label: "Revenue", value: "N480K", sub: "projected", icon: TrendingUp, accent: "text-foreground", iconBg: "bg-muted" },
 ];
-
 export default function ProviderCalendar() {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
@@ -69,7 +69,7 @@ export default function ProviderCalendar() {
             <Button variant="ghost" size="icon" className="h-7 w-7 rounded-md">
               <ChevronLeft className="h-4 w-4" />
             </Button>
-            <span className="text-sm font-medium text-foreground px-3 whitespace-nowrap">Mar 18 – 24, 2024</span>
+            <span className="text-sm font-medium text-foreground px-3 whitespace-nowrap">Mar 18 - 24, 2024</span>
             <Button variant="ghost" size="icon" className="h-7 w-7 rounded-md">
               <ChevronRight className="h-4 w-4" />
             </Button>
@@ -146,7 +146,7 @@ export default function ProviderCalendar() {
                                   className={`absolute inset-x-1 top-1 rounded-md px-2 py-1.5 text-xs ${
                                     booking.status === "Confirmed"
                                       ? "bg-primary/10 text-primary border border-primary/20"
-                                      : "bg-amber-50 text-amber-700 border border-amber-200"
+                                      : "bg-amber-500/10 text-amber-700 border border-amber-500/20 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30"
                                   }`}
                                   style={{ height: `${booking.duration * 44 - 4}px`, zIndex: 2 }}
                                 >

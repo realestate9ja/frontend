@@ -21,8 +21,8 @@ export function DashboardSectionCard({
   contentClassName,
 }: DashboardSectionCardProps) {
   return (
-    <Card className={cn("flex h-full min-h-[320px] flex-col border border-border/60 shadow-sm", className)}>
-      <CardHeader className="pb-3">
+    <Card className={cn("flex h-full min-h-[320px] flex-col border border-border/70 bg-card/95 shadow-none", className)}>
+      <CardHeader className="border-b border-border/50 pb-3">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-1">
             <CardTitle className="text-base">{title}</CardTitle>
@@ -31,7 +31,7 @@ export function DashboardSectionCard({
           {action ? <div className="shrink-0">{action}</div> : null}
         </div>
       </CardHeader>
-      <CardContent className={cn("flex-1 pt-0", contentClassName)}>{children}</CardContent>
+      <CardContent className={cn("flex-1 pt-4", contentClassName)}>{children}</CardContent>
     </Card>
   );
 }

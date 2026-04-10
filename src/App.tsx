@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { AvatarProvider } from "@/contexts/AvatarContext";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -63,78 +63,93 @@ import DashboardSearch from "./pages/shared/DashboardSearch.tsx";
 import { ThemeProvider } from "@/components/theme-provider";
 const queryClient = new QueryClient();
 
+const MarketingThemeScope = () => (
+  <ThemeProvider forcedTheme="light">
+    <Outlet />
+  </ThemeProvider>
+);
+
+const DashboardThemeScope = () => (
+  <ThemeProvider>
+    <Outlet />
+  </ThemeProvider>
+);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <AvatarProvider>
+    <AvatarProvider>
       <TooltipProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
           <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/confirm-email" element={<ConfirmEmail />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/rent" element={<RentPage />} />
-          <Route path="/properties" element={<PropertiesPage />} />
+          <Route element={<MarketingThemeScope />}>
+            <Route path="/" element={<Index />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/confirm-email" element={<ConfirmEmail />} />
+            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/rent" element={<RentPage />} />
+            <Route path="/properties" element={<PropertiesPage />} />
+          </Route>
 
           {/* Admin Dashboard */}
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="search" element={<DashboardSearch role="admin" />} />
-            <Route path="properties" element={<Properties />} />
-            <Route path="users" element={<UsersPage />} />
-            <Route path="transactions" element={<Transactions />} />
-            <Route path="disputes" element={<Disputes />} />
-            <Route path="verifications" element={<AdminVerifications />} />
-            <Route path="reports" element={<AdminReports />} />
-            <Route path="announcements" element={<AdminAnnouncements />} />
-            <Route path="announcements/new" element={<NewAnnouncement />} />
-            <Route path="settings" element={<AdminSettings />} />
-          </Route>
+          <Route element={<DashboardThemeScope />}>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="search" element={<DashboardSearch role="admin" />} />
+              <Route path="properties" element={<Properties />} />
+              <Route path="users" element={<UsersPage />} />
+              <Route path="transactions" element={<Transactions />} />
+              <Route path="disputes" element={<Disputes />} />
+              <Route path="verifications" element={<AdminVerifications />} />
+              <Route path="reports" element={<AdminReports />} />
+              <Route path="announcements" element={<AdminAnnouncements />} />
+              <Route path="announcements/new" element={<NewAnnouncement />} />
+              <Route path="settings" element={<AdminSettings />} />
+            </Route>
 
           {/* Seeker (Tenant) Dashboard */}
-          <Route path="/seeker" element={<SeekerLayout />}>
-            <Route index element={<SeekerDashboard />} />
-            <Route path="search" element={<DashboardSearch role="seeker" />} />
-            <Route path="post" element={<PostNeed />} />
-            <Route path="offers" element={<Offers />} />
-            <Route path="bookings" element={<Bookings />} />
-            <Route path="saved" element={<Saved />} />
-            <Route path="settings" element={<SeekerSettings />} />
-          </Route>
+            <Route path="/seeker" element={<SeekerLayout />}>
+              <Route index element={<SeekerDashboard />} />
+              <Route path="search" element={<DashboardSearch role="seeker" />} />
+              <Route path="post" element={<PostNeed />} />
+              <Route path="offers" element={<Offers />} />
+              <Route path="bookings" element={<Bookings />} />
+              <Route path="saved" element={<Saved />} />
+              <Route path="settings" element={<SeekerSettings />} />
+            </Route>
 
           {/* Provider (Agent/Landlord) Dashboard */}
-          <Route path="/provider" element={<ProviderLayout />}>
-            <Route index element={<ProviderDashboard />} />
-            <Route path="search" element={<DashboardSearch role="provider" />} />
-            <Route path="inbox" element={<LeadInbox />} />
-            <Route path="inbox/:id" element={<LeadDetail />} />
-            <Route path="inbox/:id/offer" element={<SendOffer />} />
-            <Route path="listings" element={<Listings />} />
-            <Route path="listings/new" element={<AddListing />} />
-            <Route path="payouts" element={<Payouts />} />
-            <Route path="calendar" element={<ProviderCalendar />} />
-            <Route path="settings" element={<ProviderSettings />} />
-          </Route>
+            <Route path="/provider" element={<ProviderLayout />}>
+              <Route index element={<ProviderDashboard />} />
+              <Route path="search" element={<DashboardSearch role="provider" />} />
+              <Route path="inbox" element={<LeadInbox />} />
+              <Route path="inbox/:id" element={<LeadDetail />} />
+              <Route path="inbox/:id/offer" element={<SendOffer />} />
+              <Route path="listings" element={<Listings />} />
+              <Route path="listings/new" element={<AddListing />} />
+              <Route path="payouts" element={<Payouts />} />
+              <Route path="calendar" element={<ProviderCalendar />} />
+              <Route path="settings" element={<ProviderSettings />} />
+            </Route>
 
-          <Route path="/landlord" element={<LandlordLayout />}>
-            <Route index element={<LandlordDashboard />} />
-            <Route path="search" element={<DashboardSearch role="landlord" />} />
-            <Route path="properties" element={<LandlordProperties />} />
-            <Route path="properties/new" element={<AddListing />} />
-            <Route path="units" element={<LandlordUnits />} />
-            <Route path="units/new" element={<LandlordNewUnit />} />
-            <Route path="collections" element={<LandlordCollections />} />
-            <Route path="payouts" element={<LandlordPayouts />} />
-            <Route path="maintenance" element={<LandlordMaintenance />} />
-            <Route path="maintenance/new" element={<LandlordNewMaintenanceIssue />} />
-            <Route path="calendar" element={<LandlordCalendar />} />
-            <Route path="settings" element={<LandlordSettings />} />
+            <Route path="/landlord" element={<LandlordLayout />}>
+              <Route index element={<LandlordDashboard />} />
+              <Route path="search" element={<DashboardSearch role="landlord" />} />
+              <Route path="properties" element={<LandlordProperties />} />
+              <Route path="properties/new" element={<AddListing />} />
+              <Route path="units" element={<LandlordUnits />} />
+              <Route path="units/new" element={<LandlordNewUnit />} />
+              <Route path="collections" element={<LandlordCollections />} />
+              <Route path="payouts" element={<LandlordPayouts />} />
+              <Route path="maintenance" element={<LandlordMaintenance />} />
+              <Route path="maintenance/new" element={<LandlordNewMaintenanceIssue />} />
+              <Route path="calendar" element={<LandlordCalendar />} />
+              <Route path="settings" element={<LandlordSettings />} />
+            </Route>
           </Route>
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
@@ -142,8 +157,7 @@ const App = () => (
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
-      </AvatarProvider>
-    </ThemeProvider>
+    </AvatarProvider>
   </QueryClientProvider>
 );
 

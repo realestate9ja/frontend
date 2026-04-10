@@ -18,12 +18,12 @@ const issues = [
 
 const statusStyles: Record<string, string> = {
   Open: "bg-primary/10 text-primary border-primary/20",
-  "In progress": "bg-amber-50 text-amber-700 border-amber-200",
-  Resolved: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  "In progress": "bg-amber-500/10 text-amber-700 border-amber-500/20 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30",
+  Resolved: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30",
 };
 
 const priorityStyles: Record<string, string> = {
-  Urgent: "text-[10px] border-red-200 bg-red-50 text-red-600",
+  Urgent: "text-[10px] border-red-500/20 bg-red-500/10 text-red-600 dark:bg-red-500/15 dark:text-red-300 dark:border-red-500/30",
   Normal: "text-[10px] border-border bg-muted text-muted-foreground",
 };
 

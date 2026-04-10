@@ -12,7 +12,7 @@ type DashboardSectionActionProps = {
 export function DashboardSectionAction({ to, children }: DashboardSectionActionProps) {
   if (to) {
     return (
-      <Button variant="ghost" size="sm" className="h-8 px-2 text-xs text-primary" asChild>
+      <Button variant="ghost" size="sm" className="h-7 px-1.5 text-xs text-primary shadow-none" asChild>
         <Link to={to}>
           {children}
           <ArrowRight className="ml-1 h-3 w-3" />
@@ -22,7 +22,7 @@ export function DashboardSectionAction({ to, children }: DashboardSectionActionP
   }
 
   return (
-    <Button variant="ghost" size="sm" className="h-8 px-2 text-xs text-primary">
+    <Button variant="ghost" size="sm" className="h-7 px-1.5 text-xs text-primary shadow-none">
       {children}
       <ArrowRight className="ml-1 h-3 w-3" />
     </Button>

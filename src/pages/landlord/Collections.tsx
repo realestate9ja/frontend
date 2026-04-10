@@ -17,8 +17,8 @@ export const rows = [
 ];
 
 const stateStyles: Record<string, { className: string }> = {
-  Paid: { className: "bg-emerald-50 border-emerald-200 text-emerald-700" },
-  "Due tomorrow": { className: "bg-amber-50 border-amber-200 text-amber-700" },
+  Paid: { className: "bg-emerald-500/10 border-emerald-500/20 text-emerald-700 dark:bg-emerald-500/15 dark:border-emerald-500/30 dark:text-emerald-300" },
+  "Due tomorrow": { className: "bg-amber-500/10 border-amber-500/20 text-amber-700 dark:bg-amber-500/15 dark:border-amber-500/30 dark:text-amber-300" },
   Overdue: { className: "bg-destructive/5 border-destructive/20 text-destructive" },
 };
 
@@ -124,12 +124,12 @@ export default function LandlordCollections() {
                 <div className="space-y-3 p-4 sm:hidden">
                   {group.items.map((row) => (
                     <div key={row.id} data-search-id={`landlord-collection-row-${row.id}`} className="rounded-xl border border-border/60 p-3">
-                      <div className="flex items-start justify-between gap-3">
+                      <div className="flex flex-wrap items-start justify-between gap-3">
                         <div>
                           <p className="text-sm font-medium text-foreground">{row.tenant}</p>
                           <p className="mt-1 text-xs text-muted-foreground">{row.unit} · {row.property}</p>
                         </div>
-                        <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${stateStyles[row.state].className}`}>{row.state}</span>
+                        <span className={`inline-flex shrink-0 items-center rounded-full border px-2.5 py-1 text-xs font-medium ${stateStyles[row.state].className}`}>{row.state}</span>
                       </div>
                       <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
                         <div>
@@ -177,7 +177,7 @@ export default function LandlordCollections() {
                         <TableCell className="text-sm font-semibold text-foreground">{row.amount}</TableCell>
                         <TableCell className="text-sm text-muted-foreground">{row.due}</TableCell>
                         <TableCell>
-                          <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${stateStyles[row.state].className}`}>{row.state}</span>
+                          <span className={`inline-flex shrink-0 items-center rounded-full border px-2.5 py-1 text-xs font-medium ${stateStyles[row.state].className}`}>{row.state}</span>
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center gap-1.5 text-sm text-muted-foreground">

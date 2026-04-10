@@ -46,9 +46,9 @@ const notificationData: Record<DashboardRole, NotificationItem[]> = {
 };
 
 const toneStyles: Record<NonNullable<NotificationItem["tone"]>, string> = {
-  default: "border border-primary/20 bg-primary/10 text-primary",
-  warning: "border border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-300",
-  success: "border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300",
+  default: "border border-primary/15 bg-primary/8 text-primary",
+  warning: "border border-amber-500/15 bg-amber-500/10 text-amber-600 dark:text-amber-300",
+  success: "border border-emerald-500/15 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300",
 };
 
 const roleLabels: Record<DashboardRole, string> = {
@@ -99,7 +99,7 @@ export function DashboardNotifications({ role }: { role: DashboardRole }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-lg border border-transparent bg-background/70" aria-label="Open notifications">
+        <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-lg border border-transparent bg-background/70 shadow-none" aria-label="Open notifications">
           <Bell className="h-4 w-4 text-muted-foreground" />
           {unreadCount > 0 && (
             <>
@@ -109,26 +109,26 @@ export function DashboardNotifications({ role }: { role: DashboardRole }) {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[min(92vw,400px)] rounded-2xl border border-border/70 bg-background/98 p-0 shadow-xl backdrop-blur">
-        <div className="px-4 py-4">
+      <DropdownMenuContent align="end" className="w-[min(92vw,380px)] rounded-xl border border-border/60 bg-background/98 p-0 shadow-lg backdrop-blur">
+        <div className="px-4 py-3.5">
           <div className="flex items-start justify-between gap-3">
             <div>
               <DropdownMenuLabel className="p-0 text-sm font-semibold">Notifications</DropdownMenuLabel>
               <p className="mt-1 text-xs text-muted-foreground">
-                {roleLabels[role]} · {unreadCount > 0 ? `${unreadCount} unread` : "All caught up"}
+                {roleLabels[role]} | {unreadCount > 0 ? `${unreadCount} unread` : "All caught up"}
               </p>
             </div>
-            <Badge variant="outline" className="shrink-0 border-border/70 bg-secondary/30 text-[10px] font-medium">
+            <Badge variant="outline" className="shrink-0 border-border/60 bg-muted/30 text-[10px] font-medium">
               {items.length} items
             </Badge>
           </div>
         </div>
-        <div className="flex items-center justify-between border-t border-border/60 px-4 py-3">
+        <div className="flex items-center justify-between border-t border-border/60 px-4 py-2.5">
           <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground/70">
             Activity feed
           </span>
           {unreadCount > 0 ? (
-            <Button variant="ghost" size="sm" className="h-8 gap-1.5 px-2 text-xs" onClick={markAllAsRead}>
+            <Button variant="ghost" size="sm" className="h-7 gap-1.5 px-2 text-xs text-muted-foreground" onClick={markAllAsRead}>
               <CheckCheck className="h-3.5 w-3.5" /> Mark all read
             </Button>
           ) : (
@@ -136,7 +136,7 @@ export function DashboardNotifications({ role }: { role: DashboardRole }) {
           )}
         </div>
         <DropdownMenuSeparator className="bg-border/60" />
-        <div className="max-h-[420px] overflow-y-auto p-2">
+        <div className="max-h-[400px] overflow-y-auto p-2">
           {items.map((item) => {
             const unread = !readIds.includes(item.id);
             return (
@@ -144,23 +144,23 @@ export function DashboardNotifications({ role }: { role: DashboardRole }) {
                 type="button"
                 key={item.id}
                 onClick={() => openNotification(item)}
-                className="mb-2 flex w-full items-start gap-3 rounded-2xl border border-border/60 bg-card px-3 py-3 text-left transition-colors last:mb-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="mb-1.5 flex w-full items-start gap-3 rounded-lg border border-border/60 bg-card px-3 py-3 text-left transition-colors last:mb-0 hover:bg-muted/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                <div className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${toneStyles[item.tone ?? "default"]}`}>
-                  <Bell className="h-4 w-4" />
+                <div className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${toneStyles[item.tone ?? "default"]}`}>
+                  <Bell className="h-3.5 w-3.5" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-medium text-foreground">{item.title}</p>
-                        {unread ? <span className="h-2 w-2 shrink-0 rounded-full bg-primary" /> : null}
+                        {unread ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" /> : null}
                       </div>
-                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{item.message}</p>
+                      <p className="mt-0.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{item.message}</p>
                     </div>
                     <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground/60" />
                   </div>
-                  <div className="mt-2 flex items-center gap-1 text-[11px] text-muted-foreground">
+                  <div className="mt-1.5 flex items-center gap-1 text-[11px] text-muted-foreground">
                     <Clock3 className="h-3 w-3" />
                     {item.time}
                   </div>

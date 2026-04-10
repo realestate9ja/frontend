@@ -18,8 +18,8 @@ const disputes = [
 const priorityStyles: Record<string, { color: string; bg: string; dot: string }> = {
   Critical: { color: "text-background", bg: "bg-destructive", dot: "bg-background" },
   High: { color: "text-destructive", bg: "bg-destructive/5 border-destructive/20", dot: "bg-destructive" },
-  Medium: { color: "text-amber-700", bg: "bg-amber-50 border-amber-200", dot: "bg-amber-500" },
-  Low: { color: "text-emerald-700", bg: "bg-emerald-50 border-emerald-200", dot: "bg-emerald-500" },
+  Medium: { color: "text-amber-700 dark:text-amber-300", bg: "bg-amber-500/10 border-amber-500/20 dark:bg-amber-500/15 dark:border-amber-500/30", dot: "bg-amber-500" },
+  Low: { color: "text-emerald-700 dark:text-emerald-300", bg: "bg-emerald-500/10 border-emerald-500/20 dark:bg-emerald-500/15 dark:border-emerald-500/30", dot: "bg-emerald-500" },
 };
 
 const statusStyles: Record<string, string> = {
@@ -31,8 +31,8 @@ const statusStyles: Record<string, string> = {
 
 const typeIcon: Record<string, { icon: typeof AlertTriangle; color: string; bg: string }> = {
   Fraud: { icon: AlertTriangle, color: "text-destructive", bg: "bg-destructive/5" },
-  Quality: { icon: AlertCircle, color: "text-amber-500", bg: "bg-amber-50" },
-  Cancellation: { icon: MessageSquare, color: "text-blue-500", bg: "bg-blue-50" },
+  Quality: { icon: AlertCircle, color: "text-amber-500 dark:text-amber-300", bg: "bg-amber-500/10 dark:bg-amber-500/15" },
+  Cancellation: { icon: MessageSquare, color: "text-blue-500 dark:text-blue-300", bg: "bg-blue-500/10 dark:bg-blue-500/15" },
 };
 
 export default function Disputes() {

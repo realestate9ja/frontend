@@ -34,18 +34,6 @@ export default function Signup() {
           <p className="text-muted-foreground mt-4 leading-relaxed">
             Join thousands of tenants, agents, and landlords on Nigeria's most trusted property platform.
           </p>
-          <div className="mt-8 flex items-center gap-4">
-            {[
-              { value: "2,450+", label: "Properties" },
-              { value: "98%", label: "Satisfaction" },
-              { value: "150+", label: "Cities" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-lg font-bold text-primary">{stat.value}</p>
-                <p className="text-[11px] text-muted-foreground">{stat.label}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 

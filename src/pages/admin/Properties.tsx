@@ -10,20 +10,19 @@ import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader"
 import { DashboardControlRow } from "@/components/dashboard/DashboardControlRow";
 
 export const properties = [
-  { id: "P-001", title: "3 Bedroom Flat, Lekki Phase 1", agent: "Adebayo Johnson", price: "₦2,500,000/yr", location: "Lagos", status: "Active", date: "Mar 15, 2024" },
-  { id: "P-002", title: "Studio Apartment, Wuse 2", agent: "Chioma Okafor", price: "₦1,200,000/yr", location: "Abuja", status: "Pending", date: "Mar 14, 2024" },
-  { id: "P-003", title: "4 Bedroom Duplex, GRA", agent: "Emeka Nwankwo", price: "₦5,000,000/yr", location: "Port Harcourt", status: "Active", date: "Mar 13, 2024" },
-  { id: "P-004", title: "2 Bedroom Flat, Ikeja", agent: "Fatima Abdullahi", price: "₦1,800,000/yr", location: "Lagos", status: "Rejected", date: "Mar 12, 2024" },
-  { id: "P-005", title: "Self-Contain, Surulere", agent: "Oluwaseun Bakare", price: "₦600,000/yr", location: "Lagos", status: "Active", date: "Mar 11, 2024" },
-  { id: "P-006", title: "5 Bedroom House, Maitama", agent: "Ibrahim Yusuf", price: "₦8,000,000/yr", location: "Abuja", status: "Pending", date: "Mar 10, 2024" },
+  { id: "P-001", title: "3 Bedroom Flat, Lekki Phase 1", agent: "Adebayo Johnson", price: "N2,500,000/yr", location: "Lagos", status: "Active", date: "Mar 15, 2024" },
+  { id: "P-002", title: "Studio Apartment, Wuse 2", agent: "Chioma Okafor", price: "N1,200,000/yr", location: "Abuja", status: "Pending", date: "Mar 14, 2024" },
+  { id: "P-003", title: "4 Bedroom Duplex, GRA", agent: "Emeka Nwankwo", price: "N5,000,000/yr", location: "Port Harcourt", status: "Active", date: "Mar 13, 2024" },
+  { id: "P-004", title: "2 Bedroom Flat, Ikeja", agent: "Fatima Abdullahi", price: "N1,800,000/yr", location: "Lagos", status: "Rejected", date: "Mar 12, 2024" },
+  { id: "P-005", title: "Self-Contain, Surulere", agent: "Oluwaseun Bakare", price: "N600,000/yr", location: "Lagos", status: "Active", date: "Mar 11, 2024" },
+  { id: "P-006", title: "5 Bedroom House, Maitama", agent: "Ibrahim Yusuf", price: "N8,000,000/yr", location: "Abuja", status: "Pending", date: "Mar 10, 2024" },
 ];
 
 const statusStyles: Record<string, { color: string; bg: string; dot: string }> = {
-  Active: { color: "text-emerald-700", bg: "bg-emerald-50 border-emerald-200", dot: "bg-emerald-500" },
-  Pending: { color: "text-amber-700", bg: "bg-amber-50 border-amber-200", dot: "bg-amber-500" },
+  Active: { color: "text-emerald-700 dark:text-emerald-300", bg: "bg-emerald-500/10 border-emerald-500/20 dark:bg-emerald-500/15 dark:border-emerald-500/30", dot: "bg-emerald-500" },
+  Pending: { color: "text-amber-700 dark:text-amber-300", bg: "bg-amber-500/10 border-amber-500/20 dark:bg-amber-500/15 dark:border-amber-500/30", dot: "bg-amber-500" },
   Rejected: { color: "text-destructive", bg: "bg-destructive/5 border-destructive/20", dot: "bg-destructive" },
 };
-
 export default function Properties() {
   useSearchFocus();
   const [searchParams] = useSearchParams();

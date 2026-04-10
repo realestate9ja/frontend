@@ -32,8 +32,8 @@ export const units = [
 ];
 
 const stateStyles: Record<string, string> = {
-  Occupied: "bg-emerald-50 border-emerald-200 text-emerald-700",
-  Vacant: "bg-amber-50 border-amber-200 text-amber-700",
+  Occupied: "bg-emerald-500/10 border-emerald-500/20 text-emerald-700 dark:bg-emerald-500/15 dark:border-emerald-500/30 dark:text-emerald-300",
+  Vacant: "bg-amber-500/10 border-amber-500/20 text-amber-700 dark:bg-amber-500/15 dark:border-amber-500/30 dark:text-amber-300",
   "Notice given": "bg-primary/10 border-primary/20 text-primary",
 };
 

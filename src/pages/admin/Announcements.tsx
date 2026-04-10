@@ -52,21 +52,21 @@ export const announcements = [
 ];
 
 const typeConfig: Record<string, { icon: typeof Info; color: string; bg: string }> = {
-  info: { icon: Info, color: "text-blue-600", bg: "bg-blue-50 border-blue-200" },
-  warning: { icon: AlertTriangle, color: "text-amber-600", bg: "bg-amber-50 border-amber-200" },
-  critical: { icon: AlertTriangle, color: "text-red-600", bg: "bg-red-50 border-red-200" },
+  info: { icon: Info, color: "text-blue-600 dark:text-blue-300", bg: "bg-blue-500/10 border-blue-500/20 dark:bg-blue-500/15 dark:border-blue-500/30" },
+  warning: { icon: AlertTriangle, color: "text-amber-600 dark:text-amber-300", bg: "bg-amber-500/10 border-amber-500/20 dark:bg-amber-500/15 dark:border-amber-500/30" },
+  critical: { icon: AlertTriangle, color: "text-red-600 dark:text-red-300", bg: "bg-red-500/10 border-red-500/20 dark:bg-red-500/15 dark:border-red-500/30" },
 };
 
 const statusConfig: Record<string, string> = {
-  Published: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  Published: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30",
   Draft: "bg-muted text-muted-foreground border-border/60",
 };
 
 const stats = [
   { label: "Total Sent", value: "47", icon: Send, iconBg: "bg-primary/10", accent: "text-primary" },
-  { label: "Active", value: "3", icon: Megaphone, iconBg: "bg-emerald-50", accent: "text-emerald-600" },
-  { label: "Drafts", value: "2", icon: Clock, iconBg: "bg-amber-50", accent: "text-amber-600" },
-  { label: "Total Views", value: "12.4K", icon: Eye, iconBg: "bg-blue-50", accent: "text-blue-600" },
+  { label: "Active", value: "3", icon: Megaphone, iconBg: "bg-emerald-500/10 dark:bg-emerald-500/15", accent: "text-emerald-600 dark:text-emerald-300" },
+  { label: "Drafts", value: "2", icon: Clock, iconBg: "bg-amber-500/10 dark:bg-amber-500/15", accent: "text-amber-600 dark:text-amber-300" },
+  { label: "Total Views", value: "12.4K", icon: Eye, iconBg: "bg-blue-500/10 dark:bg-blue-500/15", accent: "text-blue-600 dark:text-blue-300" },
 ];
 
 export default function AdminAnnouncements() {
