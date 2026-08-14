@@ -16,8 +16,12 @@
     
     <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- PNG fallback for platforms that dislike SVG favicons or when SVG served with wrong MIME -->
+    <link rel="icon" type="image/png" href="/apple-touch-icon.png" />
     <link rel="shortcut icon" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Mask icon for Safari pinned tabs -->
+    <link rel="mask-icon" href="/favicon.svg" color="#C4714A" />
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

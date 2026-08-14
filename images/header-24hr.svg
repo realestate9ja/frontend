@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="80" viewBox="0 0 560 80">
+  <rect width="560" height="80" fill="#FAF7F3"/>
+  <line x1="0" y1="79" x2="560" y2="79" stroke="#EDE8E0" stroke-width="1"/>
+
+  <!-- Icon box -->
+  <rect x="24" y="23" width="34" height="34" rx="9" fill="#C4714A"/>
+
+  <!-- House icon (white) -->
+  <!-- Roof -->
+  <polyline points="28,43 41,30 54,43" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Door pill -->
+  <rect x="38" y="44" width="7" height="10" rx="3.5" fill="white"/>
+
+  <!-- Wordmark: Veri (regular) + nest (italic) -->
+  <text x="68" y="46" font-family="Georgia, 'Times New Roman', serif"
+        font-size="22" font-weight="bold" fill="#1A1814" letter-spacing="0.5">Veri</text>
+  <text x="108" y="46" font-family="Georgia, 'Times New Roman', serif"
+        font-size="22" font-weight="bold" font-style="italic" fill="#C4714A" letter-spacing="0.5">nest</text>
+
+  <!-- Badge pill -->
+  <rect x="444" y="29" width="92" height="22"
+        rx="11" fill="#FFF8F0"/>
+  <text x="490" y="44"
+        font-family="'DM Sans', Arial, sans-serif"
+        font-size="10" font-weight="500" fill="#C07020"
+        text-anchor="middle" letter-spacing="1.5">24HRS LEFT</text>
+</svg>

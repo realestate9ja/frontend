@@ -92,6 +92,17 @@ function isImageDocument(url?: string, mimeType?: string) {
   return /\.(png|jpe?g|gif|webp|bmp|svg)$/i.test(url ?? "");
 }
 
+function formatVerificationDocumentType(value?: string | null) {
+  const normalized = String(value ?? "").trim().toLowerCase();
+  if (!normalized) return "Document";
+  if (normalized === "nin") return "NIN";
+  if (normalized === "selfie") return "Selfie";
+  if (normalized === "cac_certificate") return "CAC Certificate";
+  if (normalized === "property_deed_or_cofo") return "Property Deed / C of O";
+  if (normalized === "property deed or cofo") return "Property Deed / C of O";
+  return titleCase(normalized.replace(/[_-]+/g, " "));
+}
+
 export default function AdminVerifications() {
   const queryClient = useQueryClient();
   const [selectedVerificationId, setSelectedVerificationId] = useState<string | null>(null);
@@ -119,7 +130,7 @@ export default function AdminVerifications() {
     const type = normalizeType(item.userRole ?? item.user_role);
     const risk = riskFor(item.status);
     const docs = Array.isArray(item.documentTypes ?? item.document_types)
-      ? (item.documentTypes ?? item.document_types).map((doc: string) => titleCase(doc))
+      ? (item.documentTypes ?? item.document_types).map((doc: string) => formatVerificationDocumentType(doc))
       : [];
     const documents = Array.isArray(item.documents)
       ? item.documents
@@ -142,7 +153,7 @@ export default function AdminVerifications() {
       propertyCount: Number(item.propertyCount ?? item.property_count ?? 0),
       documents: documents.map((doc: any) => ({
         id: String(doc.id ?? `${item.id}-${doc.fileKey ?? doc.file_key ?? doc.documentType ?? "document"}`),
-        documentType: titleCase(doc.documentType ?? doc.document_type ?? "document"),
+        documentType: formatVerificationDocumentType(doc.documentType ?? doc.document_type ?? "document"),
         fileUrl: String(doc.fileUrl ?? doc.file_url ?? ""),
         fileKey: String(doc.fileKey ?? doc.file_key ?? ""),
         mimeType: String(doc.mimeType ?? doc.mime_type ?? ""),
@@ -178,6 +189,9 @@ export default function AdminVerifications() {
   const verifiedRows = recentlyVerified.length ? recentlyVerified : fallbackRecentlyVerified;
   const propertyRows = normalizedProperties;
   const selectedVerification = normalizedVerifications.find((item) => item.id === selectedVerificationId) ?? null;
+  const hasLandlordOwnershipDocs = (verification: { docs: string[]; documents: Array<{ documentType: string }> }) =>
+    verification.docs.some((doc) => ["Property Deed / C of O", "CAC Certificate"].includes(doc)) ||
+    verification.documents.some((doc) => ["Property Deed / C of O", "CAC Certificate"].includes(doc.documentType));
   const { data: selectedVerificationDetail } = useQuery({
     queryKey: ["/admin/verifications/detail", selectedVerificationId],
     queryFn: () => adminApi.verificationDetail(selectedVerificationId!),
@@ -187,7 +201,7 @@ export default function AdminVerifications() {
     const rows = Array.isArray((selectedVerificationDetail as any)?.documents) ? (selectedVerificationDetail as any).documents : [];
     return rows.map((doc: any) => ({
       id: String(doc.id ?? `${selectedVerificationId}-${doc.file_key ?? doc.fileKey ?? doc.document_type ?? "document"}`),
-      documentType: titleCase(doc.documentType ?? doc.document_type ?? "document"),
+      documentType: formatVerificationDocumentType(doc.documentType ?? doc.document_type ?? "document"),
       fileUrl: String(doc.fileUrl ?? doc.file_url ?? ""),
       fileKey: String(doc.fileKey ?? doc.file_key ?? ""),
       mimeType: String(doc.mimeType ?? doc.mime_type ?? ""),
@@ -324,6 +338,11 @@ export default function AdminVerifications() {
                             <FileText className="h-2.5 w-2.5" />{doc}
                           </span>
                         ))}
+                        {hasLandlordOwnershipDocs(v) ? (
+                          <Badge variant="secondary" className="h-5 px-2 text-[10px] font-medium">
+                            Landlord ownership docs provided
+                          </Badge>
+                        ) : null}
                       </div>
                     </div>
                   </div>
@@ -458,6 +477,11 @@ export default function AdminVerifications() {
                 <Badge variant="secondary">{selectedVerification.type}</Badge>
                 <Badge variant="secondary">{selectedVerification.propertyCount} Properties</Badge>
                 <Badge variant="secondary">Submitted {selectedVerification.submitted}</Badge>
+                {hasLandlordOwnershipDocs(selectedVerification) ? (
+                  <Badge variant="secondary">Landlord ownership docs provided</Badge>
+                ) : (
+                  <Badge variant="outline">No ownership docs provided</Badge>
+                )}
               </div>
 
               <div className="grid gap-4 md:grid-cols-2">

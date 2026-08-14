@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verinest — Refined Email Templates</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #E8E2DA;
+    font-family: 'DM Sans', sans-serif;
+    padding: 40px 16px 80px;
+  }
+
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #A08060;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .page-sub {
+    font-size: 11px;
+    color: #B0A090;
+    text-align: center;
+    margin-bottom: 56px;
+    letter-spacing: 0.04em;
+  }
+
+  .template-block {
+    margin-bottom: 64px;
+  }
+
+  .template-label {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #C4714A;
+    margin-bottom: 16px;
+    padding-left: 4px;
+  }
+
+  /* ── EMAIL SHELL ── */
+  .email-shell {
+    max-width: 560px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+  }
+
+  /* ── HEADER IMAGE (full width, no logo/badge duplication) ── */
+  .email-header-img {
+    width: 100%;
+    display: block;
+    max-height: 200px;
+    object-fit: cover;
+  }
+
+  /* ── BODY CONTENT ── */
+  .email-body {
+    padding: 36px 40px 32px;
+  }
+
+  .greeting {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1A1814;
+    margin-bottom: 14px;
+  }
+
+  .body-text {
+    font-size: 13.5px;
+    color: #5A5248;
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  /* ── CTA BUTTON ── */
+  .cta-wrap {
+    margin: 28px 0;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: #C4714A;
+    color: white;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 15px 32px;
+    border-radius: 12px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .cta-btn.dark-btn {
+    background: #161412;
+  }
+
+  .cta-btn.ghost-btn {
+    background: transparent;
+    color: #C4714A;
+    border: 1.5px solid #C4714A;
+  }
+
+  .cta-secondary {
+    display: inline-block;
+    background: transparent;
+    color: #C4714A;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 12px 24px;
+    border: 1.5px solid #C4714A;
+    border-radius: 10px;
+  }
+
+  /* ── DIVIDER ── */
+  .email-divider {
+    height: 1px;
+    background: #EDE8E0;
+    margin: 28px 0;
+  }
+
+  /* ── INFO CARD ── */
+  .info-card {
+    background: #FAF7F3;
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+    border-left: 3px solid #C4714A;
+  }
+
+  .info-card.success {
+    border-left-color: #3A8A52;
+    background: #EBF7EF;
+  }
+
+  .info-card-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1A1814;
+    margin-bottom: 6px;
+  }
+
+  .info-card-text {
+    font-size: 12px;
+    color: #9A8F84;
+    line-height: 1.6;
+  }
+
+  .info-card.success .info-card-text {
+    color: #3A6A48;
+  }
+
+  /* ── ALERT STRIP ── */
+  .alert-strip {
+    background: #FFF3ED;
+    border-left: 3px solid #C4714A;
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    margin-bottom: 20px;
+  }
+
+  .alert-strip p {
+    font-size: 12px;
+    color: #7A4020;
+    line-height: 1.6;
+  }
+
+  /* ── PROPERTY CARD ── */
+  .property-card {
+    border: 1px solid #EDE8E0;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .property-img {
+    width: 100%;
+    height: 160px;
+    background: linear-gradient(135deg, #C4714A 0%, #A85D38 40%, #8B4A2A 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .property-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.5) 100%);
+  }
+
+  .property-img-label {
+    position: absolute;
+    bottom: 14px;
+    left: 16px;
+    right: 16px;
+    z-index: 1;
+  }
+
+  .property-img-label .p-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .property-img-label .p-loc {
+    font-size: 10px;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .property-verified {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #C4714A;
+    color: white;
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 20px;
+    font-weight: 500;
+    z-index: 1;
+  }
+
+  .property-details {
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .property-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1A1814;
+  }
+
+  .property-price span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    color: #9A8F84;
+    font-weight: 400;
+    display: block;
+  }
+
+  .property-meta {
+    display: flex;
+    gap: 14px;
+  }
+
+  .prop-meta-item {
+    font-size: 11px;
+    color: #9A8F84;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ── STEPS ROW ── */
+  .steps-row {
+    display: flex;
+    gap: 0;
+    margin: 24px 0;
+  }
+
+  .step-col {
+    flex: 1;
+    text-align: center;
+    padding: 0 8px;
+    position: relative;
+  }
+
+  .step-col:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    right: -1px;
+    width: 2px;
+    height: 2px;
+    background: #EDE8E0;
+    box-shadow: 6px 0 0 #EDE8E0, -6px 0 0 #EDE8E0;
+  }
+
+  .step-num-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid #C4714A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: #C4714A;
+    font-weight: 600;
+  }
+
+  .step-col-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #1A1814;
+    margin-bottom: 4px;
+  }
+
+  .step-col-text {
+    font-size: 10px;
+    color: #9A8F84;
+    line-height: 1.5;
+  }
+
+  /* ── OTP BLOCK ── */
+  .otp-wrap {
+    background: #FAF7F3;
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    margin: 28px 0;
+    border: 1px dashed #E0D8CE;
+  }
+
+  .otp-label {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #9A8F84;
+    margin-bottom: 16px;
+  }
+
+  .otp-code {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 600;
+    color: #C4714A;
+    letter-spacing: 0.2em;
+    line-height: 1;
+    margin-bottom: 12px;
+    word-break: break-all;
+  }
+
+  .otp-expiry {
+    font-size: 11px;
+    color: #B0A090;
+  }
+
+  /* ── AGENT CARD ── */
+  .agent-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #FAF7F3;
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 20px 0;
+    border: 1px solid #EDE8E0;
+  }
+
+  .agent-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #C4714A, #A85D38);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: white;
+    font-weight: 600;
+  }
+
+  .agent-info .name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1A1814;
+    margin-bottom: 2px;
+  }
+
+  .agent-info .role {
+    font-size: 11px;
+    color: #9A8F84;
+    margin-bottom: 6px;
+  }
+
+  .verified-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #EBF7EF;
+    color: #3A8A52;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  /* ── LEAD CARD ── */
+  .lead-card {
+    background: #FAF7F3;
+    border-radius: 12px;
+    border: 1px solid #EDE8E0;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+
+  .lead-card-header {
+    background: #1A1814;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .lead-card-header span {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .lead-id {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: #C4714A;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+
+  .lead-card-body {
+    padding: 18px;
+  }
+
+  .lead-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #EDE8E0;
+  }
+
+  .lead-row:last-child { border-bottom: none; }
+
+  .lead-icon {
+    width: 28px;
+    height: 28px;
+    background: #F0E0D4;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+
+  .lead-detail .key {
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #B0A090;
+    margin-bottom: 2px;
+  }
+
+  .lead-detail .val {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1A1814;
+    line-height: 1.3;
+  }
+
+  .lead-detail .val.budget {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: #C4714A;
+  }
+
+  /* ── URGENCY CONTEXT ── */
+  .urgency-context {
+    background: #C4714A;
+    color: white;
+    padding: 12px 40px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .urgency-context strong {
+    font-weight: 600;
+  }
+
+  .urgency-timer {
+    background: rgba(0,0,0,0.15);
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-left: 8px;
+    font-weight: 500;
+  }
+
+  /* ── COMPETITION STRIP ── */
+  .competition-strip {
+    background: #FFF8F0;
+    border: 1px solid #F0D4B8;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin: 18px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .comp-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .comp-text {
+    font-size: 12px;
+    color: #7A4820;
+    line-height: 1.55;
+  }
+
+  .comp-text strong {
+    color: #C4714A;
+    font-weight: 600;
+  }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .stat-box {
+    flex: 1;
+    background: #FAF7F3;
+    border-radius: 12px;
+    padding: 18px 16px;
+    text-align: center;
+    border: 1px solid #EDE8E0;
+  }
+
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #C4714A;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: #9A8F84;
+    font-weight: 500;
+  }
+
+  /* ── TIPS ROW ── */
+  .tips-row {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .tip-item {
+    flex: 1;
+    background: #FAF7F3;
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid #EDE8E0;
+    text-align: center;
+  }
+
+  .tip-icon {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .tip-text {
+    font-size: 10px;
+    color: #7A6F64;
+    line-height: 1.5;
+  }
+
+  .tip-text strong {
+    display: block;
+    font-size: 11px;
+    color: #1A1814;
+    margin-bottom: 2px;
+    font-weight: 600;
+  }
+
+  /* ── INTENT NOTE ── */
+  .intent-note {
+    background: #F4F9F5;
+    border-left: 3px solid #5A9A6A;
+    padding: 14px 16px;
+    border-radius: 0 10px 10px 0;
+    margin: 16px 0;
+  }
+
+  .intent-note p {
+    font-size: 12px;
+    color: #3A6A48;
+    line-height: 1.6;
+  }
+
+  .intent-note strong {
+    font-weight: 600;
+  }
+
+  /* ── FOOTER ── */
+  .email-footer {
+    background: #161412;
+    padding: 28px 40px;
+    border-top: 1px solid #2A2520;
+  }
+
+  .footer-text {
+    font-size: 11px;
+    color: #5A5048;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .footer-links a {
+    font-size: 10px;
+    color: #7A6F64;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+  }
+
+  .footer-divider {
+    height: 1px;
+    background: #2A2520;
+    margin-bottom: 14px;
+  }
+
+  .footer-legal {
+    font-size: 10px;
+    color: #3A3028;
+    line-height: 1.6;
+  }
+
+</style>
+</head>
+<body>
+
+<p class="page-title">Verinest — Refined Email Templates</p>
+<p class="page-sub">Header SVGs include logo + badge · Simplified structure · Email-provider safe</p>
+
+
+<!-- ════════════════════════════════════════════
+     TEMPLATE 1 — WELCOME EMAIL
+════════════════════════════════════════════ -->
+<div class="template-block">
+  <p class="template-label">01 — Welcome Email (New User)</p>
+
+  <div class="email-shell">
+    <!-- Header Image (includes logo + badge) -->
+    <img src="https://res.cloudinary.com/dui0hakkq/image/upload/header-welcome.svg" alt="Welcome to Verinest" class="email-header-img" />
+
+    <!-- Body -->
+    <div class="email-body">
+      <p class="greeting">Hi Tolu,</p>
+      <p class="body-text">You've just joined a platform built for one reason: to make renting in Nigeria less stressful, less risky, and a lot faster. No more scrolling through fake listings or chasing agents who disappear.</p>
+      <p class="body-text">Here's how Verinest works for you:</p>
+
+      <div class="steps-row">
+        <div class="step-col">
+          <div class="step-num-circle">01</div>
+          <div class="step-col-title">Post a Need</div>
+          <div class="step-col-text">Tell us your budget, location and timeline</div>
+        </div>
+        <div class="step-col">
+          <div class="step-num-circle">02</div>
+          <div class="step-col-title">Get Matched</div>
+          <div class="step-col-text">Verified agents respond with real options</div>
+        </div>
+        <div class="step-col">
+          <div class="step-num-circle">03</div>
+          <div class="step-col-title">Move In</div>
+          <div class="step-col-text">Compare, schedule a viewing, proceed</div>
+        </div>
+      </div>
+
+      <div class="cta-wrap">
+        <a href="#" class="cta-btn">Post Your First Need →</a>
+      </div>
+
+      <div class="email-divider"></div>
+
+      <p class="body-text" style="font-size:12px; color:#9A8F84;">If you have any questions getting started, reply to this email directly. A real person will respond — not a bot.</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="email-footer">
+      <p class="footer-text">Verinest helps seekers, agents, and landlords connect through verified listings, clearer pricing, and faster rental matching across Nigeria.</p>
+      <div class="footer-links">
+        <a href="#">Browse Homes</a>
+        <a href="#">Post a Need</a>
+        <a href="#">For Agents</a>
+        <a href="#">Help Centre</a>
+        <a href="#">Unsubscribe</a>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-legal">© 2025 Verinest. All rights reserved. · Nigeria<br>You are receiving this because you signed up at verinest.ng</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     TEMPLATE 2 — OTP / EMAIL VERIFICATION
+════════════════════════════════════════════ -->
+<div class="template-block">
+  <p class="template-label">02 — OTP / Email Verification</p>
+
+  <div class="email-shell">
+    <img src="https://res.cloudinary.com/dui0hakkq/image/upload/header-security-dark.svg" alt="Verify Your Email" class="email-header-img" />
+
+    <div class="email-body">
+      <p class="greeting">Hi Ibrahim,</p>
+      <p class="body-text">You requested a verification code for your Verinest account. Enter this code in the app to continue.</p>
+
+      <div class="otp-wrap">
+        <p class="otp-label">Your verification code</p>
+        <div class="otp-code">847 291</div>
+        <p class="otp-expiry">Expires in 10 minutes · Do not share this code</p>
+      </div>
+
+      <div class="alert-strip">
+        <p>⚠️ <strong>Verinest will never ask for this code by phone or WhatsApp.</strong> If someone is asking for it, this is a scam attempt. Do not share it.</p>
+      </div>
+
+      <p class="body-text" style="font-size:12px;color:#9A8F84;">If you didn't request this code, you can safely ignore this email. Your account remains secure.</p>
+    </div>
+
+    <div class="email-footer">
+      <p class="footer-text">This is an automated security email from Verinest. If you have concerns about your account security, contact us at security@verinest.ng</p>
+      <div class="footer-divider"></div>
+      <p class="footer-legal">© 2025 Verinest. All rights reserved. · Nigeria</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     TEMPLATE 3 — NEW MATCH NOTIFICATION
+════════════════════════════════════════════ -->
+<div class="template-block">
+  <p class="template-label">03 — New Match Notification (Seeker)</p>
+
+  <div class="email-shell">
+    <img src="https://res.cloudinary.com/dui0hakkq/image/upload/header-new-match.svg" alt="You Have a Match" class="email-header-img" />
+
+    <div class="email-body">
+      <p class="greeting">Hi Adaeze,</p>
+      <p class="body-text">Good news — a verified agent responded to your need post for a <strong>3-bedroom apartment in Lekki Phase 1, under ₦3.5M/year.</strong> Here's what they sent:</p>
+
+      <!-- Property card -->
+      <div class="property-card">
+        <div class="property-img">
+          <div class="property-img-label">
+            <div class="p-name">3-Bed Apartment</div>
+            <div class="p-loc">Lekki Phase 1, Lagos</div>
+          </div>
+          <span class="property-verified">Verified</span>
+        </div>
+        <div class="property-details">
+          <div>
+            <div class="property-price">₦2.8M<span>/year</span></div>
+          </div>
+          <div class="property-meta">
+            <div class="prop-meta-item">3 Beds</div>
+            <div class="prop-meta-item">2 Baths</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent card -->
+      <div class="agent-card">
+        <div class="agent-avatar">KA</div>
+        <div class="agent-info">
+          <div class="name">Kunle Adebayo</div>
+          <div class="role">Real Estate Agent</div>
+          <span class="verified-pill">✓ Verified</span>
+        </div>
+      </div>
+
+      <div class="cta-wrap" style="margin-bottom: 8px;">
+        <a href="#" class="cta-btn">View Full Listing →</a>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <a href="#" class="cta-secondary" style="width: 100%; display: block; box-sizing: border-box;">Schedule Viewing</a>
+      </div>
+
+      <div class="email-divider"></div>
+      <p class="body-text" style="font-size:12px;color:#9A8F84;">This agent is verified on Verinest. All communication and viewings should happen through the platform — do not send money or sign anything outside of Verinest.</p>
+    </div>
+
+    <div class="email-footer">
+      <p class="footer-text">Matches expire after 48 hours if not reviewed. Log in to your Verinest dashboard to see all your active matches.</p>
+      <div class="footer-links">
+        <a href="#">View Matches</a>
+        <a href="#">My Dashboard</a>
+        <a href="#">Help Centre</a>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-legal">© 2025 Verinest. All rights reserved. · Nigeria</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     TEMPLATE 4 — KYC / VERIFICATION APPROVED
+════════════════════════════════════════════ -->
+<div class="template-block">
+  <p class="template-label">04 — Agent Verification Approved</p>
+
+  <div class="email-shell">
+    <img src="https://res.cloudinary.com/dui0hakkq/image/upload/header-confirmed.svg" alt="Verification Complete" class="email-header-img" />
+
+    <div class="email-body">
+      <p class="greeting">Hi Emeka,</p>
+      <p class="body-text">Congratulations — your Verinest agent profile has been reviewed and approved. You now carry the <strong>Verified Provider</strong> badge, which means seekers can see and trust your listings immediately.</p>
+
+      <div class="info-card">
+        <div class="info-card-title">What This Means</div>
+        <div class="info-card-text">You now have full access to all platform features, including lead notifications, unlimited listings, and direct messaging with seekers.</div>
+      </div>
+
+      <div class="info-card success">
+        <div class="info-card-title">What's Next</div>
+        <div class="info-card-text">You can now start posting properties and responding to seeker requests. Your verified badge will appear on all your listings.</div>
+      </div>
+
+      <div class="cta-wrap">
+        <a href="#" class="cta-btn">Go to Your Dashboard →</a>
+      </div>
+
+      <div class="email-divider"></div>
+
+      <p class="body-text" style="font-size:12px;color:#9A8F84;">Questions about your profile or listings? Reply to this email or reach us at agents@verinest.ng — we respond within 24 hours.</p>
+    </div>
+
+    <div class="email-footer">
+      <p class="footer-text">Welcome to the Verinest agent network. You're part of a verified community of property professionals across Nigeria.</p>
+      <div class="footer-links">
+        <a href="#">Upload Listings</a>
+        <a href="#">View Dashboard</a>
+        <a href="#">Agent Resources</a>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-legal">© 2025 Verinest. All rights reserved. · Nigeria</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     TEMPLATE 5 — UPCOMING VIEWING REMINDER
+════════════════════════════════════════════ -->
+<div class="template-block">
+  <p class="template-label">05 — Upcoming Viewing Reminder</p>
+
+  <div class="email-shell">
+    <img src="https://res.cloudinary.com/dui0hakkq/image/upload/header-viewing.svg" alt="Your Viewing is Coming Up" class="email-header-img" />
+
+    <div class="email-body">
+      <p class="greeting">Hi Chinyere,</p>
+      <p class="body-text">Your scheduled viewing is coming up! Here are the details so you don't miss it.</p>
+
+      <div class="info-card">
+        <div class="info-card-title">📍 Property</div>
+        <div class="info-card-text">Luxury 3-Bed Apartment, Ikoyi, Lagos</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-title">📅 Date & Time</div>
+        <div class="info-card-text">Saturday, May 15, 2025 at 2:00 PM</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-title">👤 Agent</div>
+        <div class="info-card-text">Kunle Adebayo · Available on chat to answer questions</div>
+      </div>
+
+      <div class="cta-wrap" style="margin-top: 20px;">
+        <a href="#" class="cta-btn">Confirm Attendance →</a>
+      </div>
+
+      <div style="margin-top: 12px; margin-bottom: 20px;">
+        <a href="#" class="cta-secondary" style="width: 100%; display: block; box-sizing: border-box;">Reschedule Viewing</a>
+      </div>
+
+      <p class="body-text" style="font-size:12px;color:#9A8F84;">Please give at least 24 hours notice if you need to reschedule. If you have any questions, contact the agent through your Verinest dashboard.</p>
+    </div>
+
+    <div class="email-footer">
+      <p class="footer-text">Viewing reminders keep your apartment search on track. You can manage your scheduled viewings in your Verinest dashboard.</p>
+      <div class="footer-divider"></div>
+      <p class="footer-legal">© 2025 Verinest. All rights reserved. · Nigeria</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     TEMPLATE 6 — POST-VIEWING FEEDBACK
+════════════════════════════════════════════ -->
+<div class="template-block">
+  <p class="template-label">06 — Post-Viewing Feedback Request</p>
+
+  <div class="email-shell">
+    <img src="https://res.cloudinary.com/dui0hakkq/image/upload/header-post-viewing.svg" alt="How Was Your Viewing?" class="email-header-img" />
+
+    <div class="email-body">
+      <p class="greeting">Hi Chinyere,</p>
+      <p class="body-text">How was your viewing at the 3-bed apartment in Ikoyi? Your feedback helps other seekers and helps us verify the quality of listings on our platform.</p>
+
+      <div class="info-card">
+        <div class="info-card-title">Share Your Feedback</div>
+        <div class="info-card-text">Tell us about your experience: Was it as listed? What did you like or dislike? This helps build a trustworthy marketplace.</div>
+      </div>
+
+      <div class="cta-wrap" style="margin-top: 20px;">
+        <a href="#" class="cta-btn">Leave a Review →</a>
+      </div>
+
+      <div class="email-divider"></div>
+
+      <p class="body-text" style="font-size:12px;color:#9A8F84;">Interested in similar properties in the area? <a href="#" style="color: #C4714A; text-decoration: none; font-weight: 600;">Browse other apartments in Ikoyi</a></p>
+    </div>
+
+    <div class="email-footer">
+      <p class="footer-text">Your reviews matter. They help other seekers make confident decisions and hold agents accountable for quality listings.</p>
+      <div class="footer-divider"></div>
+      <p class="footer-legal">© 2025 Verinest. All rights reserved. · Nigeria</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     TEMPLATE 7 — STILL LOOKING / RE-ENGAGEMENT
+════════════════════════════════════════════ -->
+<div class="template-block">
+  <p class="template-label">07 — Still Looking? Re-engagement</p>
+
+  <div class="email-shell">
+    <img src="https://res.cloudinary.com/dui0hakkq/image/upload/header-still-looking.svg" alt="Still Looking for an Apartment?" class="email-header-img" />
+
+    <div class="email-body">
+      <p class="greeting">Hi Tolu,</p>
+      <p class="body-text">We noticed you've been browsing but haven't posted your rental needs yet. Let us show you why serious seekers choose Verinest.</p>
+
+      <div style="margin: 20px 0;">
+        <p style="font-size: 12px; font-weight: 600; color: #1A1814; margin-bottom: 12px;">Why post on Verinest?</p>
+        <div class="info-card" style="margin-bottom: 10px;">
+          <div class="info-card-title">✓ Verified Agents Only</div>
+          <div class="info-card-text">Every agent is screened and verified. No fakes, no scams.</div>
+        </div>
+        <div class="info-card" style="margin-bottom: 10px;">
+          <div class="info-card-title">✓ Real Matches Fast</div>
+          <div class="info-card-text">Get responses from agents with actual properties that fit your criteria.</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">✓ Safer Transactions</div>
+          <div class="info-card-text">All communication and payments go through our platform for your protection.</div>
+        </div>
+      </div>
+
+      <div class="cta-wrap" style="margin-top: 24px;">
+        <a href="#" class="cta-btn">Post Your Rental Need →</a>
+      </div>
+
+      <p class="body-text" style="font-size:12px;color:#9A8F84;text-align:center;margin-top:16px;">Takes 2 minutes · Completely free</p>
+    </div>
+
+    <div class="email-footer">
+      <p class="footer-text">Verinest is built for seekers like you who deserve better. Transparent pricing, verified agents, and real properties.</p>
+      <div class="footer-divider"></div>
+      <p class="footer-legal">© 2025 Verinest. All rights reserved. · Nigeria</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     TEMPLATE 8 — INSTANT LEAD ALERT (AGENT)
+════════════════════════════════════════════ -->
+<div class="template-block">
+  <p class="template-label">08 — Instant Lead Alert (Agent)</p>
+
+  <div class="email-shell">
+    <img src="https://res.cloudinary.com/dui0hakkq/image/upload/header-lead-alert.svg" alt="New Lead Available" class="email-header-img" />
+
+    <div class="urgency-context">
+      <strong>⚡ Time-Sensitive:</strong> 3 other agents in your area have received this lead. Respond now to be first.
+      <span class="urgency-timer">⏱ 48 hours</span>
+    </div>
+
+    <div class="email-body">
+      <p class="greeting">Hi Musa,</p>
+      <p class="body-text">A serious seeker just posted a rental request that matches your area. Here are their full requirements — respond now to be the first agent they hear from.</p>
+
+      <!-- Lead card -->
+      <div class="lead-card">
+        <div class="lead-card-header">
+          <span>Seeker Request</span>
+          <span class="lead-id">#VN-KD-00247</span>
+        </div>
+        <div class="lead-card-body">
+          <div class="lead-row">
+            <div class="lead-icon">📍</div>
+            <div class="lead-detail">
+              <div class="key">Location</div>
+              <div class="val">Kaduna GRA, Kaduna State</div>
+            </div>
+          </div>
+          <div class="lead-row">
+            <div class="lead-icon">💰</div>
+            <div class="lead-detail">
+              <div class="key">Budget</div>
+              <div class="val budget">₦800,000/year</div>
+            </div>
+          </div>
+          <div class="lead-row">
+            <div class="lead-icon">🏠</div>
+            <div class="lead-detail">
+              <div class="key">Property Type</div>
+              <div class="val">3-Bedroom Apartment</div>
+            </div>
+          </div>
+          <div class="lead-row">
+            <div class="lead-icon">📅</div>
+            <div class="lead-detail">
+              <div class="key">Move-in Timeline</div>
+              <div class="val">This month (May 2025)</div>
+            </div>
+          </div>
+          <div class="lead-row">
+            <div class="lead-icon">✓</div>
+            <div class="lead-detail">
+              <div class="key">Seeker Status</div>
+              <div class="val">Phone verified · Email verified · Serious buyer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="intent-note">
+        <p>✓ <strong>Verified seeker intent:</strong> This request was submitted with confirmed contact info. The seeker is actively looking — not browsing casually.</p>
+      </div>
+
+      <div class="competition-strip">
+        <div class="comp-icon">⚡</div>
+        <div class="comp-text">
+          <strong>First to respond wins.</strong> 3 other agents are seeing this right now. Respond fast to stand out.
+        </div>
+      </div>
+
+      <div class="cta-wrap">
+        <a href="#" class="cta-btn">Respond to This Lead →</a>
+        <p style="font-size: 11px; color: #B0A090; text-align: center; margin-top: 8px;">Takes less than 2 minutes</p>
+      </div>
+
+      <div class="email-divider"></div>
+
+      <div class="tips-row">
+        <div class="tip-item">
+          <div class="tip-icon">⚡</div>
+          <div class="tip-text"><strong>Respond Fast</strong> Within 2 hours = 3x better conversion</div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-icon">📸</div>
+          <div class="tip-text"><strong>Show Photos</strong> Include clear property images</div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-icon">💬</div>
+          <div class="tip-text"><strong>Be Personal</strong> Mention why this property fits them</div>
+        </div>
+      </div>
+
+      <p class="body-text" style="font-size:12px;color:#9A8F84;margin-top:8px;">This lead expires in <strong style="color:#C4714A;">48 hours.</strong> After that, it's opened to a wider agent pool.</p>
+    </div>
+
+    <div class="email-footer">
+      <p class="footer-text">You're receiving this because you're a verified agent covering Kaduna. Lead notifications are sent in real time when seekers post needs in your area.</p>
+      <div class="footer-links">
+        <a href="#">My Dashboard</a>
+        <a href="#">Active Leads</a>
+        <a href="#">Notification Settings</a>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-legal">© 2025 Verinest. All rights reserved. · Nigeria</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     TEMPLATE 9 — 24HR LEAD FOLLOW-UP
+════════════════════════════════════════════ -->
+<div class="template-block">
+  <p class="template-label">09 — 24hr Lead Follow-up (Agent)</p>
+
+  <div class="email-shell">
+    <img src="https://res.cloudinary.com/dui0hakkq/image/upload/header-24hr.svg" alt="Lead Expiring Soon" class="email-header-img" />
+
+    <div class="urgency-context" style="background: #2A2018;">
+      This lead expires in <strong style="color: #F0B060;">less than 24 hours.</strong> If you have a match, respond now.
+      <span class="urgency-timer" style="background: rgba(240,176,96,0.15); color: #F0B060;">⏳ Expiring soon</span>
+    </div>
+
+    <div class="email-body">
+      <p class="greeting">Hi Musa,</p>
+      <p class="body-text">We sent you a lead yesterday for a seeker looking for a <strong>3-bedroom in Kaduna GRA with an ₦800k budget.</strong> They still haven't been matched — meaning there's still an opportunity for you.</p>
+
+      <div class="lead-card">
+        <div class="lead-card-header">
+          <span>Seeker Request</span>
+          <span class="lead-id">#VN-KD-00247</span>
+        </div>
+        <div class="lead-card-body">
+          <div class="lead-row">
+            <div class="lead-icon">📍</div>
+            <div class="lead-detail">
+              <div class="key">Location</div>
+              <div class="val">Kaduna GRA</div>
+            </div>
+          </div>
+          <div class="lead-row">
+            <div class="lead-icon">💰</div>
+            <div class="lead-detail">
+              <div class="key">Budget</div>
+              <div class="val budget">₦800,000/year</div>
+            </div>
+          </div>
+          <div class="lead-row">
+            <div class="lead-icon">🏠</div>
+            <div class="lead-detail">
+              <div class="key">Property</div>
+              <div class="val">3-Bedroom Apartment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-wrap" style="margin-top: 24px;">
+        <a href="#" class="cta-btn">Respond Before It Expires →</a>
+      </div>
+
+      <div class="email-divider"></div>
+
+      <p class="body-text" style="font-size:12px;color:#9A8F84;">Don't have an exact match right now? You can still respond and tell the seeker you're actively looking on their behalf — that keeps you in the conversation for future opportunities.</p>
+    </div>
+
+    <div class="email-footer">
+      <p class="footer-text">This follow-up was sent because lead #VN-KD-00247 is still unmatched in your queue.</p>
+      <div class="footer-divider"></div>
+      <p class="footer-legal">© 2025 Verinest. All rights reserved. · Nigeria</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     TEMPLATE 10 — WEEKLY LEAD DIGEST
+════════════════════════════════════════════ -->
+<div class="template-block">
+  <p class="template-label">10 — Weekly Lead Digest (Agent)</p>
+
+  <div class="email-shell">
+    <img src="https://res.cloudinary.com/dui0hakkq/image/upload/header-digest.svg" alt="Your Weekly Leads" class="email-header-img" />
+
+    <div class="email-body" style="padding-top: 28px;">
+      <p class="greeting">Good morning, Musa.</p>
+      <p class="body-text">Here's a summary of rental requests posted in Kaduna this week. Five seekers are looking for properties right now — and three of them haven't received a response yet.</p>
+
+      <!-- Stats row -->
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-number">5</div>
+          <div class="stat-label">New Leads</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">3</div>
+          <div class="stat-label">No Response Yet</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Expiring Soon</div>
+        </div>
+      </div>
+
+      <p style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #9A8F84; margin-bottom: 14px; margin-top: 20px;">Open Leads</p>
+
+      <!-- Lead item 1 -->
+      <div style="background: #FAF7F3; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid #EDE8E0; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #1A1814; margin-bottom: 4px;">3-Bed in Kaduna GRA</div>
+          <div style="font-size: 11px; color: #9A8F84;">Budget: <strong style="color: #C4714A;">₦800k/year</strong></div>
+        </div>
+        <a href="#" style="background: #C4714A; color: white; text-decoration: none; font-size: 10px; font-weight: 500; padding: 8px 16px; border-radius: 8px; white-space: nowrap; letter-spacing: 0.04em;">Respond</a>
+      </div>
+
+      <!-- Lead item 2 -->
+      <div style="background: #FAF7F3; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid #EDE8E0; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #1A1814; margin-bottom: 4px;">2-Bed in Central Area</div>
+          <div style="font-size: 11px; color: #9A8F84;">Budget: <strong style="color: #C4714A;">₦450k/year</strong></div>
+        </div>
+        <a href="#" style="background: #C4714A; color: white; text-decoration: none; font-size: 10px; font-weight: 500; padding: 8px 16px; border-radius: 8px; white-space: nowrap; letter-spacing: 0.04em;">Respond</a>
+      </div>
+
+      <!-- Lead item 3 - expiring -->
+      <div style="background: #FFF8F0; border-radius: 12px; padding: 14px 16px; margin-bottom: 20px; border: 1px solid #F0D4B0; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #1A1814; margin-bottom: 4px;">4-Bed Luxury, Sabon Tasha</div>
+          <div style="font-size: 11px; color: #7A4820;"><strong>Expires in 6 hours</strong></div>
+        </div>
+        <a href="#" style="background: #C47020; color: white; text-decoration: none; font-size: 10px; font-weight: 500; padding: 8px 16px; border-radius: 8px; white-space: nowrap; letter-spacing: 0.04em;">Last chance</a>
+      </div>
+
+      <div class="cta-wrap">
+        <a href="#" class="cta-btn">View All 5 Leads →</a>
+      </div>
+
+      <div class="email-divider"></div>
+
+      <p class="body-text" style="font-size:12px;color:#9A8F84;">💡 <strong>Pro tip:</strong> Agents who respond within 2 hours are 3x more likely to close the match. Consider turning on instant WhatsApp notifications in your settings.</p>
+    </div>
+
+    <div class="email-footer">
+      <p class="footer-text">Weekly digests are sent every Monday at 8am. Change your notification frequency in your agent dashboard.</p>
+      <div class="footer-links">
+        <a href="#">My Dashboard</a>
+        <a href="#">All Leads</a>
+        <a href="#">Notification Settings</a>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-legal">© 2025 Verinest. All rights reserved. · Nigeria</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

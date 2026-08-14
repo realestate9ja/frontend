@@ -30,7 +30,8 @@ const agentDocs = [
 ];
 
 const landlordDocs = [
-  { label: "Property Deed / C of O", desc: "Certificate of occupancy or property ownership document", icon: FileText },
+  { label: "CAC Certificate", desc: "Optional: business registration certificate", icon: FileText },
+  { label: "Property Deed / C of O", desc: "Optional: certificate of occupancy or property ownership document", icon: FileText },
 ];
 
 const nigerianStates = [
@@ -107,10 +108,10 @@ export default function Onboarding() {
       return;
     }
 
-    // Landlords require ownership document plus the NIN/liveness submission.
-    if (role === "landlord" && (!uploadedDocFiles["Property Deed / C of O"] || !uploadedDocFiles["National ID (NIN)"] || !facialVerificationComplete)) {
-      toast.error("Please complete ownership document upload and facial verification before continuing", {
-        description: "C of O, NIN, and liveness check are required",
+    // Landlords require NIN plus liveness. Ownership documents are optional.
+    if (role === "landlord" && (!uploadedDocFiles["National ID (NIN)"] || !facialVerificationComplete)) {
+      toast.error("Please complete NIN upload and facial verification before continuing", {
+        description: "CAC or deed uploads are optional and can be added if available",
       });
       return;
     }
@@ -420,7 +421,6 @@ export default function Onboarding() {
 
   const docs = role === "agent" ? agentDocs : landlordDocs;
   const uploadedCount = docs.filter(d => uploadedDocs[d.label]).length;
-  const landlordOwnershipDoc = uploadedDocFiles["Property Deed / C of O"];
 
   if (isLoading || (session?.token && !me)) {
     return <FullscreenLoader status="Loading onboarding" />;
@@ -559,16 +559,20 @@ export default function Onboarding() {
                 throw new Error("Unable to find the submitted verification record");
               }
 
-              if (!landlordOwnershipDoc) {
-                throw new Error("Property ownership document is required before liveness submission");
+              const optionalOwnershipDocs = [
+                ["CAC Certificate", "cac_certificate"],
+                ["Property Deed / C of O", "property_deed_or_cofo"],
+              ] as const;
+              for (const [label, documentType] of optionalOwnershipDocs) {
+                const uploaded = uploadedDocFiles[label];
+                if (!uploaded) continue;
+                await verificationApi.addDocument(verificationId, {
+                  documentType,
+                  fileUrl: uploaded.fileUrl,
+                  fileKey: uploaded.fileKey,
+                  mimeType: uploaded.mimeType,
+                });
               }
-
-              await verificationApi.addDocument(verificationId, {
-                documentType: "property_deed_or_cofo",
-                fileUrl: landlordOwnershipDoc.fileUrl,
-                fileKey: landlordOwnershipDoc.fileKey,
-                mimeType: landlordOwnershipDoc.mimeType,
-              });
 
               setStoredKycStatus("pending");
               await Promise.all([
@@ -974,7 +978,7 @@ export default function Onboarding() {
             <div className="space-y-2">
               <p className="text-xs font-medium text-primary tracking-widest uppercase">Step 3 of {totalSteps}</p>
               <h1 className="text-3xl font-bold text-foreground tracking-tight">Verify your identity</h1>
-              <p className="text-muted-foreground text-sm">Build trust with tenants and unlock premium features.</p>
+              <p className="text-muted-foreground text-sm">Build trust with tenants and unlock premium features. CAC and deed uploads are optional.</p>
             </div>
 
             {isRejectedVerification ? (
@@ -985,7 +989,7 @@ export default function Onboarding() {
                 <div className="space-y-1">
                   <p className="text-sm font-semibold text-foreground">Verification rejected</p>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Resubmit your ownership documents and any required verification checks so the team can review a fresh verification.
+                    Resubmit any optional ownership documents and complete the required verification checks so the team can review a fresh verification.
                   </p>
                   {rejectionReason ? (
                     <p className="text-xs text-foreground">{rejectionReason}</p>
@@ -1087,7 +1091,6 @@ export default function Onboarding() {
             <div className="space-y-3 pb-4">
               <Button
                 onClick={() => setShowLandlordFacialVerification(true)}
-                disabled={!landlordOwnershipDoc}
                 className="w-full h-12 rounded-xl text-sm font-semibold gap-2"
               >
                 Continue to Liveness Check <ArrowRight className="h-4 w-4" />
