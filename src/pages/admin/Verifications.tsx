@@ -338,7 +338,7 @@ export default function AdminVerifications() {
                       </div>
                       <p className="text-xs text-muted-foreground mt-0.5">{v.email} · Submitted {v.submitted}</p>
                       <div className="flex items-center gap-1.5 mt-2 flex-wrap">
-                        {(v.docs.length ? v.docs : ["No documents uploaded"]).map((doc) => (
+                        {(Array.isArray(v.docs) && v.docs.length ? v.docs : ["No documents uploaded"]).map((doc) => (
                           <span key={doc} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted/50 text-[10px] font-medium text-muted-foreground border border-border/60">
                             <FileText className="h-2.5 w-2.5" />{doc}
                           </span>
