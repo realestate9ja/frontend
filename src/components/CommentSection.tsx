@@ -17,7 +17,7 @@ export function CommentSection({ propertyId }: { propertyId: string }) {
   });
 
   // Check if user already has a comment on this property (for 1 thread per user rule)
-  const userHasComment = data?.comments.some(c => c.comment.user_id === session?.user.id);
+  const userHasComment = Array.isArray(data?.comments) ? data!.comments.some((c: any) => c.comment?.user_id === session?.user?.id) : false;
 
   const createCommentMutation = useMutation({
     mutationFn: (content: string) =>

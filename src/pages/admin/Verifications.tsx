@@ -189,9 +189,14 @@ export default function AdminVerifications() {
   const verifiedRows = recentlyVerified.length ? recentlyVerified : fallbackRecentlyVerified;
   const propertyRows = normalizedProperties;
   const selectedVerification = normalizedVerifications.find((item) => item.id === selectedVerificationId) ?? null;
-  const hasLandlordOwnershipDocs = (verification: { docs: string[]; documents: Array<{ documentType: string }> }) =>
-    verification.docs.some((doc) => ["Property Deed / C of O", "CAC Certificate"].includes(doc)) ||
-    verification.documents.some((doc) => ["Property Deed / C of O", "CAC Certificate"].includes(doc.documentType));
+  const hasLandlordOwnershipDocs = (verification: { docs?: string[] | null; documents?: Array<{ documentType?: string }> | null }) => {
+    const docs = Array.isArray(verification?.docs) ? verification.docs : [];
+    const documents = Array.isArray(verification?.documents) ? verification.documents : [];
+    return (
+      docs.some((doc) => ["Property Deed / C of O", "CAC Certificate"].includes(doc)) ||
+      documents.some((doc) => ["Property Deed / C of O", "CAC Certificate"].includes(doc.documentType ?? ""))
+    );
+  };
   const { data: selectedVerificationDetail } = useQuery({
     queryKey: ["/admin/verifications/detail", selectedVerificationId],
     queryFn: () => adminApi.verificationDetail(selectedVerificationId!),
