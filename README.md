@@ -1,6 +1,6 @@
-# Dwello
+# Verinest
 
-Real estate marketplace frontend for Dwello.
+Real estate marketplace frontend for Verinest.
 
 ## Project Tree
 
